@@ -1,0 +1,46 @@
+# Visual Studio / C++
+## Ignore user-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+*.ilk
+*.pdb
+*.tlog
+*.obj
+*.pch
+*.vs
+
+## Ignore Visual Studio Cache and Intellisense files
+.vs/
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.sdf
+
+## Ignore other temporary files
+*.tlog
+*.log
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+
+# Ignore... whatever
+*.vcxproj
+*.vcxproj.filters
+
+# Ignore unfinished modules
+clap_impl.h
+clap_impl.cpp
+clap.h
