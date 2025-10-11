@@ -145,15 +145,15 @@ namespace launch {
 		return std::tanh(x);
 	}
 
-	double arcsinh(double x) {
+	double arsinh(double x) {
 		return std::asinh(x);
 	}
 
-	double arccosh(double x) {
+	double arcosh(double x) {
 		return std::acosh(x);
 	}
 
-	double arctanh(double x) {
+	double artanh(double x) {
 		return std::atanh(x);
 	}
 }

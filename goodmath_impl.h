@@ -79,9 +79,9 @@ namespace launch {
 
 	double tanh(double x);
 
-	double arcsinh(double x);
+	double arsinh(double x);
 
-	double arccosh(double x);
+	double arcosh(double x);
 
-	double arctanh(double x);
+	double artanh(double x);
 }
