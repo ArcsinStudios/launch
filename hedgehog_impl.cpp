@@ -184,37 +184,37 @@ namespace launch {
 		return hedgehog_const_iterator(this, vec.size());
 	}
 
-	size_t hedgehog::spines() const {
+	size_t hedgehog::size() const {
 		return vec.size();
 	}
 
-	size_t hedgehog::max_spines() const {
+	size_t hedgehog::capacity() const {
 		return vec.capacity();
 	}
 
-	size_t hedgehog::avail_spines() const {
-		return this->max_spines() - this->spines();
+	size_t hedgehog::avail_size() const {
+		return this->capacity() - this->size();
 	}
 
 	bool hedgehog::empty() const {
 		return vec.empty();
 	}
 
-	void hedgehog::puff(int n) {
-		vec.reserve(this->max_spines() + n);
+	void hedgehog::reserve_more(int n) {
+		vec.reserve(this->capacity() + n);
 	}
 
-	bool hedgehog::quill() {
-		size_t _capacity = this->max_spines();
+	bool hedgehog::shrink_to_fit() {
+		size_t _capacity = this->capacity();
 		vec.shrink_to_fit();
-		return _capacity != this->max_spines();
+		return _capacity != this->capacity();
 	}
 
-	void hedgehog::stick(std::any value) {
+	void hedgehog::push_back(std::any value) {
 		vec.push_back(value);
 	}
 
-	void hedgehog::take(int index) {
+	void hedgehog::erase(int index) {
 		vec.erase(vec.begin() + index);
 	}
 
@@ -224,7 +224,7 @@ namespace launch {
 
 	void hedgehog::clear() {
 		vec.clear();
-		this->quill();
+		this->shrink_to_fit();
 	}
 
 	void hedgehog::insert(std::any value, int pos) {
@@ -232,7 +232,7 @@ namespace launch {
 	}
 
 	void hedgehog::fill(std::any value, int count) {
-		this->puff(count);
+		this->reserve_more(count);
 		for (int i = 0; i < count; ++i) {
 			vec.push_back(value);
 		}

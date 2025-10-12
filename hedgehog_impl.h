@@ -231,21 +231,21 @@ namespace launch {
 
 		hedgehog_const_iterator cend() const;
 
-		size_t spines() const;
+		size_t size() const;
 
-		size_t max_spines() const;
+		size_t capacity() const;
 
-		size_t avail_spines() const;
+		size_t avail_size() const;
 
 		bool empty() const;
 
-		void puff(int n);
+		void reserve_more(int n);
 
-		bool quill();
+		bool shrink_to_fit();
 
-		void stick(std::any value);
+		void push_back(std::any value);
 
-		void take(int index);
+		void erase(int index);
 
 		hedgehog_elemproxy get(int index) const;
 

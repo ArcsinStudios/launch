@@ -23,12 +23,12 @@ nullstream nullout;
 long long benchmark_0(hedgehog& hh) {
 	stopwatch watch;
 	hh.clear();
-	hh.puff(768);
+	hh.reserve_more(768);
 	watch.start();
 	for (int i = 0; i < 256; ++i) {
-		hh.stick(i);
-		hh.stick((double)i);
-		hh.stick(std::to_string(i));
+		hh.push_back(i);
+		hh.push_back((double)i);
+		hh.push_back(std::to_string(i));
 	}
 	watch.stop();
 	return watch.get_duration().microseconds();

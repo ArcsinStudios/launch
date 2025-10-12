@@ -21,7 +21,7 @@ namespace launch {
 	void fmtin_process(hedgehog& container, std::istream& in) {
 		T temp;
 		in >> temp;
-		container.stick(temp);
+		container.push_back(temp);
 	}
 
 	template <Inputtable... Args>
