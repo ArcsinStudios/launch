@@ -39,8 +39,3 @@ ipch/
 # Ignore... whatever
 *.vcxproj
 *.vcxproj.filters
-
-# Ignore unfinished modules
-clap_impl.h
-clap_impl.cpp
-clap.h
