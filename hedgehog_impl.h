@@ -10,7 +10,9 @@
 #include <unordered_map>
 #include <vector>
 
+#if !defined(LAUNCH_NO_GOODSTR)
 #include "goodstr.h"
+#endif
 
 namespace launch {
 	enum class oper_type {

@@ -1,5 +1,7 @@
 #include "fmtio_impl.h"
 
+#if !defined(LAUNCH_NO_HEDGEHOG)
+
 namespace launch {
 	void fmtout(const std::string& fmt, const hedgehog& captures, std::ostream& out) {
 		std::regex pattern("\\{(\\d+)\\}");
@@ -39,3 +41,5 @@ namespace launch {
 		}
 	}
 }
+
+#endif

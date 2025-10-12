@@ -36,8 +36,10 @@ namespace launch {
 		regtype_output_auto<const char*>();
 		regtype_output_auto<std::string>();
 		regtype_add_auto<std::string>();
+#if !defined(LAUNCH_NO_GOODSTR)
 		regtype_output_auto<hstr>();
 		regtype_add_auto<hstr>();
+#endif
 	}
 
 	const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& hedgehog_regtable::get_output() const {

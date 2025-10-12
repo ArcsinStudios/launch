@@ -1,5 +1,7 @@
 #pragma once
 
+#if !defined(LAUNCH_NO_HEDGEHOG)
+
 #include <any>
 #include <iostream>
 #include <string>
@@ -27,3 +29,5 @@ namespace launch {
 		(fmtin_process<Args>(container, in), ...);
 	}
 }
+
+#endif
