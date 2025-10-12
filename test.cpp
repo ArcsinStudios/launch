@@ -1,5 +1,4 @@
 #include "launch.h"
-#include <chrono>
 #include <iostream>
 #include <string>
 using namespace launch;
@@ -22,37 +21,40 @@ public:
 nullstream nullout;
 
 long long benchmark_0(hedgehog& hh) {
+	stopwatch watch;
 	hh.clear();
 	hh.puff(768);
-	std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+	watch.start();
 	for (int i = 0; i < 256; ++i) {
 		hh.stick(i);
 		hh.stick((double)i);
 		hh.stick(std::to_string(i));
 	}
-	std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
-	return std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+	watch.stop();
+	return watch.get_duration().microseconds();
 }
 
 long long benchmark_1(hedgehog& hh) {
 	benchmark_0(hh);
-	std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+	stopwatch watch;
+	watch.start();
 	for (const hedgehog_elemproxy& elem : hh) {
 		nullout << elem;
 	}
-	std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
-	return std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+	watch.stop();
+	return watch.get_duration().microseconds();
 }
 
 long long benchmark_2(hedgehog& hh) {
+	stopwatch watch;
 	hh.clear();
 	hh.fill(0, 256);
-	std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+	watch.start();
 	for (int i = 0; i < 256; ++i) {
 		hh[i] += i;
 	}
-	std::chrono::steady_clock::time_point end = std::chrono::high_resolution_clock::now();
-	return std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+	watch.stop();
+	return watch.get_duration().microseconds();
 }
 
 int main(int argc, char* argv[]) {
