@@ -31,12 +31,18 @@ namespace launch {
 		std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
 		start_time = now;
 		stop_time = now;
+		timing = false;
 		pause_start = now;
 		pause_stop = now;
 		pause_dur = std::chrono::nanoseconds(0);
+		pausing = false;
 	}
 	
 	void stopwatch::start() {
+		if (timing) {
+			return;
+		}
+		timing = true;
 		std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
 		start_time = now;
 		stop_time = now;
@@ -46,14 +52,26 @@ namespace launch {
 	}
 
 	void stopwatch::stop() {
+		if (!timing) {
+			return;
+		}
+		timing = false;
+		this->resume();
 		stop_time = std::chrono::high_resolution_clock::now();
 	}
 
 	void stopwatch::pause() {
+		if (pausing) {
+			return;
+		}
+		pausing = true;
 		pause_start = std::chrono::high_resolution_clock::now();
 	}
 
 	void stopwatch::resume() {
+		if (!pausing) {
+			return;
+		}
 		pause_stop = std::chrono::high_resolution_clock::now();
 		pause_dur = pause_dur.std_nanoseconds() + (pause_stop - pause_start);
 	}

@@ -39,6 +39,8 @@ namespace launch {
 
 		friend hstr operator+(const std::string& lhs, const hstr& rhs);
 
+		bool operator==(const hstr& _str) const;
+
 		friend std::ostream& operator<<(std::ostream& out, const hstr& _str);
 
 		friend std::istream& operator>>(std::istream& in, hstr& _str);
@@ -88,6 +90,8 @@ namespace launch {
 		friend lstr operator+(const wchar_t* lhs, const lstr& rhs);
 
 		friend lstr operator+(const std::wstring& lhs, const lstr& rhs);
+
+		bool operator==(const lstr& _str) const;
 
 		friend std::wostream& operator<<(std::wostream& wout, const lstr& _str);
 

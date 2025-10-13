@@ -10,7 +10,7 @@ namespace launch {
 	public:
 		duration() = default;
 
-		duration(std::chrono::nanoseconds _ns) : ns(_ns) {}
+		explicit duration(std::chrono::nanoseconds _ns) : ns(_ns) {}
 
 		duration& operator=(std::chrono::nanoseconds _ns);
 
@@ -29,9 +29,11 @@ namespace launch {
 	private:
 		std::chrono::high_resolution_clock::time_point start_time;
 		std::chrono::high_resolution_clock::time_point stop_time;
+		bool timing;
 		std::chrono::high_resolution_clock::time_point pause_start;
 		std::chrono::high_resolution_clock::time_point pause_stop;
 		duration pause_dur;
+		bool pausing;
 
 	public:
 		stopwatch();

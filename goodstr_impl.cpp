@@ -57,6 +57,10 @@ namespace launch {
 		return rhs + lhs;
 	}
 
+	bool hstr::operator==(const hstr& _str) const {
+		return str == _str.str;
+	}
+
 	std::ostream& operator<<(std::ostream& out, const hstr& _str) {
 		return out << _str.raw_cr();
 	}
@@ -145,6 +149,10 @@ namespace launch {
 		return rhs + lhs;
 	}
 
+	bool lstr::operator==(const lstr& _str) const {
+		return str == _str.str;
+	}
+
 	std::wostream& operator<<(std::wostream& wout, const lstr& _str) {
 		return wout << _str.raw_cr();
 	}
@@ -202,6 +210,9 @@ namespace launch {
 	}
 
 	hstr replace(hstr orig, const hstr& from, const hstr& to) {
+		if (from == to) {
+			return orig;
+		}
 		size_t pos = 0;
 		while ((pos = orig.raw().find(from.raw_cr(), pos)) != std::string::npos) {
 			orig.raw().replace(pos, from.length(), to.raw_cr());
@@ -279,6 +290,9 @@ namespace launch {
 	}
 
 	lstr replace(lstr orig, const lstr& from, const lstr& to) {
+		if (from == to) {
+			return orig;
+		}
 		size_t pos = 0;
 		while ((pos = orig.raw().find(from.raw_cr(), pos)) != std::string::npos) {
 			orig.raw().replace(pos, from.length(), to.raw_cr());
