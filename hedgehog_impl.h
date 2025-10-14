@@ -255,4 +255,6 @@ namespace launch {
 
 		void fill(std::any value, int count);
 	};
+
+	extern hedgehog_regtable hregtable;
 }

@@ -1,24 +1,8 @@
 #include "launch.h"
 #include <iostream>
+#include <istream>
 #include <string>
 using namespace launch;
-
-class nullbuf : public std::streambuf {
-public:
-	int overflow(int c) override {
-		return c;
-	}
-};
-
-class nullstream : public std::ostream {
-private:
-	nullbuf buffer;
-
-public:
-	nullstream() : std::ostream(&buffer) {}
-};
-
-nullstream nullout;
 
 long long benchmark_0(hedgehog& hh) {
 	stopwatch watch;
@@ -58,12 +42,32 @@ long long benchmark_2(hedgehog& hh) {
 }
 
 int main(int argc, char* argv[]) {
-	clap parser(argc, argv, {{"h", "hedgehog"}, {"e", "escseq"}});
+	clap parser(argc, argv, {
+		{"h", "hedgehog"},
+		{"m", "goodmath"},
+		{"s", "goodstr"},
+		{"e", "escseq"},
+	});
 	if (parser.get_flag("hedgehog")) {
 		hedgehog hh = {};
 		std::cout << "Benchmark 0, adding 768 elements: " << benchmark_0(hh) << " microseconds\n";
 		std::cout << "Benchmark 1, printing 768 elements: " << benchmark_1(hh) << " microseconds\n";
 		std::cout << "Benchmark 2, calculating 256 times: " << benchmark_2(hh) << " microseconds\n";
+	}
+	else if (parser.get_flag("goodmath")) {
+		long long _num, digit;
+		std::cout << "Enter two numbers please: ";
+		std::cin >> _num >> digit;
+		arint num = _num;
+		std::cout << "Digit " << digit << " of " << _num << " is " << (long long)(num[digit - 1]) << ".\n";
+	}
+	else if (parser.get_flag("goodstr")) {
+		hstr str0, str1, str2;
+		std::cout << "Enter three strings:\n";
+		std::getline(std::cin >> std::ws, str0.raw());
+		std::getline(std::cin >> std::ws, str1.raw());
+		std::getline(std::cin >> std::ws, str2.raw());
+		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
 	}
 	else if (parser.get_flag("escseq")) {
 		std::cout

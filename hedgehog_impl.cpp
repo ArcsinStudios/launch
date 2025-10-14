@@ -2,11 +2,11 @@
 #include "hedgehog_iterators.h"
 
 namespace launch {
+	hedgehog_regtable hregtable;
+
 	bool oper_sign::operator==(const oper_sign& other) const {
 		return lhs == other.lhs && oper == other.oper && rhs == other.rhs;
 	}
-
-	hedgehog_regtable hregtable{};
 
 	void hedgehog_regtable::regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func) {
 		std::unique_lock lock(output_mutex_);
