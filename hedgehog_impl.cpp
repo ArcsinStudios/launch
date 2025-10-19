@@ -2,23 +2,23 @@
 #include "hedgehog_iterators.h"
 
 namespace launch {
-	hedgehog_regtable hregtable;
+	hedgehog_registry hregistry;
 
 	bool oper_sign::operator==(const oper_sign& other) const {
 		return lhs == other.lhs && oper == other.oper && rhs == other.rhs;
 	}
 
-	void hedgehog_regtable::regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func) {
+	void hedgehog_registry::regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func) {
 		std::unique_lock lock(output_mutex_);
 		output_reg[key] = func;
 	}
 
-	void hedgehog_regtable::regtype_oper(oper_sign key, std::function<std::any(std::any, std::any)> func) {
+	void hedgehog_registry::regtype_oper(oper_sign key, std::function<std::any(std::any, std::any)> func) {
 		std::unique_lock lock(oper_mutex_);
 		oper_reg[key] = func;
 	}
 
-	hedgehog_regtable::hedgehog_regtable() {
+	hedgehog_registry::hedgehog_registry() {
 		regtype_output(typeid(bool), [](std::ostream& out, const std::any& value) -> std::ostream& {
 			return out << (std::any_cast<bool>(value) ? "true" : "false");
 		});
@@ -42,22 +42,22 @@ namespace launch {
 #endif
 	}
 
-	const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& hedgehog_regtable::get_output() const {
+	const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& hedgehog_registry::get_output() const {
 		std::shared_lock lock(output_mutex_);
 		return output_reg;
 	}
 
-	const std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>& hedgehog_regtable::get_oper() const {
+	const std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>& hedgehog_registry::get_oper() const {
 		std::shared_lock lock(oper_mutex_);
 		return oper_reg;
 	}
 
-	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_regtable::output_func_it(std::type_index key) const {
+	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_registry::output_func_it(std::type_index key) const {
 		std::shared_lock lock(output_mutex_);
 		return output_reg.find(key);
 	}
 
-	std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator hedgehog_regtable::oper_func_it(oper_sign key) const {
+	std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator hedgehog_registry::oper_func_it(oper_sign key) const {
 		std::shared_lock lock(oper_mutex_);
 		return oper_reg.find(key);
 	}
@@ -72,8 +72,8 @@ namespace launch {
 			throw std::invalid_argument("Empty Operand");
 		}
 		const std::type_info& type = _value.type();
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregtable.oper_func_it({value.type(), oper_type::add, type});
-		if (func_it != hregtable.get_oper().end()) {
+		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), oper_type::add, type});
+		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -85,8 +85,8 @@ namespace launch {
 			throw std::invalid_argument("Empty Operand");
 		}
 		const std::type_info& type = _value.type();
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregtable.oper_func_it({value.type(), oper_type::sub, type});
-		if (func_it != hregtable.get_oper().end()) {
+		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), oper_type::sub, type});
+		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -98,8 +98,8 @@ namespace launch {
 			throw std::invalid_argument("Empty Operand");
 		}
 		const std::type_info& type = _value.type();
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregtable.oper_func_it({value.type(), oper_type::mul, type});
-		if (func_it != hregtable.get_oper().end()) {
+		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), oper_type::mul, type});
+		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -111,8 +111,8 @@ namespace launch {
 			throw std::invalid_argument("Empty Operand");
 		}
 		const std::type_info& type = _value.type();
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregtable.oper_func_it({value.type(), oper_type::div, type});
-		if (func_it != hregtable.get_oper().end()) {
+		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), oper_type::div, type});
+		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -124,8 +124,8 @@ namespace launch {
 			throw std::invalid_argument("Empty Operand");
 		}
 		const std::type_info& type = _value.type();
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregtable.oper_func_it({value.type(), oper_type::mod, type});
-		if (func_it != hregtable.get_oper().end()) {
+		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), oper_type::mod, type});
+		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -138,8 +138,8 @@ namespace launch {
 			return out << "[EMPTY]";
 		}
 		const std::type_info& type = _value.type();
-		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator func_it = hregtable.output_func_it(type);
-		if (func_it != hregtable.get_output().end()) {
+		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator func_it = hregistry.output_func_it(type);
+		if (func_it != hregistry.get_output().end()) {
 			return (func_it->second)(out, _value);
 		}
 		return out << "[UNKTYP:" << type.name() << "]";

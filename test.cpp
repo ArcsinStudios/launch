@@ -1,3 +1,6 @@
+#define LAUNCH_FMTIO_NULLSTREAM
+#define LAUNCH_GOODMATH_ARINT
+#define LAUNCH_NO_THREAD_SAFE
 #include "launch.h"
 #include <iostream>
 #include <istream>
@@ -43,31 +46,27 @@ long long benchmark_2(hedgehog& hh) {
 
 int main(int argc, char* argv[]) {
 	clap parser(argc, argv, {
+		{"c", "caref"},
+		{"e", "escseq"},
 		{"h", "hedgehog"},
 		{"m", "goodmath"},
-		{"s", "goodstr"},
-		{"e", "escseq"},
+		{"s", "goodstr"}
 	});
-	if (parser.get_flag("hedgehog")) {
-		hedgehog hh = {};
-		std::cout << "Benchmark 0, adding 768 elements: " << benchmark_0(hh) << " microseconds\n";
-		std::cout << "Benchmark 1, printing 768 elements: " << benchmark_1(hh) << " microseconds\n";
-		std::cout << "Benchmark 2, calculating 256 times: " << benchmark_2(hh) << " microseconds\n";
-	}
-	else if (parser.get_flag("goodmath")) {
-		long long _num, digit;
-		std::cout << "Enter two numbers please: ";
-		std::cin >> _num >> digit;
-		arint num = _num;
-		std::cout << "Digit " << digit << " of " << _num << " is " << (long long)(num[digit - 1]) << ".\n";
-	}
-	else if (parser.get_flag("goodstr")) {
-		hstr str0, str1, str2;
-		std::cout << "Enter three strings:\n";
-		std::getline(std::cin >> std::ws, str0.raw());
-		std::getline(std::cin >> std::ws, str1.raw());
-		std::getline(std::cin >> std::ws, str2.raw());
-		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
+	if (parser.get_flag("caref")) {
+		caref<int> observer;
+		std::cout << "Outer scope: observer constructed\n";
+		std::cout << "Outer scope: entering inner scope\n";
+		{
+			caref<int> owner(new int(42));
+			std::cout << "Inner scope: owner constructed, value: " << *owner << '\n';
+			observer = owner;
+			std::cout << "Inner scope: observing owner, value: " << *observer << '\n';
+			owner.move(observer);
+			std::cout << "Inner scope: moving ownership to observer\n";
+			std::cout << "Inner scope: exiting inner scope\n";
+		}
+		std::cout << "Outer scope: owner destructed\n";
+		std::cout << "Outer scope: value held by observer: " << *observer << '\n';
 	}
 	else if (parser.get_flag("escseq")) {
 		std::cout
@@ -92,6 +91,27 @@ int main(int argc, char* argv[]) {
 			<< foreground_color(127, 132, 142)
 			<< "// This is the palette of One Dark Pro"
 			<< l_endl_fast;
+	}
+	else if (parser.get_flag("hedgehog")) {
+		hedgehog hh = {};
+		std::cout << "Benchmark 0, adding 768 elements: " << benchmark_0(hh) << " microseconds\n";
+		std::cout << "Benchmark 1, printing 768 elements: " << benchmark_1(hh) << " microseconds\n";
+		std::cout << "Benchmark 2, calculating 256 times: " << benchmark_2(hh) << " microseconds\n";
+	}
+	else if (parser.get_flag("goodmath")) {
+		long long _num, digit;
+		std::cout << "Enter two numbers please: ";
+		std::cin >> _num >> digit;
+		arint num = _num;
+		std::cout << "Digit " << digit << " of " << _num << " is " << (long long)(num[digit - 1]) << ".\n";
+	}
+	else if (parser.get_flag("goodstr")) {
+		hstr str0, str1, str2;
+		std::cout << "Enter three strings:\n";
+		std::getline(std::cin >> std::ws, str0.raw());
+		std::getline(std::cin >> std::ws, str1.raw());
+		std::getline(std::cin >> std::ws, str2.raw());
+		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
 	}
 	else {
 		std::cout << "Error: no test programs match with the argument(s) given.\n";

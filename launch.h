@@ -1,5 +1,9 @@
 #pragma once
 
+#if !defined(LAUNCH_NO_CAREF)
+#include "caref.h"
+#endif
+
 #if !defined(LAUNCH_NO_CHROYES)
 #include "chroyes.h"
 #endif

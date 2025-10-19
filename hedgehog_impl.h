@@ -5,7 +5,11 @@
 #include <functional>
 #include <initializer_list>
 #include <iostream>
+
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 #include <shared_mutex>
+#endif
+
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
@@ -84,19 +88,23 @@ namespace launch {
 	template <typename T>
 	concept Fully_Arithmetic = Arithmetic<T> && Arithmetic_Mod<T>;
 
-	class hedgehog_regtable {
+	class hedgehog_registry {
 	private:
 		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>> output_reg;
 		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>> oper_reg;
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		mutable std::shared_mutex output_mutex_;
 		mutable std::shared_mutex oper_mutex_;
+#endif
 
 	public:
 		void regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func);
 
 		template <Printable T>
 		void regtype_output_auto() {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(output_mutex_);
+#endif
 			output_reg[typeid(T)] = [](std::ostream& out, const std::any& value) -> std::ostream& {
 				return out << std::any_cast<T>(value);
 			};
@@ -106,7 +114,9 @@ namespace launch {
 
 		template <Arithmetic_Add T>
 		void regtype_add_auto() {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
+#endif
 			oper_reg[{typeid(T), oper_type::add, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) + std::any_cast<T>(b);
 			};
@@ -114,31 +124,39 @@ namespace launch {
 
 		template <Arithmetic_Sub T>
 		void regtype_sub_auto() {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
+#endif
 			oper_reg[{typeid(T), oper_type::sub, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) - std::any_cast<T>(b);
-			};
+				};
 		}
 
 		template <Arithmetic_Mul T>
 		void regtype_mul_auto() {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
+#endif
 			oper_reg[{typeid(T), oper_type::mul, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) * std::any_cast<T>(b);
-			};
+				};
 		}
 
 		template <Arithmetic_Div T>
 		void regtype_div_auto() {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
+#endif
 			oper_reg[{typeid(T), oper_type::div, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) / std::any_cast<T>(b);
-			};
+				};
 		}
 
 		template <Arithmetic_Mod T>
 		void regtype_mod_auto() {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
+#endif
 			oper_reg[{typeid(T), oper_type::mod, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) % std::any_cast<T>(b);
 			};
@@ -158,7 +176,7 @@ namespace launch {
 			regtype_mod_auto<T>();
 		}
 
-		hedgehog_regtable();
+		hedgehog_registry();
 
 		const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& get_output() const;
 
@@ -256,5 +274,5 @@ namespace launch {
 		void fill(std::any value, int count);
 	};
 
-	extern hedgehog_regtable hregtable;
+	extern hedgehog_registry hregistry;
 }
