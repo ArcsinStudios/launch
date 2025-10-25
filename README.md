@@ -1,7 +1,10 @@
 > [!NOTE]
 > This README was written in assistance of MPE (Visual Studio Code extension).
+> 
 > Some of the features used may not work on GitHub.
+> 
 > For the best reading experience, please use MPE.
+> 
 > Thank you for your understanding.
 
 <div style="position: absolute;">
@@ -31,8 +34,11 @@
 ## Navigation
 
 [Part I: FAQs](#part1)
+
 [Part II: Building / Using](#part2)
+
 [Part III: Introductions that may be not so brief](#part3)
+
 [Part IV: Conclusion](#part4)
 
 <h2 id="part1">Part I: FAQs</h2>
@@ -59,9 +65,13 @@ We recommend `#include`-ing `<launch.h>` and `#define`-ing macros to disable mod
 <h2 id="part3">Part III: Introductions that may be not so brief</h2>
 
 ### \<caref\>
+
 - What does the name mean?
+
 **-** **C**lever & **A**utomatic **Ref**erence
+
 - What can \<caref\> do?
+
 ```cpp
 launch::caref<int> observer;
 // observer - construct
@@ -81,9 +91,13 @@ std::cout << *observer << "\n";
 ```
 
 ### \<chroyes\>
+
 - What does the name mean?
+
 **-** From \<chro**no**\> to \<chro**yes**\>
+
 - What can \<chroyes\> do?
+
 ```cpp
 launch::stopwatch watch;
 watch.start();
@@ -101,9 +115,13 @@ long long dur = watch.get_duration().milliseconds();
 ```
 
 ### \<clap\>
+
 - What does the name mean?
+
 **-** **C**ommand **L**ine **A**rgument **P**arser
+
 - What can \<clap\> do?
+
 ```cpp
 int main(int argc, char* argv[]) {
     launch::clap parser(argc, argv, {{"o", "option"}, {"f", "flag"}});
@@ -121,9 +139,13 @@ int main(int argc, char* argv[]) {
 ```
 
 ### \<escseq\>
+
 - What does the name mean?
+
 **-** ANSI **Esc**ape **Seq**uences (ANSI Escape Code)
+
 - What can \<escseq\> do?
+
 ```cpp
 std::cout << launch::gen_font(launch::FONT_ITALIC | launch::FONT_UNDERLINE)
           << launch::foreground_color(0, 0, 255)
@@ -133,11 +155,17 @@ std::cout << launch::gen_font(launch::FONT_ITALIC | launch::FONT_UNDERLINE)
 ```
 
 ### \<fmtio\> & \<hedgehog\>
+
 - *(\<fmtio\>)* What does the name mean?
+
 **-** **F**or**m**a**t**ted **I**nput/**O**utput
+
 - *(\<hedgehog\>)* What does the name mean?
+
 **-** You see, hedgehogs' spines don't care what they're carrying - that's what `hedgehog` does!
+
 - What can they do?
+
 ```cpp
 launch::hedgehog hh1 = { 42, 3.14, true, "Hello World!", 'A' };
 launch::hedgehog hh2 = { };
@@ -147,9 +175,13 @@ launch::fmtout("You entered: {0} & {1}.\n", hh2);
 ```
 
 ### \<goodmath\> & \<goodstr\>
+
 - What do the names mean?
-**-** They're just *the goods*. (Or technically, we use this name to prevent ambiguity.)
+
+**-** They're just *the goods*. (Or technically, we use these names to prevent ambiguity.)
+
 - What can they do?
+
 ```cpp
 double deg;
 std::cin >> deg;
@@ -162,11 +194,7 @@ std::cout << launch::replace(str, "Hello", "Goodbye");
 
 Conclusion: LAUNCH is good. Use LAUNCH, thank you.
 
-<sub>
-Author: Arcsin Studios
-
-License: CC BY-SA 4.0
-</sub>
+<sub>Author: Arcsin Studios<br>License (of this README): CC BY-SA 4.0</sub>
 
 <style>
 @keyframes splash {

@@ -1,9 +1,3 @@
-> [!NOTE]
-> This README was written in assistance of MPE (Visual Studio Code extension).
-> Some of the features used may not work on GitHub.
-> For the best reading experience, please use MPE.
-> Thank you for your understanding.
-
 # LAUNCH - How to Contribute
 
 ## Part O - Check the existing issues.
@@ -47,6 +41,7 @@ It's OK to PR toy projects (except hello-world-level projects). They're great so
 #### Variables, functions & classes
 
 `snake_case`, but remember to use abbreviations when a long word appears (or the identifier itself is too long).
+
 Good examples: `hedgehog_elemproxy` (**Hedgehog** **Elem**ent **Proxy**), `avail_size` (**Avail**able **Size**), `clap`
 
 #### Constants & macros
@@ -57,7 +52,7 @@ Good examples: `hedgehog_elemproxy` (**Hedgehog** **Elem**ent **Proxy**), `avail
 
 #### Indentations
 
-Tab, 4 spaces long.
+Use tabs. If possible, make them 4 spaces in width.
 
 #### Formatting
 
