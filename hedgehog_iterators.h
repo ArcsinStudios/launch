@@ -1,5 +1,6 @@
 #pragma once
 
+#include <compare>
 #include <vector>
 
 namespace launch {
@@ -9,10 +10,10 @@ namespace launch {
 	class hedgehog_iterator {
 	private:
 		hedgehog* origin;
-		int index;
+		size_t index;
 
 	public:
-		hedgehog_iterator(hedgehog* _origin, int _index) : origin(_origin), index(_index) {}
+		hedgehog_iterator(hedgehog* _origin, size_t _index) : origin(_origin), index(_index) {}
 
 		hedgehog_elemproxy& operator*() const;
 
@@ -38,26 +39,18 @@ namespace launch {
 
 		hedgehog_elemproxy& operator[](std::ptrdiff_t n) const;
 
+		std::strong_ordering operator<=>(const hedgehog_iterator& other) const;
+
 		bool operator==(const hedgehog_iterator& other) const;
-
-		bool operator!=(const hedgehog_iterator& other) const;
-
-		bool operator<(const hedgehog_iterator& other) const;
-
-		bool operator>(const hedgehog_iterator& other) const;
-
-		bool operator<=(const hedgehog_iterator& other) const;
-
-		bool operator>=(const hedgehog_iterator& other) const;
 	};
 
 	class hedgehog_const_iterator {
 	private:
 		const hedgehog* origin;
-		int index;
+		size_t index;
 
 	public:
-		hedgehog_const_iterator(const hedgehog* _origin, int _index) : origin(_origin), index(_index) {}
+		hedgehog_const_iterator(const hedgehog* _origin, size_t _index) : origin(_origin), index(_index) {}
 
 		const hedgehog_elemproxy& operator*() const;
 
@@ -83,16 +76,8 @@ namespace launch {
 
 		const hedgehog_elemproxy& operator[](std::ptrdiff_t n) const;
 
+		std::strong_ordering operator<=>(const hedgehog_const_iterator& other) const;
+
 		bool operator==(const hedgehog_const_iterator& other) const;
-
-		bool operator!=(const hedgehog_const_iterator& other) const;
-
-		bool operator<(const hedgehog_const_iterator& other) const;
-
-		bool operator>(const hedgehog_const_iterator& other) const;
-
-		bool operator<=(const hedgehog_const_iterator& other) const;
-
-		bool operator>=(const hedgehog_const_iterator& other) const;
 	};
 }

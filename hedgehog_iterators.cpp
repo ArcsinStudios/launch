@@ -64,28 +64,12 @@ namespace launch {
 		return *(*this + n);
 	}
 
+	std::strong_ordering hedgehog_iterator::operator<=>(const hedgehog_iterator& other) const {
+		return index <=> other.index;
+	}
+
 	bool hedgehog_iterator::operator==(const hedgehog_iterator& other) const {
-		return (origin == other.origin) && (index == other.index);
-	}
-
-	bool hedgehog_iterator::operator!=(const hedgehog_iterator& other) const {
-		return !(*this == other);
-	}
-
-	bool hedgehog_iterator::operator<(const hedgehog_iterator& other) const {
-		return (origin == other.origin) && (index < other.index);
-	}
-
-	bool hedgehog_iterator::operator>(const hedgehog_iterator& other) const {
-		return other < *this;
-	}
-
-	bool hedgehog_iterator::operator<=(const hedgehog_iterator& other) const {
-		return !(*this > other);
-	}
-
-	bool hedgehog_iterator::operator>=(const hedgehog_iterator& other) const {
-		return !(*this < other);
+		return (*this <=> other) == 0;
 	}
 
 	const hedgehog_elemproxy& hedgehog_const_iterator::operator*() const {
@@ -150,27 +134,11 @@ namespace launch {
 		return *(*this + n);
 	}
 
+	std::strong_ordering hedgehog_const_iterator::operator<=>(const hedgehog_const_iterator& other) const {
+		return index <=> other.index;
+	}
+
 	bool hedgehog_const_iterator::operator==(const hedgehog_const_iterator& other) const {
-		return (origin == other.origin) && (index == other.index);
-	}
-
-	bool hedgehog_const_iterator::operator!=(const hedgehog_const_iterator& other) const {
-		return !(*this == other);
-	}
-
-	bool hedgehog_const_iterator::operator<(const hedgehog_const_iterator& other) const {
-		return (origin == other.origin) && (index < other.index);
-	}
-
-	bool hedgehog_const_iterator::operator>(const hedgehog_const_iterator& other) const {
-		return other < *this;
-	}
-
-	bool hedgehog_const_iterator::operator<=(const hedgehog_const_iterator& other) const {
-		return !(*this > other);
-	}
-
-	bool hedgehog_const_iterator::operator>=(const hedgehog_const_iterator& other) const {
-		return !(*this < other);
+		return (*this <=> other) == 0;
 	}
 }
