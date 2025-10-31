@@ -1,41 +1,49 @@
 #include "goodmath_arint.h"
 
 namespace launch {
+	long long arint::_Pow(long long x, long long y) const {
+		long long p = 1;
+		for (long long i = 0; i < y; ++i) {
+			p *= x;
+		}
+		return p;
+	}
+
 	arint::operator long long() const {
 		return value;
 	}
 
-	arint& arint::operator=(arint other) {
+	arint& arint::operator=(const arint& other) {
 		value = other.value;
 		return *this;
 	}
 
-	arint& arint::operator+=(arint other) {
+	arint& arint::operator+=(const arint& other) {
 		value += other.value;
 		return *this;
 	}
 
-	arint& arint::operator-=(arint other) {
+	arint& arint::operator-=(const arint& other) {
 		value -= other.value;
 		return *this;
 	}
 
-	arint& arint::operator*=(arint other) {
+	arint& arint::operator*=(const arint& other) {
 		value *= other.value;
 		return *this;
 	}
 
-	arint& arint::operator/=(arint other) {
+	arint& arint::operator/=(const arint& other) {
 		value /= other.value;
 		return *this;
 	}
 
-	arint& arint::operator^=(arint other) {
-		value = std::pow(value, other.value);
+	arint& arint::operator^=(const arint& other) {
+		value = _Pow(value, other.value);
 		return *this;
 	}
 
-	arint& arint::operator%=(arint other) {
+	arint& arint::operator%=(const arint& other) {
 		value %= other.value;
 		return *this;
 	}
@@ -58,37 +66,37 @@ namespace launch {
 		return value--;
 	}
 
-	arint arint::operator+(arint other) const {
+	arint arint::operator+(const arint& other) const {
 		arint temp = *this;
 		temp += other;
 		return temp;
 	}
 
-	arint arint::operator-(arint other) const {
+	arint arint::operator-(const arint& other) const {
 		arint temp = *this;
 		temp -= other;
 		return temp;
 	}
 
-	arint arint::operator*(arint other) const {
+	arint arint::operator*(const arint& other) const {
 		arint temp = *this;
 		temp *= other;
 		return temp;
 	}
 
-	arint arint::operator/(arint other) const {
+	arint arint::operator/(const arint& other) const {
 		arint temp = *this;
 		temp /= other;
 		return temp;
 	}
 
-	arint arint::operator^(arint other) const {
+	arint arint::operator^(const arint& other) const {
 		arint temp = *this;
 		temp ^= other;
 		return temp;
 	}
 
-	arint arint::operator%(arint other) const {
+	arint arint::operator%(const arint& other) const {
 		arint temp = *this;
 		temp %= other;
 		return temp;
@@ -98,11 +106,15 @@ namespace launch {
 		return -value;
 	}
 
-	std::strong_ordering arint::operator<=>(arint other) const {
+	std::strong_ordering arint::operator<=>(const arint& other) const {
 		return value <=> other.value;
 	}
 
+	bool arint::operator==(const arint& other) const {
+		return (*this <=> other) == 0;
+	}
+
 	arint arint::operator[](size_t digit) const {
-		return std::abs(value) / (long long)std::pow(10, digit) % 10;
+		return std::abs(value) / _Pow(10, digit) % 10;
 	}
 }

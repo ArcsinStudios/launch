@@ -8,6 +8,8 @@ namespace launch {
 	private:
 		long long value;
 
+		long long _Pow(long long x, long long y) const;
+
 	public:
 		arint() = default;
 
@@ -15,19 +17,19 @@ namespace launch {
 
 		explicit operator long long() const;
 
-		arint& operator=(arint other);
+		arint& operator=(const arint& other);
 
-		arint& operator+=(arint other);
+		arint& operator+=(const arint& other);
 
-		arint& operator-=(arint other);
+		arint& operator-=(const arint& other);
 
-		arint& operator*=(arint other);
+		arint& operator*=(const arint& other);
 
-		arint& operator/=(arint other);
+		arint& operator/=(const arint& other);
 
-		arint& operator^=(arint other);
+		arint& operator^=(const arint& other);
 
-		arint& operator%=(arint other);
+		arint& operator%=(const arint& other);
 
 		arint& operator++();
 
@@ -37,21 +39,23 @@ namespace launch {
 
 		arint operator--(int);
 
-		arint operator+(arint other) const;
+		arint operator+(const arint& other) const;
 
-		arint operator-(arint other) const;
+		arint operator-(const arint& other) const;
 
-		arint operator*(arint other) const;
+		arint operator*(const arint& other) const;
 
-		arint operator/(arint other) const;
+		arint operator/(const arint& other) const;
 
-		arint operator^(arint other) const;
+		arint operator^(const arint& other) const;
 
-		arint operator%(arint other) const;
+		arint operator%(const arint& other) const;
 
 		arint operator-() const;
 
-		std::strong_ordering operator<=>(arint other) const;
+		std::strong_ordering operator<=>(const arint& other) const;
+
+		bool operator==(const arint& other) const;
 
 		arint operator[](size_t digit) const;
 	};
