@@ -31,3 +31,7 @@
 #if !defined(LAUNCH_NO_GOODSTR)
 #include "goodstr.h"
 #endif
+
+#if defined(LAUNCH_LIDEVEC)
+#include "lidevec.h"
+#endif

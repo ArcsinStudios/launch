@@ -32,10 +32,6 @@ namespace launch {
 		start_time = now;
 		stop_time = now;
 		timing = false;
-		pause_start = now;
-		pause_stop = now;
-		pause_dur = std::chrono::nanoseconds(0);
-		pausing = false;
 	}
 	
 	void stopwatch::start() {
@@ -46,9 +42,6 @@ namespace launch {
 		std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
 		start_time = now;
 		stop_time = now;
-		pause_start = now;
-		pause_stop = now;
-		pause_dur = std::chrono::nanoseconds(0);
 	}
 
 	void stopwatch::stop() {
@@ -56,27 +49,10 @@ namespace launch {
 			return;
 		}
 		timing = false;
-		this->resume();
 		stop_time = std::chrono::high_resolution_clock::now();
 	}
 
-	void stopwatch::pause() {
-		if (pausing) {
-			return;
-		}
-		pausing = true;
-		pause_start = std::chrono::high_resolution_clock::now();
-	}
-
-	void stopwatch::resume() {
-		if (!pausing) {
-			return;
-		}
-		pause_stop = std::chrono::high_resolution_clock::now();
-		pause_dur = pause_dur.std_nanoseconds() + (pause_stop - pause_start);
-	}
-
 	duration stopwatch::get_duration() const {
-		return duration(stop_time - start_time - pause_dur.std_nanoseconds());
+		return duration(stop_time - start_time);
 	}
 }

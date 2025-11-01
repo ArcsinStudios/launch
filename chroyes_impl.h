@@ -30,10 +30,6 @@ namespace launch {
 		std::chrono::high_resolution_clock::time_point start_time;
 		std::chrono::high_resolution_clock::time_point stop_time;
 		bool timing;
-		std::chrono::high_resolution_clock::time_point pause_start;
-		std::chrono::high_resolution_clock::time_point pause_stop;
-		duration pause_dur;
-		bool pausing;
 
 	public:
 		stopwatch();
@@ -41,10 +37,6 @@ namespace launch {
 		void start();
 
 		void stop();
-
-		void pause();
-
-		void resume();
 
 		duration get_duration() const;
 	};

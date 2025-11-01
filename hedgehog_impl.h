@@ -1,7 +1,6 @@
 #pragma once
 
 #include <any>
-#include <exception>
 #include <functional>
 #include <initializer_list>
 #include <iostream>
@@ -10,6 +9,7 @@
 #include <shared_mutex>
 #endif
 
+#include <stdexcept>
 #include <typeindex>
 #include <unordered_map>
 #include <vector>

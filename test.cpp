@@ -1,13 +1,15 @@
 #define LAUNCH_FMTIO_NULLSTREAM
 #define LAUNCH_GOODMATH_ARINT
+#define LAUNCH_LIDEVEC
 #define LAUNCH_NO_THREAD_SAFE
 #include "launch.h"
 #include <iostream>
 #include <istream>
+#include <random>
 #include <string>
 using namespace launch;
 
-long long benchmark_0(hedgehog& hh) {
+long long hedgehog_test0(hedgehog& hh) {
 	stopwatch watch;
 	hh.clear();
 	hh.reserve_more(768);
@@ -21,8 +23,8 @@ long long benchmark_0(hedgehog& hh) {
 	return watch.get_duration().microseconds();
 }
 
-long long benchmark_1(hedgehog& hh) {
-	benchmark_0(hh);
+long long hedgehog_test1(hedgehog& hh) {
+	hedgehog_test0(hh);
 	stopwatch watch;
 	watch.start();
 	for (const hedgehog_elemproxy& elem : hh) {
@@ -32,7 +34,7 @@ long long benchmark_1(hedgehog& hh) {
 	return watch.get_duration().microseconds();
 }
 
-long long benchmark_2(hedgehog& hh) {
+long long hedgehog_test2(hedgehog& hh) {
 	stopwatch watch;
 	hh.clear();
 	hh.fill(0, 256);
@@ -44,13 +46,51 @@ long long benchmark_2(hedgehog& hh) {
 	return watch.get_duration().microseconds();
 }
 
+void lidevec_test() {
+	lidevec<int> lvec;
+	std::vector<int> vec;
+	stopwatch watch;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distrib(0, 1);
+	watch.start();
+	for (int i = 0; i < 100000; ++i) {
+		vec.push_back(i);
+	}
+	watch.stop();
+	std::cout << "std::vector took: " << watch.get_duration().microseconds() << " microseconds\n";
+	watch.start();
+	for (int i = 0; i < 100000; ++i) {
+		lvec.push_back(i);
+	}
+	watch.stop();
+	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
+	watch.start();
+	for (int i = 0; i < 50000; ++i) {
+		if (distrib(gen)) {
+			vec.erase(vec.begin() + i);
+		}
+	}
+	watch.stop();
+	std::cout << "std::vector took: " << watch.get_duration().microseconds() << " microseconds\n";
+	watch.start();
+	for (int i = 0; i < 50000; ++i) {
+		if (distrib(gen)) {
+			lvec.erase(i);
+		}
+	}
+	watch.stop();
+	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
+}
+
 int main(int argc, char* argv[]) {
 	clap parser(argc, argv, {
 		{"c", "caref"},
 		{"e", "escseq"},
 		{"h", "hedgehog"},
 		{"m", "goodmath"},
-		{"s", "goodstr"}
+		{"s", "goodstr"},
+		{"l", "lidevec"}
 	});
 	if (parser.get_flag("caref")) {
 		caref<int> observer;
@@ -94,9 +134,9 @@ int main(int argc, char* argv[]) {
 	}
 	else if (parser.get_flag("hedgehog")) {
 		hedgehog hh = {};
-		std::cout << "Benchmark 0, adding 768 elements: " << benchmark_0(hh) << " microseconds\n";
-		std::cout << "Benchmark 1, printing 768 elements: " << benchmark_1(hh) << " microseconds\n";
-		std::cout << "Benchmark 2, calculating 256 times: " << benchmark_2(hh) << " microseconds\n";
+		std::cout << "Benchmark 0, adding 768 elements: " << hedgehog_test0(hh) << " microseconds\n";
+		std::cout << "Benchmark 1, printing 768 elements: " << hedgehog_test1(hh) << " microseconds\n";
+		std::cout << "Benchmark 2, calculating 256 times: " << hedgehog_test2(hh) << " microseconds\n";
 	}
 	else if (parser.get_flag("goodmath")) {
 		long long _num, digit;
@@ -112,6 +152,9 @@ int main(int argc, char* argv[]) {
 		std::getline(std::cin >> std::ws, str1.raw());
 		std::getline(std::cin >> std::ws, str2.raw());
 		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
+	}
+	else if (parser.get_flag("lidevec")) {
+		lidevec_test();
 	}
 	else {
 		std::cout << "Error: no test programs match with the argument(s) given.\n";
