@@ -102,14 +102,6 @@ std::cout << *observer << "\n";
 launch::stopwatch watch;
 watch.start();
 /* do something */
-watch.pause();
-/* take a rest */
-watch.resume();
-/* continue */
-watch.pause();
-/* I'm too lazy */
-watch.resume();
-/* continue */
 watch.stop();
 long long dur = watch.get_duration().milliseconds();
 ```
