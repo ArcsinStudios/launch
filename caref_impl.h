@@ -53,7 +53,7 @@ namespace launch {
 			}
 		}
 
-		caref<T>& operator=(caref<T>& other) {
+		caref<T>& operator=(const caref<T>& other) {
 			if (owner) {
 				throw std::runtime_error("Cannot discard an owner");
 			}

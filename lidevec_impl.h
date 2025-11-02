@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <new>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
@@ -70,7 +71,7 @@ namespace launch {
 			return vidx;
 		}
 
-		size_t _Free_slot() {
+		size_t _Free_slot() const {
 			if (high_tide < capacity_) {
 				return high_tide;
 			}
@@ -114,16 +115,56 @@ namespace launch {
 			}
 		}
 
+		lidevec(const lidevec<T>& other) = delete;
+
+		lidevec<T>& operator=(const lidevec<T>& other) = delete;
+
+		lidevec(lidevec<T>&& other) = delete;
+
+		lidevec<T>& operator=(lidevec<T>&& other) = delete;
+
 		T& operator[](size_t index) {
 			return *vidx_map[_Vidx_at(index)];
 		}
 
-		size_t size() {
+		T& at(size_t index) {
+			if (index >= size_) {
+				throw std::out_of_range("Index out of range");
+			}
+			return (*this)[index];
+		}
+
+		T& front() const {
+			return *vidx_map[head_vidx];
+		}
+
+		T& back() const {
+			return *vidx_map[tail_vidx];
+		}
+
+		size_t size() const {
 			return size_;
 		}
 
-		size_t capacity() {
+		size_t capacity() const {
 			return capacity_;
+		}
+
+		bool empty() const {
+			return size_ == 0;
+		}
+
+		void reserve(size_t _capacity) {
+			if (_capacity <= capacity_) {
+				return;
+			}
+			size_t expand_size = _capacity - capacity_;
+			std::pair<T*, size_t> _Pair;
+			_Pair.first = (T*)::operator new[](sizeof(T) * (expand_size));
+			_Pair.second = expand_size;
+			mem_blocks.push_back(_Pair);
+			capacity_ = _capacity;
+			_Map();
 		}
 
 		void push_back(const T& value) {
@@ -205,14 +246,6 @@ namespace launch {
 			if (index == 0) {
 				node_map[head_vidx].status = -1;
 				head_vidx = node_map[head_vidx].next_vidx;
-				--size_;
-				if (cached_lidx == index) {
-					_Reset_cache();
-				}
-				else if (cached_lidx > index) {
-					--cached_lidx;
-				}
-				return;
 			}
 			else {
 				size_t thumb = _Vidx_at(index - 1);
@@ -227,19 +260,6 @@ namespace launch {
 			else if (cached_lidx > index) {
 				--cached_lidx;
 			}
-		}
-
-		void reserve(size_t _capacity) {
-			if (_capacity <= capacity_) {
-				return;
-			}
-			size_t expand_size = _capacity - capacity_;
-			std::pair<T*, size_t> _Pair;
-			_Pair.first = (T*)::operator new[](sizeof(T) * (expand_size));
-			_Pair.second = expand_size;
-			mem_blocks.push_back(_Pair);
-			capacity_ = _capacity;
-			_Map();
 		}
 
 		void clear() {
