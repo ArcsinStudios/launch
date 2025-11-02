@@ -45,7 +45,7 @@ namespace launch {
 		void _Expand() {
 			size_t expand_size = capacity_ * (expand_by - 1);
 			std::pair<T*, size_t> _Pair;
-			_Pair.first = (T*)::operator new[](sizeof(T)* expand_size);
+			_Pair.first = (T*)::operator new[](sizeof(T) * expand_size);
 			_Pair.second = expand_size;
 			mem_blocks.push_back(_Pair);
 			capacity_ *= expand_by;
@@ -152,6 +152,9 @@ namespace launch {
 			if (size_ == 0) {
 				return;
 			}
+			if (cached_vidx == tail_vidx) {
+				_Reset_cache();
+			}
 			if (size_ == 1) {
 				node_map[head_vidx].status = -1;
 				head_vidx = lidevec_elemnode::npos;
@@ -164,9 +167,6 @@ namespace launch {
 				node_map[tail_vidx].next_vidx = lidevec_elemnode::npos;
 			}
 			--size_;
-			if (cached_vidx == tail_vidx) {
-				_Reset_cache();
-			}
 		}
 
 		void insert(size_t index, const T& value) {
@@ -227,6 +227,19 @@ namespace launch {
 			else if (cached_lidx > index) {
 				--cached_lidx;
 			}
+		}
+
+		void reserve(size_t _capacity) {
+			if (_capacity <= capacity_) {
+				return;
+			}
+			size_t expand_size = _capacity - capacity_;
+			std::pair<T*, size_t> _Pair;
+			_Pair.first = (T*)::operator new[](sizeof(T) * (expand_size));
+			_Pair.second = expand_size;
+			mem_blocks.push_back(_Pair);
+			capacity_ = _capacity;
+			_Map();
 		}
 
 		void clear() {

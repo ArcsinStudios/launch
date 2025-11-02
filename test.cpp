@@ -53,6 +53,10 @@ void lidevec_test() {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distrib(0, 1);
+	lvec.reserve(150000);
+	vec.reserve(150000);
+	std::cout << "Reserved 150,000.\n";
+	std::cout << "Pushing back 100,000 times...\n";
 	watch.start();
 	for (int i = 0; i < 100000; ++i) {
 		vec.push_back(i);
@@ -65,6 +69,7 @@ void lidevec_test() {
 	}
 	watch.stop();
 	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
+	std::cout << "Erasing... (expected 25,000 times)\n";
 	watch.start();
 	for (int i = 0; i < 50000; ++i) {
 		if (distrib(gen)) {
@@ -77,6 +82,23 @@ void lidevec_test() {
 	for (int i = 0; i < 50000; ++i) {
 		if (distrib(gen)) {
 			lvec.erase(i);
+		}
+	}
+	watch.stop();
+	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
+	std::cout << "Inserting... (expected 25,000 times)\n";
+	watch.start();
+	for (int i = 0; i < 50000; ++i) {
+		if (distrib(gen)) {
+			vec.insert(vec.begin() + i, i);
+		}
+	}
+	watch.stop();
+	std::cout << "std::vector took: " << watch.get_duration().microseconds() << " microseconds\n";
+	watch.start();
+	for (int i = 0; i < 50000; ++i) {
+		if (distrib(gen)) {
+			lvec.insert(i, i);
 		}
 	}
 	watch.stop();
@@ -154,6 +176,10 @@ int main(int argc, char* argv[]) {
 		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
 	}
 	else if (parser.get_flag("lidevec")) {
+		std::cout << "WARNING: The test program of lidevec is still in beta.\n";
+		std::cout << "         It may cause assertion failures in Debug mode.\n";
+		std::cout << "         Press ENTER if you know what you are doing.\n";
+		std::cin.get();
 		lidevec_test();
 	}
 	else {
