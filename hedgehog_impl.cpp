@@ -153,10 +153,18 @@ namespace launch {
 	}
 
 	hedgehog_elemproxy& hedgehog::operator[](int index) {
-		return vec.at(index);
+		return vec[index];
 	}
 
 	const hedgehog_elemproxy& hedgehog::operator[](int index) const {
+		return vec[index];
+	}
+
+	hedgehog_elemproxy& hedgehog::at(int index) {
+		return vec.at(index);
+	}
+
+	const hedgehog_elemproxy& hedgehog::at(int index) const {
 		return vec.at(index);
 	}
 
@@ -184,6 +192,22 @@ namespace launch {
 		return hedgehog_const_iterator(this, vec.size());
 	}
 
+	hedgehog_elemproxy& hedgehog::front() {
+		return vec.front();
+	}
+
+	const hedgehog_elemproxy& hedgehog::front() const {
+		return vec.front();
+	}
+
+	hedgehog_elemproxy& hedgehog::back() {
+		return vec.back();
+	}
+
+	const hedgehog_elemproxy& hedgehog::back() const {
+		return vec.back();
+	}
+
 	size_t hedgehog::size() const {
 		return vec.size();
 	}
@@ -192,49 +216,35 @@ namespace launch {
 		return vec.capacity();
 	}
 
-	size_t hedgehog::avail_size() const {
-		return this->capacity() - this->size();
-	}
-
 	bool hedgehog::empty() const {
 		return vec.empty();
 	}
 
-	void hedgehog::reserve_more(int n) {
-		vec.reserve(this->capacity() + n);
+	void hedgehog::reserve(int n) {
+		vec.reserve(n);
 	}
 
-	bool hedgehog::shrink_to_fit() {
-		size_t _capacity = this->capacity();
+	void hedgehog::shrink_to_fit() {
 		vec.shrink_to_fit();
-		return _capacity != this->capacity();
 	}
 
 	void hedgehog::push_back(std::any value) {
 		vec.push_back(value);
 	}
 
+	void hedgehog::pop_back() {
+		vec.pop_back();
+	}
+
+	void hedgehog::insert(int index, std::any value) {
+		vec.insert(vec.begin() + index, value);
+	}
+
 	void hedgehog::erase(int index) {
 		vec.erase(vec.begin() + index);
 	}
 
-	hedgehog_elemproxy hedgehog::get(int index) const {
-		return (*this)[index];
-	}
-
 	void hedgehog::clear() {
 		vec.clear();
-		this->shrink_to_fit();
-	}
-
-	void hedgehog::insert(std::any value, int pos) {
-		vec.insert(vec.begin() + pos, value);
-	}
-
-	void hedgehog::fill(std::any value, int count) {
-		this->reserve_more(count);
-		for (int i = 0; i < count; ++i) {
-			vec.push_back(value);
-		}
 	}
 }

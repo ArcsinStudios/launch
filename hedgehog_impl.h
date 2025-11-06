@@ -237,6 +237,10 @@ namespace launch {
 
 		const hedgehog_elemproxy& operator[](int index) const;
 
+		hedgehog_elemproxy& at(int index);
+
+		const hedgehog_elemproxy& at(int index) const;
+
 		hedgehog_iterator begin();
 
 		hedgehog_iterator end();
@@ -249,29 +253,33 @@ namespace launch {
 
 		hedgehog_const_iterator cend() const;
 
+		hedgehog_elemproxy& front();
+
+		const hedgehog_elemproxy& front() const;
+
+		hedgehog_elemproxy& back();
+
+		const hedgehog_elemproxy& back() const;
+
 		size_t size() const;
 
 		size_t capacity() const;
 
-		size_t avail_size() const;
-
 		bool empty() const;
 
-		void reserve_more(int n);
+		void reserve(int n);
 
-		bool shrink_to_fit();
+		void shrink_to_fit();
 
 		void push_back(std::any value);
 
+		void pop_back();
+
+		void insert(int index, std::any value);
+
 		void erase(int index);
 
-		hedgehog_elemproxy get(int index) const;
-
 		void clear();
-
-		void insert(std::any value, int pos);
-
-		void fill(std::any value, int count);
 	};
 
 	extern hedgehog_registry hregistry;

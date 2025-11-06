@@ -28,8 +28,9 @@ namespace launch {
 	class stopwatch {
 	private:
 		std::chrono::high_resolution_clock::time_point start_time;
-		std::chrono::high_resolution_clock::time_point stop_time;
+		duration dur;
 		bool timing;
+		bool pausing;
 
 	public:
 		stopwatch();
@@ -37,6 +38,10 @@ namespace launch {
 		void start();
 
 		void stop();
+
+		void pause();
+
+		void resume();
 
 		duration get_duration() const;
 	};

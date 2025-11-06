@@ -28,31 +28,46 @@ namespace launch {
 	}
 
 	stopwatch::stopwatch() {
-		std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
-		start_time = now;
-		stop_time = now;
+		start_time = std::chrono::high_resolution_clock::now();
+		dur = std::chrono::nanoseconds(0);
 		timing = false;
+		pausing = false;
 	}
 	
 	void stopwatch::start() {
 		if (timing) {
 			return;
 		}
+		start_time = std::chrono::high_resolution_clock::now();
+		dur = std::chrono::nanoseconds(0);
 		timing = true;
-		std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
-		start_time = now;
-		stop_time = now;
 	}
 
 	void stopwatch::stop() {
 		if (!timing) {
 			return;
 		}
+		dur = dur.std_nanoseconds() + (std::chrono::high_resolution_clock::now() - start_time);
 		timing = false;
-		stop_time = std::chrono::high_resolution_clock::now();
+	}
+
+	void stopwatch::pause() {
+		if (pausing) {
+			return;
+		}
+		dur = dur.std_nanoseconds() + (std::chrono::high_resolution_clock::now() - start_time);
+		pausing = true;
+	}
+
+	void stopwatch::resume() {
+		if (!pausing) {
+			return;
+		}
+		start_time = std::chrono::high_resolution_clock::now();
+		pausing = false;
 	}
 
 	duration stopwatch::get_duration() const {
-		return duration(stop_time - start_time);
+		return dur;
 	}
 }

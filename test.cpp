@@ -3,16 +3,21 @@
 #define LAUNCH_LIDEVEC
 #define LAUNCH_NO_THREAD_SAFE
 #include "launch.h"
+
 #include <iostream>
 #include <istream>
 #include <random>
 #include <string>
+
+#include <deque>
+#include <list>
+#include <vector>
 using namespace launch;
 
 long long hedgehog_test0(hedgehog& hh) {
 	stopwatch watch;
 	hh.clear();
-	hh.reserve_more(768);
+	hh.reserve(768);
 	watch.start();
 	for (int i = 0; i < 256; ++i) {
 		hh.push_back(i);
@@ -37,7 +42,9 @@ long long hedgehog_test1(hedgehog& hh) {
 long long hedgehog_test2(hedgehog& hh) {
 	stopwatch watch;
 	hh.clear();
-	hh.fill(0, 256);
+	for (int i = 0; i < 256; ++i) {
+		hh.push_back(0);
+	}
 	watch.start();
 	for (int i = 0; i < 256; ++i) {
 		hh[i] += i;
@@ -46,63 +53,119 @@ long long hedgehog_test2(hedgehog& hh) {
 	return watch.get_duration().microseconds();
 }
 
-void lidevec_test() {
-	lidevec<int> lvec;
-	std::vector<int> vec;
+template <typename T>
+long long lidevec_test0() {
+	T container;
+	stopwatch watch;
+	watch.start();
+	for (int i = 0; i < 100000; ++i) {
+		container.push_back(i);
+	}
+	watch.stop();
+	return watch.get_duration().microseconds();
+}
+
+template <typename T>
+long long lidevec_test0(T& container) {
+	stopwatch watch;
+	watch.start();
+	for (int i = 0; i < 100000; ++i) {
+		container.push_back(i);
+	}
+	watch.stop();
+	return watch.get_duration().microseconds();
+}
+
+template <typename T>
+long long lidevec_test1() {
+	T container;
+	lidevec_test0<T>(container);
 	stopwatch watch;
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distrib(0, 1);
-	lvec.reserve(150000);
-	vec.reserve(150000);
-	std::cout << "Reserved 150,000.\n";
-	std::cout << "Pushing back 100,000 times...\n";
 	watch.start();
-	for (int i = 0; i < 100000; ++i) {
-		vec.push_back(i);
+	watch.pause();
+	for (int i = 0; i < 50000; ++i) {
+		if (i >= container.size()) {
+			continue;
+		}
+		typename T::iterator it = container.begin();
+		for (int j = 0; j < i; ++j) {
+			++it;
+		}
+		if (distrib(gen)) {
+			watch.resume();
+			container.erase(it);
+			watch.pause();
+		}
 	}
+	watch.resume();
 	watch.stop();
-	std::cout << "std::vector took: " << watch.get_duration().microseconds() << " microseconds\n";
-	watch.start();
-	for (int i = 0; i < 100000; ++i) {
-		lvec.push_back(i);
-	}
-	watch.stop();
-	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
-	std::cout << "Erasing... (expected 25,000 times)\n";
+	return watch.get_duration().microseconds();
+}
+
+template <>
+long long lidevec_test1<lidevec<int>>() {
+	lidevec<int> container;
+	stopwatch watch;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distrib(0, 1);
 	watch.start();
 	for (int i = 0; i < 50000; ++i) {
 		if (distrib(gen)) {
-			vec.erase(vec.begin() + i);
+			container.erase(i);
 		}
 	}
 	watch.stop();
-	std::cout << "std::vector took: " << watch.get_duration().microseconds() << " microseconds\n";
+	return watch.get_duration().microseconds();
+}
+
+template <typename T>
+long long lidevec_test2() {
+	T container;
+	lidevec_test0<T>(container);
+	stopwatch watch;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distrib(0, 1);
+	watch.start();
+	watch.pause();
+	for (int i = 0; i < 50000; ++i) {
+		if (i >= container.size()) {
+			continue;
+		}
+		typename T::iterator it = container.begin();
+		for (int j = 0; j < i; ++j) {
+			++it;
+		}
+		if (distrib(gen)) {
+			watch.resume();
+			container.insert(it, i);
+			watch.pause();
+		}
+	}
+	watch.resume();
+	watch.stop();
+	return watch.get_duration().microseconds();
+}
+
+template <>
+long long lidevec_test2<lidevec<int>>() {
+	lidevec<int> container;
+	stopwatch watch;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distrib(0, 1);
 	watch.start();
 	for (int i = 0; i < 50000; ++i) {
 		if (distrib(gen)) {
-			lvec.erase(i);
+			container.insert(i, i);
 		}
 	}
 	watch.stop();
-	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
-	std::cout << "Inserting... (expected 25,000 times)\n";
-	watch.start();
-	for (int i = 0; i < 50000; ++i) {
-		if (distrib(gen)) {
-			vec.insert(vec.begin() + i, i);
-		}
-	}
-	watch.stop();
-	std::cout << "std::vector took: " << watch.get_duration().microseconds() << " microseconds\n";
-	watch.start();
-	for (int i = 0; i < 50000; ++i) {
-		if (distrib(gen)) {
-			lvec.insert(i, i);
-		}
-	}
-	watch.stop();
-	std::cout << "lidevec took: " << watch.get_duration().microseconds() << " microseconds\n";
+	return watch.get_duration().microseconds();
 }
 
 int main(int argc, char* argv[]) {
@@ -176,11 +239,25 @@ int main(int argc, char* argv[]) {
 		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
 	}
 	else if (parser.get_flag("lidevec")) {
-		std::cout << "WARNING: The test program of lidevec is still in beta.\n";
-		std::cout << "         It may cause assertion failures in Debug mode.\n";
-		std::cout << "         Press ENTER if you know what you are doing.\n";
+		std::cout << "INFO: The program will take about 1-2 minute(s) to complete the test.\n";
+		std::cout << "      Please wait patiently.\n";
+		std::cout << "      Press ENTER if you have understood all the above.\n";
 		std::cin.get();
-		lidevec_test();
+		std::cout << "Pushing back 100,000 times.\n";
+		// std::cout << "std::deque took: " << lidevec_test0<std::deque<int>>() << " microseconds\n";
+		std::cout << "std::list took: " << lidevec_test0<std::list<int>>() << " microseconds\n";
+		std::cout << "std::vector took: " << lidevec_test0<std::vector<int>>() << " microseconds\n";
+		std::cout << "lidevec took: " << lidevec_test0<lidevec<int>>() << " microseconds\n";
+		std::cout << "Erasing ~25,000 times.\n";
+		// std::cout << "std::deque took: " << lidevec_test1<std::deque<int>>() << " microseconds\n";
+		std::cout << "std::list took: " << lidevec_test1<std::list<int>>() << " microseconds\n";
+		std::cout << "std::vector took: " << lidevec_test1<std::vector<int>>() << " microseconds\n";
+		std::cout << "lidevec took: " << lidevec_test1<lidevec<int>>() << " microseconds\n";
+		std::cout << "Inserting ~25,000 times.\n";
+		// std::cout << "std::deque took: " << lidevec_test2<std::deque<int>>() << " microseconds\n";
+		std::cout << "std::list took: " << lidevec_test2<std::list<int>>() << " microseconds\n";
+		std::cout << "std::vector took: " << lidevec_test2<std::vector<int>>() << " microseconds\n";
+		std::cout << "lidevec took: " << lidevec_test2<lidevec<int>>() << " microseconds\n";
 	}
 	else {
 		std::cout << "Error: no test programs match with the argument(s) given.\n";

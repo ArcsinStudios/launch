@@ -211,7 +211,11 @@ namespace launch {
 		}
 
 		void insert(size_t index, const T& value) {
-			if ((index >= size_) || (size_ < 2)) {
+			if (index > size_) {
+				return;
+			}
+			if (index == size_) {
+				this->push_back(value);
 				return;
 			}
 			size_t slot = _Free_slot();
@@ -224,10 +228,16 @@ namespace launch {
 			}
 			new (vidx_map[slot]) T(value);
 			node_map[slot].status = 1;
-			size_t thumb = _Vidx_at(index - 1);
-			size_t middle = node_map[thumb].next_vidx;
-			node_map[thumb].next_vidx = slot;
-			node_map[slot].next_vidx = middle;
+			if (index == 0) {
+				node_map[slot].next_vidx = head_vidx;
+				head_vidx = slot;
+			}
+			else {
+				size_t thumb = _Vidx_at(index - 1);
+				size_t middle = node_map[thumb].next_vidx;
+				node_map[thumb].next_vidx = slot;
+				node_map[slot].next_vidx = middle;
+			}
 			++size_;
 			if (cached_lidx >= index) {
 				++cached_lidx;
