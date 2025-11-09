@@ -1,15 +1,25 @@
 > [!NOTE]
-> This README was written in assistance of MPE (Visual Studio Code extension).
-> 
-> Some of the features used may not work on GitHub.
-> 
-> For the best reading experience, please use MPE.
-> 
+> This README was written in assistance of MPE (Visual Studio Code extension).  
+> Some of the features used may not work on GitHub.  
+> For the best reading experience, please use MPE.  
 > Thank you for your understanding.
 
 <div style="position: absolute;">
 
-# LAUNCH - Brief Introduction
+<div style="position: relative; display: flex; align-items: center; gap: 15px;">
+  <img
+    src="LAUNCH.svg"
+    alt="Logo of LAUNCH"
+    style="height: 75px;"
+  />
+  <h1>LAUNCH - Introduction</h1>
+  <img
+    src="CSE.svg"
+    alt="Logo of C*="
+    style="position: absolute; height: 30px; top: 70px; left: 50px;"
+    title="LAUNCH is a part of the C*= project."
+  />
+</div>
 
 ![](https://img.shields.io/badge/Language-C++-blue) ![](https://img.shields.io/badge/Standard-C++20-blue) ![](https://img.shields.io/badge/Dependencies-STL_Only-green) ![](https://img.shields.io/badge/License-MIT-yellow) ![](https://img.shields.io/badge/Platform-Any-lightgrey)
 
@@ -18,10 +28,10 @@
 <h2 style="
   position: relative;
   top: -140px;
-  left: 400px;
+  left: 420px;
   color: orange;
   transform: rotate(-20deg);
-  transform-origin: 10% 25%;
+  transform-origin: 10%;
   animation: splash 1.2s ease-in-out infinite;
 ">Also try Boost!</h2>
 
@@ -33,12 +43,9 @@
 
 ## Navigation
 
-[Part I: FAQs](#part1)
-
-[Part II: Building / Using](#part2)
-
-[Part III: Introductions that may be not so brief](#part3)
-
+[Part I: FAQs](#part1)  
+[Part II: Building / Using](#part2)  
+[Part III: Introductions that may be not so brief](#part3)  
 [Part IV: Conclusion](#part4)
 
 <h2 id="part1">Part I: FAQs</h2>
@@ -46,8 +53,8 @@
 | Qs | As |
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
-| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | You should ask WG21 why they are choosing this widely used name. |
-| How many modules are there? | Currently, there are 8. |
+| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't want to deal with that. |
+| How many modules are there? | Currently, there are 9. (Including \<lidevec\>) |
 | What's your slogan? | [Here!](#slogan) |
 
 
@@ -55,23 +62,21 @@
 
 ### Part II-1: Building
 
-This project uses CMake.
+This project uses CMake.  
 For details, please go to `CMakeLists.txt`.
 
 ### Part II-2: Using
 
-We recommend `#include`-ing `<launch.h>` and `#define`-ing macros to disable modules or enable sub-modules, instead of `#include`-ing a bunch of modules or sub-modules.
+Simply `#include "launch.h"`.  
+If you need more precise module controls, please `#define` macros before `#include "launch.h"`.
 
 <h2 id="part3">Part III: Introductions that may be not so brief</h2>
 
 ### \<caref\>
 
-- What does the name mean?
-
+- What does the name mean?  
 **-** **C**lever & **A**utomatic **Ref**erence
-
 - What can \<caref\> do?
-
 ```cpp
 launch::caref<int> observer;
 // observer - construct
@@ -92,28 +97,26 @@ std::cout << *observer << "\n";
 
 ### \<chroyes\>
 
-- What does the name mean?
-
+- What does the name mean?  
 **-** From \<chro**no**\> to \<chro**yes**\>
-
 - What can \<chroyes\> do?
-
 ```cpp
 launch::stopwatch watch;
 watch.start();
 /* do something */
+watch.pause();
+/* take a rest */
+watch.resume();
+/* back to work */
 watch.stop();
 long long dur = watch.get_duration().milliseconds();
 ```
 
 ### \<clap\>
 
-- What does the name mean?
-
+- What does the name mean?  
 **-** **C**ommand **L**ine **A**rgument **P**arser
-
 - What can \<clap\> do?
-
 ```cpp
 int main(int argc, char* argv[]) {
     launch::clap parser(argc, argv, {{"o", "option"}, {"f", "flag"}});
@@ -132,12 +135,9 @@ int main(int argc, char* argv[]) {
 
 ### \<escseq\>
 
-- What does the name mean?
-
+- What does the name mean?  
 **-** ANSI **Esc**ape **Seq**uences (ANSI Escape Code)
-
 - What can \<escseq\> do?
-
 ```cpp
 std::cout << launch::gen_font(launch::FONT_ITALIC | launch::FONT_UNDERLINE)
           << launch::foreground_color(0, 0, 255)
@@ -148,16 +148,11 @@ std::cout << launch::gen_font(launch::FONT_ITALIC | launch::FONT_UNDERLINE)
 
 ### \<fmtio\> & \<hedgehog\>
 
-- *(\<fmtio\>)* What does the name mean?
-
+- *(\<fmtio\>)* What does the name mean?  
 **-** **F**or**m**a**t**ted **I**nput/**O**utput
-
-- *(\<hedgehog\>)* What does the name mean?
-
+- *(\<hedgehog\>)* What does the name mean?  
 **-** You see, hedgehogs' spines don't care what they're carrying - that's what `hedgehog` does!
-
 - What can they do?
-
 ```cpp
 launch::hedgehog hh1 = { 42, 3.14, true, "Hello World!", 'A' };
 launch::hedgehog hh2 = { };
@@ -168,12 +163,9 @@ launch::fmtout("You entered: {0} & {1}.\n", hh2);
 
 ### \<goodmath\> & \<goodstr\>
 
-- What do the names mean?
-
+- What do the names mean?  
 **-** They're just *the goods*. (Or technically, we use these names to prevent ambiguity.)
-
 - What can they do?
-
 ```cpp
 double deg;
 std::cin >> deg;
@@ -181,6 +173,16 @@ std::cout << "Sine value: " << launch::sin(launch::dtor(deg)) << "\n";
 launch::hstr str = "Hello World!\n";
 std::cout << launch::replace(str, "Hello", "Goodbye");
 ```
+
+### \<lidevec\> (beta)
+
+- What does the name mean?  
+**-** To be honest, it's a legacy name -  but "vec" stands for **vec**tor, of course.
+- What can \<lidevec\> do?  
+(Notice that `lidevec` does **not** support iterators.)  
+While iterating through `lidevec` (forward), you'll find that it's really fast to do **any** **operation**!  
+Actually, it's **hundreds** **of** **times** **faster** than `vector` when `erase`-ing, and **dozens** **of** **times** **faster** than `vector` when `insert`-ing!
+
 
 <h2 id="part4">Part IV: Conclusion</h2>
 
