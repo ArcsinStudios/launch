@@ -12,40 +12,37 @@
     alt="Logo of LAUNCH"
     style="height: 75px;"
   />
-  <h1>LAUNCH - Introduction</h1>
   <img
     src="CSE.svg"
     alt="Logo of C*="
     style="position: absolute; height: 30px; top: 70px; left: 50px;"
     title="LAUNCH is a part of the C*= project."
   />
+  <h1>LAUNCH - Introduction</h1>
 </div>
-
-![](https://img.shields.io/badge/Language-C++-blue) ![](https://img.shields.io/badge/Standard-C++20-blue) ![](https://img.shields.io/badge/Dependencies-STL_Only-green) ![](https://img.shields.io/badge/License-MIT-yellow) ![](https://img.shields.io/badge/Platform-Any-lightgrey)
-
-<p id="slogan">Build, LAUNCH, start creating. That simple.</p>
 
 <h2 style="
   position: relative;
-  top: -140px;
-  left: 420px;
+  top: -70px;
+  left: 400px;
   color: orange;
-  transform: rotate(-20deg);
-  transform-origin: 10%;
+  transform-origin: 20%;
   animation: splash 1.2s ease-in-out infinite;
 ">Also try Boost!</h2>
 
 </div>
 
-<div style="height: 170px;"></div>
+<div style="height: 100px;"></div>
 
 ---
+
+![](https://img.shields.io/badge/Language-C++-blue) ![](https://img.shields.io/badge/Standard-C++20-blue) ![](https://img.shields.io/badge/Dependencies-STL_Only-green) ![](https://img.shields.io/badge/License-MIT-yellow) ![](https://img.shields.io/badge/Platform-Any-lightgrey)
 
 ## Navigation
 
 [Part I: FAQs](#part1)  
 [Part II: Building / Using](#part2)  
-[Part III: Introductions that may be not so brief](#part3)  
+[Part III: The Modules](#part3)  
 [Part IV: Conclusion](#part4)
 
 <h2 id="part1">Part I: FAQs</h2>
@@ -54,8 +51,8 @@
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
 | The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't want to deal with that. |
-| How many modules are there? | Currently, there are 9. (Including \<lidevec\>) |
-| What's your slogan? | [Here!](#slogan) |
+| How many modules are there? | Currently, there are 9. |
+| What's your slogan? | Build, LAUNCH, start creating. That simple. |
 
 
 <h2 id="part2">Part II: Building / Using</h2>
@@ -70,7 +67,7 @@ For details, please go to `CMakeLists.txt`.
 Simply `#include "launch.h"`.  
 If you need more precise module controls, please `#define` macros before `#include "launch.h"`.
 
-<h2 id="part3">Part III: Introductions that may be not so brief</h2>
+<h2 id="part3">Part III: The Modules</h2>
 
 ### \<caref\>
 
@@ -188,18 +185,20 @@ Actually, it's **hundreds** **of** **times** **faster** than `vector` when `eras
 
 Conclusion: LAUNCH is good. Use LAUNCH, thank you.
 
+---
+
 <sub>Author: Arcsin Studios<br>License (of this README): CC BY-SA 4.0</sub>
 
 <style>
 @keyframes splash {
   0% {
-    transform: rotate(-20deg) scale(1);
+    transform: rotate(-15deg) scale(1);
   }
   50% {
-    transform: rotate(-20deg) scale(1.1);
+    transform: rotate(-15deg) scale(1.1);
   }
   100% {
-    transform: rotate(-20deg) scale(1);
+    transform: rotate(-15deg) scale(1);
   }
 }
 </style>
