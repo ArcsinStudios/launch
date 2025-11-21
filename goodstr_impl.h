@@ -17,27 +17,11 @@ namespace launch {
 
 		hstr(std::string _str) : str(_str) {}
 
-		hstr& operator=(const char* _str);
-
-		hstr& operator=(const std::string& _str);
-
 		hstr& operator=(const hstr& _str);
-
-		hstr& operator+=(const char* _str);
-
-		hstr& operator+=(const std::string& _str);
 
 		hstr& operator+=(const hstr& _str);
 
-		hstr operator+(const char* _str) const;
-
-		hstr operator+(const std::string& _str) const;
-
 		hstr operator+(const hstr& _str) const;
-
-		friend hstr operator+(const char* lhs, const hstr& rhs);
-
-		friend hstr operator+(const std::string& lhs, const hstr& rhs);
 
 		bool operator==(const hstr& _str) const;
 
@@ -69,27 +53,11 @@ namespace launch {
 
 		lstr(std::wstring _str) : str(_str) {}
 
-		lstr& operator=(const wchar_t* _str);
-
-		lstr& operator=(const std::wstring& _str);
-
 		lstr& operator=(const lstr& _str);
-
-		lstr& operator+=(const wchar_t* _str);
-
-		lstr& operator+=(const std::wstring& _str);
 
 		lstr& operator+=(const lstr& _str);
 
-		lstr operator+(const wchar_t* _str) const;
-
-		lstr operator+(const std::wstring& _str) const;
-
 		lstr operator+(const lstr& _str) const;
-
-		friend lstr operator+(const wchar_t* lhs, const lstr& rhs);
-
-		friend lstr operator+(const std::wstring& lhs, const lstr& rhs);
 
 		bool operator==(const lstr& _str) const;
 

@@ -129,7 +129,7 @@ namespace launch {
 #endif
 			oper_reg[{typeid(T), oper_type::sub, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) - std::any_cast<T>(b);
-				};
+			};
 		}
 
 		template <Arithmetic_Mul T>
@@ -139,7 +139,7 @@ namespace launch {
 #endif
 			oper_reg[{typeid(T), oper_type::mul, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) * std::any_cast<T>(b);
-				};
+			};
 		}
 
 		template <Arithmetic_Div T>
@@ -149,7 +149,7 @@ namespace launch {
 #endif
 			oper_reg[{typeid(T), oper_type::div, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) / std::any_cast<T>(b);
-				};
+			};
 		}
 
 		template <Arithmetic_Mod T>
@@ -164,16 +164,16 @@ namespace launch {
 
 		template <Arithmetic T>
 		void regtype_4ops_auto() {
-			regtype_add_auto<T>();
-			regtype_sub_auto<T>();
-			regtype_mul_auto<T>();
-			regtype_div_auto<T>();
+			this->regtype_add_auto<T>();
+			this->regtype_sub_auto<T>();
+			this->regtype_mul_auto<T>();
+			this->regtype_div_auto<T>();
 		}
 
 		template <Fully_Arithmetic T>
 		void regtype_5ops_auto() {
-			regtype_4ops_auto<T>();
-			regtype_mod_auto<T>();
+			this->regtype_4ops_auto<T>();
+			this->regtype_mod_auto<T>();
 		}
 
 		hedgehog_registry();
@@ -280,6 +280,17 @@ namespace launch {
 		void erase(int index);
 
 		void clear();
+
+		template <typename T>
+		std::vector<T> filter() {
+			std::vector<T> filtered;
+			for (const hedgehog_elemproxy& elem : vec) {
+				if (elem.assert_bool<T>()) {
+					filtered.push_back(elem.as<T>());
+				}
+			}
+			return filtered;
+		}
 	};
 
 	extern hedgehog_registry hregistry;

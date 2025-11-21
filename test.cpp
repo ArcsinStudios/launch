@@ -108,6 +108,7 @@ long long lidevec_test1() {
 template <>
 long long lidevec_test1<lidevec<int>>() {
 	lidevec<int> container;
+	lidevec_test0(container);
 	stopwatch watch;
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -154,6 +155,7 @@ long long lidevec_test2() {
 template <>
 long long lidevec_test2<lidevec<int>>() {
 	lidevec<int> container;
+	lidevec_test0(container);
 	stopwatch watch;
 	std::random_device rd;
 	std::mt19937 gen(rd());

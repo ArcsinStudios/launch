@@ -19,26 +19,26 @@ namespace launch {
 	}
 
 	hedgehog_registry::hedgehog_registry() {
-		regtype_output(typeid(bool), [](std::ostream& out, const std::any& value) -> std::ostream& {
+		this->regtype_output(typeid(bool), [](std::ostream& out, const std::any& value) -> std::ostream& {
 			return out << (std::any_cast<bool>(value) ? "true" : "false");
 		});
-		regtype_output_auto<short>();
-		regtype_5ops_auto<short>();
-		regtype_output_auto<int>();
-		regtype_5ops_auto<int>();
-		regtype_output_auto<long long>();
-		regtype_5ops_auto<long long>();
-		regtype_output_auto<float>();
-		regtype_4ops_auto<float>();
-		regtype_output_auto<double>();
-		regtype_4ops_auto<double>();
-		regtype_output_auto<char>();
-		regtype_output_auto<const char*>();
-		regtype_output_auto<std::string>();
-		regtype_add_auto<std::string>();
+		this->regtype_output_auto<short>();
+		this->regtype_5ops_auto<short>();
+		this->regtype_output_auto<int>();
+		this->regtype_5ops_auto<int>();
+		this->regtype_output_auto<long long>();
+		this->regtype_5ops_auto<long long>();
+		this->regtype_output_auto<float>();
+		this->regtype_4ops_auto<float>();
+		this->regtype_output_auto<double>();
+		this->regtype_4ops_auto<double>();
+		this->regtype_output_auto<char>();
+		this->regtype_output_auto<const char*>();
+		this->regtype_output_auto<std::string>();
+		this->regtype_add_auto<std::string>();
 #if !defined(LAUNCH_NO_GOODSTR)
-		regtype_output_auto<hstr>();
-		regtype_add_auto<hstr>();
+		this->regtype_output_auto<hstr>();
+		this->regtype_add_auto<hstr>();
 #endif
 	}
 

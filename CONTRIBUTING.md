@@ -1,6 +1,6 @@
 # LAUNCH - How to Contribute
 
-## Issue
+## Part I - Issues
 
 ### First Things First
 
@@ -15,41 +15,46 @@ You don't know what **exactly** is going on but you gave us the **most** **suspi
 Or, if you don't:  
 You don't know what's going on. You gave us the entire code.
 
-## Part II - Pulling Requests
+## Part II - Pull Requests
 
-First: make sure your code is our style. (Read also: Appendix I)  
-And, by the way, it's OK to PR toy projects! They're great sources of ideas.
+### First Things First - The Style Guide
 
-## Appendix I - Style guide
+#### Identifiers
 
-### Identifiers
-
-#### Variables, Functions & Classes
+##### Variables, Functions & Classes
 
 `snake_case`, but remember to use abbreviations when the identifier name is too long.  
 Good examples: `hedgehog_elemproxy` (**Hedgehog** **Elem**ent **Proxy**), `escseq` (**Esc**ape **Seq**uence), `clap` (**C**ommand **L**ine **A**rgument **P**arser)
 
-#### Constants & Macros
+##### Constants & Macros
 
 `SCREAMING_SNAKE_CASE`.
 
-### Indentations & Formatting
+#### Indentations & Formatting
 
-#### Indentations
+##### Indentations
 
 Use tabs. If possible, make them 4 spaces in width.
 
-#### Formatting
+##### Formatting
 
-- **Always** use braces (`{}`).
-- There mustn't be anything after a semicolon (`;`), except the three statements in `for` loops.
+- Always use braces (`{}`).
+- There mustn't be anything after a semicolon (`;`), except comments and the three statements in `for` loops.
 
-### Preprocessors
+#### Preprocessors
 
-#### About `#if`, `ifdef` & `#ifndef`
+##### About `#if`, `ifdef` & `#ifndef`
 
 Use `#if defined(...)` and `#if !defined(...)` instead of `#ifdef` and `#ifndef`.
 
-#### About `#define`
+##### About `#define`
 
-**Never**, unless you `#undef`-ed it after use. Thank you.
+Never, unless you `#undef`-ed it after use. Thank you.
+
+#### Miscellaneous
+
+##### Member Function Calls
+
+When calling other member functions in a member function:
+- If the function called is a `public` function, then use `this->foo()`.
+- Else, use `foo()`.

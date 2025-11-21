@@ -72,7 +72,7 @@ namespace launch {
 		}
 
 		size_t _Free_slot() const {
-			if (high_tide < capacity_) {
+			if (high_tide < capacity_ && high_tide <= size_) {
 				return high_tide;
 			}
 			for (size_t i = 0; i < high_tide; ++i) {

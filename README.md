@@ -50,9 +50,9 @@
 | Qs | As |
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
-| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't want to deal with that. |
+| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't deal with that; we don't want to deal with that. Legacy problems are always annoying TAT |
 | How many modules are there? | Currently, there are 9. |
-| What's your slogan? | Build, LAUNCH, start creating. That simple. |
+| What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 
 
 <h2 id="part2">Part II: Building / Using</h2>
@@ -177,8 +177,9 @@ std::cout << launch::replace(str, "Hello", "Goodbye");
 **-** To be honest, it's a legacy name -  but "vec" stands for **vec**tor, of course.
 - What can \<lidevec\> do?  
 (Notice that `lidevec` does **not** support iterators.)  
-While iterating through `lidevec` (forward), you'll find that it's really fast to do **any** **operation**!  
-Actually, it's **hundreds** **of** **times** **faster** than `vector` when `erase`-ing, and **dozens** **of** **times** **faster** than `vector` when `insert`-ing!
+While iterating through `lidevec` forward, you'll find that it's really fast to do **any** **operation**!  
+Actually, it's **hundreds** **of** **times** **faster** than `vector` when `erase`-ing, and **dozens** **of** **times** **faster** than `vector` when `insert`-ing!  
+(But it's, well, extremely slow when iterating backwards.)
 
 
 <h2 id="part4">Part IV: Conclusion</h2>

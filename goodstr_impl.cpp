@@ -1,28 +1,8 @@
 #include "goodstr_impl.h"
 
 namespace launch {
-	hstr& hstr::operator=(const char* _str) {
-		str = _str;
-		return *this;
-	}
-
-	hstr& hstr::operator=(const std::string& _str) {
-		str = _str;
-		return *this;
-	}
-
 	hstr& hstr::operator=(const hstr& _str) {
 		str = _str.str;
-		return *this;
-	}
-
-	hstr& hstr::operator+=(const char* _str) {
-		str += _str;
-		return *this;
-	}
-
-	hstr& hstr::operator+=(const std::string& _str) {
-		str += _str;
 		return *this;
 	}
 
@@ -30,31 +10,11 @@ namespace launch {
 		str += _str.str;
 		return *this;
 	}
-	
-	hstr hstr::operator+(const char* _str) const {
-		hstr temp = *this;
-		temp += _str;
-		return temp;
-	}
-
-	hstr hstr::operator+(const std::string& _str) const {
-		hstr temp = *this;
-		temp += _str;
-		return temp;
-	}
 
 	hstr hstr::operator+(const hstr& _str) const {
 		hstr temp = *this;
 		temp += _str;
 		return temp;
-	}
-
-	hstr operator+(const char* lhs, const hstr& rhs) {
-		return rhs + lhs;
-	}
-
-	hstr operator+(const std::string& lhs, const hstr& rhs) {
-		return rhs + lhs;
 	}
 
 	bool hstr::operator==(const hstr& _str) const {
@@ -93,28 +53,8 @@ namespace launch {
 		return str.empty();
 	}
 
-	lstr& lstr::operator=(const wchar_t* _str) {
-		str = _str;
-		return *this;
-	}
-
-	lstr& lstr::operator=(const std::wstring& _str) {
-		str = _str;
-		return *this;
-	}
-
 	lstr& lstr::operator=(const lstr& _str) {
 		str = _str.str;
-		return *this;
-	}
-
-	lstr& lstr::operator+=(const wchar_t* _str) {
-		str += _str;
-		return *this;
-	}
-
-	lstr& lstr::operator+=(const std::wstring& _str) {
-		str += _str;
 		return *this;
 	}
 
@@ -123,30 +63,10 @@ namespace launch {
 		return *this;
 	}
 
-	lstr lstr::operator+(const wchar_t* _str) const {
-		lstr temp = *this;
-		temp += _str;
-		return temp;
-	}
-
-	lstr lstr::operator+(const std::wstring& _str) const {
-		lstr temp = *this;
-		temp += _str;
-		return temp;
-	}
-
 	lstr lstr::operator+(const lstr& _str) const {
 		lstr temp = *this;
 		temp += _str;
 		return temp;
-	}
-
-	lstr operator+(const wchar_t* lhs, const lstr& rhs) {
-		return rhs + lhs;
-	}
-
-	lstr operator+(const std::wstring& lhs, const lstr& rhs) {
-		return rhs + lhs;
 	}
 
 	bool lstr::operator==(const lstr& _str) const {
@@ -196,7 +116,7 @@ namespace launch {
 	}
 
 	hstr concat(const std::vector<hstr>& list, const hstr& sep) {
-		hstr str = "";
+		hstr str;
 		size_t cnt = 0;
 		size_t size = list.size();
 		for (const hstr& item : list) {
