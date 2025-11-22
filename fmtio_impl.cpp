@@ -19,7 +19,7 @@ namespace launch {
 			try {
 				indices.push_back(std::stoi(match[1].str()));
 			}
-			catch (const std::out_of_range& e) {
+			catch (const std::out_of_range&) {
 				indices.push_back(-1);
 			}
 		}
@@ -32,7 +32,7 @@ namespace launch {
 			try {
 				out << captures[indices.at(i)];
 			}
-			catch (const std::out_of_range& e) {
+			catch (const std::out_of_range&) {
 				out << "[BAD_IDX]";
 			}
 		}

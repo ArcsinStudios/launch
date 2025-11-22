@@ -2,7 +2,6 @@
 
 #if !defined(LAUNCH_NO_HEDGEHOG)
 
-#include <any>
 #include <iostream>
 #include <string>
 #include <regex>

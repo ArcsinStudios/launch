@@ -12,12 +12,6 @@
     alt="Logo of LAUNCH"
     style="height: 75px;"
   />
-  <img
-    src="CSE.svg"
-    alt="Logo of C*="
-    style="position: absolute; height: 30px; top: 70px; left: 50px;"
-    title="LAUNCH is a part of the C*= project."
-  />
   <h1>LAUNCH - Introduction</h1>
 </div>
 
@@ -50,7 +44,7 @@
 | Qs | As |
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
-| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't deal with that; we don't want to deal with that. Legacy problems are always annoying TAT |
+| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't deal with that; we don't want to deal with that. Legacy problems are always annoying >:-( |
 | How many modules are there? | Currently, there are 9. |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 

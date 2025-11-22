@@ -35,3 +35,7 @@
 #if defined(LAUNCH_LIDEVEC)
 #include "lidevec.h"
 #endif
+
+namespace launch::easter {
+	constexpr uint32_t BOBA = 0x8B0BA7EA;
+}

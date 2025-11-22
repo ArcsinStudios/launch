@@ -152,19 +152,19 @@ namespace launch {
 		}
 	}
 
-	hedgehog_elemproxy& hedgehog::operator[](int index) {
+	hedgehog_elemproxy& hedgehog::operator[](size_t index) {
 		return vec[index];
 	}
 
-	const hedgehog_elemproxy& hedgehog::operator[](int index) const {
+	const hedgehog_elemproxy& hedgehog::operator[](size_t index) const {
 		return vec[index];
 	}
 
-	hedgehog_elemproxy& hedgehog::at(int index) {
+	hedgehog_elemproxy& hedgehog::at(size_t index) {
 		return vec.at(index);
 	}
 
-	const hedgehog_elemproxy& hedgehog::at(int index) const {
+	const hedgehog_elemproxy& hedgehog::at(size_t index) const {
 		return vec.at(index);
 	}
 
@@ -236,11 +236,11 @@ namespace launch {
 		vec.pop_back();
 	}
 
-	void hedgehog::insert(int index, std::any value) {
+	void hedgehog::insert(size_t index, std::any value) {
 		vec.insert(vec.begin() + index, value);
 	}
 
-	void hedgehog::erase(int index) {
+	void hedgehog::erase(size_t index) {
 		vec.erase(vec.begin() + index);
 	}
 

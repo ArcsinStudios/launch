@@ -233,13 +233,13 @@ namespace launch {
 	public:
 		hedgehog(std::initializer_list<std::any> init_list);
 
-		hedgehog_elemproxy& operator[](int index);
+		hedgehog_elemproxy& operator[](size_t index);
 
-		const hedgehog_elemproxy& operator[](int index) const;
+		const hedgehog_elemproxy& operator[](size_t index) const;
 
-		hedgehog_elemproxy& at(int index);
+		hedgehog_elemproxy& at(size_t index);
 
-		const hedgehog_elemproxy& at(int index) const;
+		const hedgehog_elemproxy& at(size_t index) const;
 
 		hedgehog_iterator begin();
 
@@ -275,9 +275,9 @@ namespace launch {
 
 		void pop_back();
 
-		void insert(int index, std::any value);
+		void insert(size_t index, std::any value);
 
-		void erase(int index);
+		void erase(size_t index);
 
 		void clear();
 
