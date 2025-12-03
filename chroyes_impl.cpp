@@ -1,29 +1,29 @@
 #include "chroyes_impl.h"
 
 namespace launch {
-	duration& duration::operator=(std::chrono::nanoseconds _ns) {
+	timespan& timespan::operator=(std::chrono::nanoseconds _ns) {
 		ns = _ns;
 		return *this;
 	}
 
-	long long duration::seconds() const {
+	long long timespan::seconds() const {
 		return std::chrono::duration_cast<std::chrono::seconds>(ns).count();
 	}
 
-	long long duration::milliseconds() const {
+	long long timespan::milliseconds() const {
 		return std::chrono::duration_cast<std::chrono::milliseconds>(ns).count();
 	}
 
 
-	long long duration::microseconds() const {
+	long long timespan::microseconds() const {
 		return std::chrono::duration_cast<std::chrono::microseconds>(ns).count();
 	}
 
-	long long duration::nanoseconds() const {
+	long long timespan::nanoseconds() const {
 		return ns.count();
 	}
 
-	std::chrono::nanoseconds duration::std_nanoseconds() const {
+	std::chrono::nanoseconds timespan::std_nanoseconds() const {
 		return ns;
 	}
 
@@ -67,7 +67,7 @@ namespace launch {
 		pausing = false;
 	}
 
-	duration stopwatch::get_duration() const {
+	timespan stopwatch::get_dur() const {
 		return dur;
 	}
 }

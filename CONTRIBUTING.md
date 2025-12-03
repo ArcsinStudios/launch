@@ -23,8 +23,10 @@ You don't know what's going on. You gave us the entire code.
 
 ##### Variables, Functions & Classes
 
-`snake_case`, but remember to use abbreviations when the identifier name is too long.  
-Good examples: `hedgehog_elemproxy` (**Hedgehog** **Elem**ent **Proxy**), `escseq` (**Esc**ape **Seq**uence), `clap` (**C**ommand **L**ine **A**rgument **P**arser)
+`snake_case`, with a few extra rules.  
+1. Especially for class names, the name shouldn't be the same as names in standard libraries. For example, `duration` -> `timespan`.  
+2. Especially for helper class names, the name shouldn't be too common. In this case, use prefixes. For example, `oper_type` -> `hedgehog_opertype`.  
+3. Abbreviate names just right. For example, `arint_special_value` -> `arint_specval`.
 
 ##### Constants & Macros
 

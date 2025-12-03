@@ -25,7 +25,7 @@ long long hedgehog_test0(hedgehog& hh) {
 		hh.push_back(std::to_string(i));
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 long long hedgehog_test1(hedgehog& hh) {
@@ -36,7 +36,7 @@ long long hedgehog_test1(hedgehog& hh) {
 		nullout << elem;
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 long long hedgehog_test2(hedgehog& hh) {
@@ -50,7 +50,7 @@ long long hedgehog_test2(hedgehog& hh) {
 		hh[i] += i;
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 template <typename T>
@@ -62,7 +62,7 @@ long long lidevec_test0() {
 		container.push_back(i);
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 template <typename T>
@@ -73,7 +73,7 @@ long long lidevec_test0(T& container) {
 		container.push_back(i);
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 template <typename T>
@@ -102,7 +102,7 @@ long long lidevec_test1() {
 	}
 	watch.resume();
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 template <>
@@ -120,7 +120,7 @@ long long lidevec_test1<lidevec<int>>() {
 		}
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 template <typename T>
@@ -149,7 +149,7 @@ long long lidevec_test2() {
 	}
 	watch.resume();
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 template <>
@@ -167,7 +167,7 @@ long long lidevec_test2<lidevec<int>>() {
 		}
 	}
 	watch.stop();
-	return watch.get_duration().microseconds();
+	return watch.get_dur().microseconds();
 }
 
 int main(int argc, char* argv[]) {
@@ -197,13 +197,13 @@ int main(int argc, char* argv[]) {
 	}
 	else if (parser.get_flag("escseq")) {
 		std::cout
-			<< gen_font(FONT_ITALIC | FONT_UNDERLINE)
+			<< gen_style(escseq_style::italic | escseq_style::underline)
 			<< foreground_color(0, 0, 255)
 			<< background_color(255, 255, 255)
 			<< "Hyperlink\n"
 			<< foreground_color(128, 0, 255)
 			<< "Hyperlink (clicked)"
-			<< l_endl_fast;
+			<< rendl_fast;
 		std::cout
 			<< foreground_color(198, 120, 221)
 			<< "int "
@@ -217,7 +217,7 @@ int main(int argc, char* argv[]) {
 			<< "; "
 			<< foreground_color(127, 132, 142)
 			<< "// This is the palette of One Dark Pro"
-			<< l_endl_fast;
+			<< rendl_fast;
 	}
 	else if (parser.get_flag("hedgehog")) {
 		hedgehog hh = {};
@@ -226,11 +226,28 @@ int main(int argc, char* argv[]) {
 		std::cout << "Benchmark 2, calculating 256 times: " << hedgehog_test2(hh) << " microseconds\n";
 	}
 	else if (parser.get_flag("goodmath")) {
-		long long _num, digit;
-		std::cout << "Enter two numbers please: ";
-		std::cin >> _num >> digit;
-		arint num = _num;
-		std::cout << "Digit " << digit << " of " << _num << " is " << (long long)(num[digit - 1]) << ".\n";
+		arint lhs, rhs;
+		char op;
+		std::cout << "Two numbers and one operator please: ";
+		std::cin >> lhs >> rhs >> op;
+		std::cout << "\n" << lhs << " " << op << " " << rhs << " = ";
+		switch (op) {
+		case '+':
+			std::cout << lhs + rhs;
+			break;
+		case '-':
+			std::cout << lhs - rhs;
+			break;
+		case '*':
+			std::cout << lhs * rhs;
+			break;
+		case '/':
+			std::cout << lhs / rhs;
+			break;
+		default:
+			std::cout << "Wrong operator!";
+		}
+		std::cout << "\n";
 	}
 	else if (parser.get_flag("goodstr")) {
 		hstr str0, str1, str2;

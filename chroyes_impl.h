@@ -3,16 +3,16 @@
 #include <chrono>
 
 namespace launch {
-	class duration {
+	class timespan {
 	private:
 		std::chrono::nanoseconds ns;
 
 	public:
-		duration() = default;
+		timespan() = default;
 
-		explicit duration(std::chrono::nanoseconds _ns) : ns(_ns) {}
+		explicit timespan(std::chrono::nanoseconds _ns) : ns(_ns) {}
 
-		duration& operator=(std::chrono::nanoseconds _ns);
+		timespan& operator=(std::chrono::nanoseconds _ns);
 
 		long long seconds() const;
 
@@ -28,7 +28,7 @@ namespace launch {
 	class stopwatch {
 	private:
 		std::chrono::high_resolution_clock::time_point start_time;
-		duration dur;
+		timespan dur;
 		bool timing;
 		bool pausing;
 
@@ -43,6 +43,6 @@ namespace launch {
 
 		void resume();
 
-		duration get_duration() const;
+		timespan get_dur() const;
 	};
 }

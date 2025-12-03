@@ -28,40 +28,54 @@ namespace launch {
 		return escseq_manip("\033[48;2;" + std::to_string(r) + ";" + std::to_string(g) + ";" + std::to_string(b) + "m");
 	}
 
-	std::ostream& operator<<(std::ostream& out, const font_manip& manip) {
-		unsigned char _flags = manip.flags;
-		if (_flags & FONT_BOLD) {
+	escseq_style operator|(escseq_style lhs, escseq_style rhs) {
+		return static_cast<escseq_style>(
+			static_cast<std::underlying_type_t<escseq_style>>(lhs) |
+			static_cast<std::underlying_type_t<escseq_style>>(rhs)
+		);
+	}
+
+	escseq_style operator&(escseq_style lhs, escseq_style rhs) {
+		return static_cast<escseq_style>(
+			static_cast<std::underlying_type_t<escseq_style>>(lhs) &
+			static_cast<std::underlying_type_t<escseq_style>>(rhs)
+		);
+	}
+
+	std::ostream& operator<<(std::ostream& out, const style_manip& manip) {
+		escseq_style _flags = manip.flags;
+		if (static_cast<bool>(_flags & escseq_style::bold)) {
 			out << bold;
 		}
-		if (_flags & FONT_DIM) {
+		if (static_cast<bool>(_flags & escseq_style::dim)) {
 			out << dim;
 		}
-		if (_flags & FONT_ITALIC) {
+		if (static_cast<bool>(_flags & escseq_style::italic)) {
 			out << italic;
 		}
-		if (_flags & FONT_UNDERLINE) {
+		if (static_cast<bool>(_flags & escseq_style::underline)) {
 			out << underline;
 		}
-		if (_flags & FONT_BLINK) {
+		if (static_cast<bool>(_flags & escseq_style::blink)) {
 			out << blink;
 		}
-		if (_flags & FONT_INVERSE) {
+		if (static_cast<bool>(_flags & escseq_style::inverse)) {
 			out << inverse;
 		}
-		if (_flags & FONT_HIDDEN) {
+		if (static_cast<bool>(_flags & escseq_style::hidden)) {
 			out << hidden;
 		}
-		if (_flags & FONT_STRIKETHROUGH) {
+		if (static_cast<bool>(_flags & escseq_style::strikethrough)) {
 			out << strikethrough;
 		}
 		return out;
 	}
 
-	font_manip gen_font(unsigned char flags) {
-		return font_manip(flags);
+	style_manip gen_style(escseq_style flags) {
+		return style_manip(flags);
 	}
 
-	std::ostream& operator<<(std::ostream& out, const launch_endl& manip) {
+	std::ostream& operator<<(std::ostream& out, const reset_endl& manip) {
 		if (manip.fast) {
 			out << '\n';
 		}

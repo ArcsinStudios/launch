@@ -14,12 +14,16 @@
 #include <unordered_map>
 #include <vector>
 
+#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARINT)
+#include "goodmath.h"
+#endif
+
 #if !defined(LAUNCH_NO_GOODSTR)
 #include "goodstr.h"
 #endif
 
 namespace launch {
-	enum class oper_type {
+	enum class hedgehog_opertype : unsigned char {
 		add,
 		sub,
 		mul,
@@ -27,19 +31,19 @@ namespace launch {
 		mod
 	};
 
-	struct oper_sign {
+	struct hedgehog_opersign {
 		std::type_index lhs;
-		oper_type oper;
+		hedgehog_opertype oper;
 		std::type_index rhs;
 
-		bool operator==(const oper_sign& other) const;
+		bool operator==(const hedgehog_opersign& other) const;
 	};
 }
 
 namespace std {
 	template<>
-	struct hash<launch::oper_sign> {
-		size_t operator()(const launch::oper_sign& sign) const {
+	struct hash<launch::hedgehog_opersign> {
+		size_t operator()(const launch::hedgehog_opersign& sign) const {
 			size_t h1 = hash<type_index>{}(sign.lhs);
 			size_t h2 = hash<int>{}(static_cast<int>(sign.oper));
 			size_t h3 = hash<type_index>{}(sign.rhs);
@@ -91,7 +95,7 @@ namespace launch {
 	class hedgehog_registry {
 	private:
 		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>> output_reg;
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>> oper_reg;
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>> oper_reg;
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 		mutable std::shared_mutex output_mutex_;
 		mutable std::shared_mutex oper_mutex_;
@@ -110,14 +114,14 @@ namespace launch {
 			};
 		}
 
-		void regtype_oper(oper_sign key, std::function<std::any(std::any, std::any)> func);
+		void regtype_oper(hedgehog_opersign key, std::function<std::any(std::any, std::any)> func);
 
 		template <Arithmetic_Add T>
 		void regtype_add_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
 #endif
-			oper_reg[{typeid(T), oper_type::add, typeid(T)}] = [](std::any a, std::any b) -> std::any {
+			oper_reg[{typeid(T), hedgehog_opertype::add, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) + std::any_cast<T>(b);
 			};
 		}
@@ -127,7 +131,7 @@ namespace launch {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
 #endif
-			oper_reg[{typeid(T), oper_type::sub, typeid(T)}] = [](std::any a, std::any b) -> std::any {
+			oper_reg[{typeid(T), hedgehog_opertype::sub, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) - std::any_cast<T>(b);
 			};
 		}
@@ -137,7 +141,7 @@ namespace launch {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
 #endif
-			oper_reg[{typeid(T), oper_type::mul, typeid(T)}] = [](std::any a, std::any b) -> std::any {
+			oper_reg[{typeid(T), hedgehog_opertype::mul, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) * std::any_cast<T>(b);
 			};
 		}
@@ -147,7 +151,7 @@ namespace launch {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
 #endif
-			oper_reg[{typeid(T), oper_type::div, typeid(T)}] = [](std::any a, std::any b) -> std::any {
+			oper_reg[{typeid(T), hedgehog_opertype::div, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) / std::any_cast<T>(b);
 			};
 		}
@@ -157,7 +161,7 @@ namespace launch {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
 #endif
-			oper_reg[{typeid(T), oper_type::mod, typeid(T)}] = [](std::any a, std::any b) -> std::any {
+			oper_reg[{typeid(T), hedgehog_opertype::mod, typeid(T)}] = [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) % std::any_cast<T>(b);
 			};
 		}
@@ -180,11 +184,11 @@ namespace launch {
 
 		const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& get_output() const;
 
-		const std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>& get_oper() const;
+		const std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>& get_oper() const;
 
 		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator output_func_it(std::type_index key) const;
 
-		std::unordered_map<oper_sign, std::function<std::any(std::any, std::any)>>::const_iterator oper_func_it(oper_sign key) const;
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator oper_func_it(hedgehog_opersign key) const;
 	};
 
 	class hedgehog_elemproxy {
