@@ -1,17 +1,12 @@
+// #include <deque>
+#include <list>
+#include <vector>
+
 #define LAUNCH_FMTIO_NULLSTREAM
 #define LAUNCH_GOODMATH_ARINT
 #define LAUNCH_NO_THREAD_SAFE
 #define LAUNCH_EXPERIMENTAL
 #include "launch.h"
-
-#include <iostream>
-#include <istream>
-#include <random>
-#include <string>
-
-// #include <deque>
-#include <list>
-#include <vector>
 using namespace launch;
 using namespace launch::leisure;
 
@@ -82,9 +77,7 @@ long long lidevec_test1() {
 	T container;
 	lidevec_test0<T>(container);
 	stopwatch watch;
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(0, 1);
+	randgen_int rand(0, 1);
 	watch.start();
 	watch.pause();
 	for (int i = 0; i < 50000; ++i) {
@@ -95,7 +88,7 @@ long long lidevec_test1() {
 		for (int j = 0; j < i; ++j) {
 			++it;
 		}
-		if (distrib(gen)) {
+		if (rand.next()) {
 			watch.resume();
 			container.erase(it);
 			watch.pause();
@@ -111,12 +104,10 @@ long long lidevec_test1<lidevec<int>>() {
 	lidevec<int> container;
 	lidevec_test0(container);
 	stopwatch watch;
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(0, 1);
+	randgen_int rand(0, 1);
 	watch.start();
 	for (int i = 0; i < 50000; ++i) {
-		if (distrib(gen)) {
+		if (rand.next()) {
 			container.erase(i);
 		}
 	}
@@ -129,9 +120,7 @@ long long lidevec_test2() {
 	T container;
 	lidevec_test0<T>(container);
 	stopwatch watch;
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(0, 1);
+	randgen_int rand(0, 1);
 	watch.start();
 	watch.pause();
 	for (int i = 0; i < 50000; ++i) {
@@ -142,7 +131,7 @@ long long lidevec_test2() {
 		for (int j = 0; j < i; ++j) {
 			++it;
 		}
-		if (distrib(gen)) {
+		if (rand.next()) {
 			watch.resume();
 			container.insert(it, i);
 			watch.pause();
@@ -158,12 +147,10 @@ long long lidevec_test2<lidevec<int>>() {
 	lidevec<int> container;
 	lidevec_test0(container);
 	stopwatch watch;
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(0, 1);
+	randgen_int rand(0, 1);
 	watch.start();
 	for (int i = 0; i < 50000; ++i) {
-		if (distrib(gen)) {
+		if (rand.next()) {
 			container.insert(i, i);
 		}
 	}
@@ -181,6 +168,7 @@ int main(int argc, char* argv[]) {
 		{"l", "lidevec"}
 	});
 	int cnt = 0;
+	std::cout << "=== START OF PROGRAM ===\n";
 	if (parser.get_flag("caref")) {
 		++cnt;
 		std::cout << "=== START OF TEST - CAREF ===\n";
@@ -276,8 +264,8 @@ int main(int argc, char* argv[]) {
 	}
 	if (parser.get_flag("lidevec")) {
 		std::cout << "INFO: PLEASE WAIT PATIENTLY WHILE THE TEST IS RUNNING.\n";
-		std::cout << "      THIS IS ABOUT TO TAKE 1-2 MINUTES.";
-		std::cout << "      PRESS ENTER TO PROCEED.\n";
+		std::cout << "      THIS IS ABOUT TO TAKE 1-2 MINUTES.\n";
+		std::cout << "      PRESS ENTER TO PROCEED.";
 		std::cin.get();
 		++cnt;
 		std::cout << "=== START OF TEST - LIDEVEC ===\n";

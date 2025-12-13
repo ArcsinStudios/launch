@@ -28,6 +28,10 @@
 #include "goodmath.h"
 #endif
 
+#if !defined(LAUNCH_NO_GOODRAND)
+#include "goodrand.h"
+#endif
+
 #if !defined(LAUNCH_NO_GOODSTR)
 #include "goodstr.h"
 #endif
