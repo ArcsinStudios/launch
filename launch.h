@@ -32,8 +32,8 @@
 #include "goodstr.h"
 #endif
 
-#if defined(LAUNCH_LIDEVEC)
-#include "lidevec.h"
+#if defined(LAUNCH_EXPERIMENTAL)
+#include "leisure.h"
 #endif
 
 namespace launch::easter {

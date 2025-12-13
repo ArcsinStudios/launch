@@ -1,7 +1,7 @@
 #define LAUNCH_FMTIO_NULLSTREAM
 #define LAUNCH_GOODMATH_ARINT
-#define LAUNCH_LIDEVEC
 #define LAUNCH_NO_THREAD_SAFE
+#define LAUNCH_EXPERIMENTAL
 #include "launch.h"
 
 #include <iostream>
@@ -13,6 +13,7 @@
 #include <list>
 #include <vector>
 using namespace launch;
+using namespace launch::leisure;
 
 long long hedgehog_test0(hedgehog& hh) {
 	stopwatch watch;

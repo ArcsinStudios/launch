@@ -45,7 +45,8 @@
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
 | The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't deal with that; we don't want to deal with that. Legacy problems are always annoying >:-( |
-| How many modules are there? | Currently, there are 9. |
+| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 1 (LEISURE features). |
+| Well, what's LEISURE, then? | It's still a backronym - **L**ibrary of **E**xperimental **I**deas for **SURE**! |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 
 
@@ -165,7 +166,7 @@ launch::hstr str = "Hello World!\n";
 std::cout << launch::replace(str, "Hello", "Goodbye");
 ```
 
-### \<lidevec\> (beta)
+### \<lidevec\> (LEISURE feature)
 
 - What does the name mean?  
 **-** To be honest, it's a legacy name -  but "vec" stands for **vec**tor, of course.
