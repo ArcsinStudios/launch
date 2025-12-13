@@ -179,7 +179,10 @@ int main(int argc, char* argv[]) {
 		{"s", "goodstr"},
 		{"l", "lidevec"}
 	});
+	int cnt = 0;
 	if (parser.get_flag("caref")) {
+		++cnt;
+		std::cout << "=== START OF TEST - CAREF ===\n";
 		caref<int> observer;
 		std::cout << "Outer scope: observer constructed\n";
 		std::cout << "Outer scope: entering inner scope\n";
@@ -194,8 +197,11 @@ int main(int argc, char* argv[]) {
 		}
 		std::cout << "Outer scope: owner destructed\n";
 		std::cout << "Outer scope: value held by observer: " << *observer << '\n';
+		std::cout << "=== END OF TEST - CAREF ===\n";
 	}
-	else if (parser.get_flag("escseq")) {
+	if (parser.get_flag("escseq")) {
+		++cnt;
+		std::cout << "=== START OF TEST - ESCSEQ ===\n";
 		std::cout
 			<< gen_style(escseq_style::italic | escseq_style::underline)
 			<< foreground_color(0, 0, 255)
@@ -218,19 +224,25 @@ int main(int argc, char* argv[]) {
 			<< foreground_color(127, 132, 142)
 			<< "// This is the palette of One Dark Pro"
 			<< rendl_fast;
+		std::cout << "=== END OF TEST - ESCSEQ ===\n";
 	}
-	else if (parser.get_flag("hedgehog")) {
+	if (parser.get_flag("hedgehog")) {
+		++cnt;
+		std::cout << "=== START OF TEST - HEDGEHOG ===\n";
 		hedgehog hh = {};
 		std::cout << "Benchmark 0, adding 768 elements: " << hedgehog_test0(hh) << " microseconds\n";
 		std::cout << "Benchmark 1, printing 768 elements: " << hedgehog_test1(hh) << " microseconds\n";
 		std::cout << "Benchmark 2, calculating 256 times: " << hedgehog_test2(hh) << " microseconds\n";
+		std::cout << "=== END OF TEST -  ===\n";
 	}
-	else if (parser.get_flag("goodmath")) {
+	if (parser.get_flag("goodmath")) {
+		++cnt;
+		std::cout << "=== START OF TEST - GOODMATH ===\n";
 		arint lhs, rhs;
 		char op;
 		std::cout << "Two numbers and one operator please: ";
 		std::cin >> lhs >> rhs >> op;
-		std::cout << "\n" << lhs << " " << op << " " << rhs << " = ";
+		std::cout << lhs << " " << op << " " << rhs << " = ";
 		switch (op) {
 		case '+':
 			std::cout << lhs + rhs;
@@ -248,20 +260,26 @@ int main(int argc, char* argv[]) {
 			std::cout << "Wrong operator!";
 		}
 		std::cout << "\n";
+		std::cout << "=== END OF TEST - GOODMATH ===\n";
 	}
-	else if (parser.get_flag("goodstr")) {
+	if (parser.get_flag("goodstr")) {
+		++cnt;
+		std::cout << "=== START OF TEST - GOODSTR ===\n";
 		hstr str0, str1, str2;
 		std::cout << "Enter three strings:\n";
 		std::getline(std::cin >> std::ws, str0.raw());
 		std::getline(std::cin >> std::ws, str1.raw());
 		std::getline(std::cin >> std::ws, str2.raw());
 		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
+		std::cout << "=== END OF TEST - GOODSTR ===\n";
 	}
-	else if (parser.get_flag("lidevec")) {
-		std::cout << "INFO: The program will take about 1-2 minute(s) to complete the test.\n";
-		std::cout << "      Please wait patiently.\n";
-		std::cout << "      Press ENTER if you have understood all the above.\n";
+	if (parser.get_flag("lidevec")) {
+		std::cout << "INFO: PLEASE WAIT PATIENTLY WHILE THE TEST IS RUNNING.\n";
+		std::cout << "      THIS IS ABOUT TO TAKE 1-2 MINUTES.";
+		std::cout << "      PRESS ENTER TO PROCEED.\n";
 		std::cin.get();
+		++cnt;
+		std::cout << "=== START OF TEST - LIDEVEC ===\n";
 		std::cout << "Pushing back 100,000 times.\n";
 		// std::cout << "std::deque took: " << lidevec_test0<std::deque<int>>() << " microseconds\n";
 		std::cout << "std::list took: " << lidevec_test0<std::list<int>>() << " microseconds\n";
@@ -277,9 +295,8 @@ int main(int argc, char* argv[]) {
 		std::cout << "std::list took: " << lidevec_test2<std::list<int>>() << " microseconds\n";
 		std::cout << "std::vector took: " << lidevec_test2<std::vector<int>>() << " microseconds\n";
 		std::cout << "lidevec took: " << lidevec_test2<lidevec<int>>() << " microseconds\n";
+		std::cout << "=== END OF TEST - LIDEVEC ===\n";
 	}
-	else {
-		std::cout << "Error: no test programs match with the argument(s) given.\n";
-	}
+	std::cout << "=== END OF PROGRAM - " << cnt << " TEST(S) EXECUTED ===\n";
 	return 0;
 }

@@ -5,17 +5,19 @@
 #include <iostream>
 #include <istream>
 #include <limits>
+#include <string>
 #include <type_traits>
 
 namespace launch {
 	enum class arint_specval : unsigned char {
+		nop = 0b0000,
 		neg = 0b0001,
 		nan = 0b0010,
 		inf = 0b0100
 	};
 
-	arint_specval operator|(arint_specval lhs, arint_specval rhs);
-	arint_specval operator&(arint_specval lhs, arint_specval rhs);
+	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs);
+	constexpr arint_specval operator&(arint_specval lhs, arint_specval rhs);
 
 	class arint {
 	private:
@@ -31,7 +33,7 @@ namespace launch {
 
 		constexpr arint(unsigned long long _value, arint_specval specval) :
 			value(_value),
-			sign(static_cast<bool>(specval & arint_specval::neg)),
+			sign(!static_cast<bool>(specval & arint_specval::neg)),
 			nan(static_cast<bool>(specval & arint_specval::nan)),
 			inf(static_cast<bool>(specval & arint_specval::inf))
 		{}

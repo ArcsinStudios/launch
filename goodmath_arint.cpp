@@ -1,13 +1,13 @@
 #include "goodmath_arint.h"
 
 namespace launch {
-	arint_specval operator|(arint_specval lhs, arint_specval rhs) {
+	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs) {
 		return static_cast<arint_specval>(
 			static_cast<std::underlying_type_t<arint_specval>>(lhs) |
 			static_cast<std::underlying_type_t<arint_specval>>(rhs)
 		);
 	}
-	arint_specval operator&(arint_specval lhs, arint_specval rhs) {
+	constexpr arint_specval operator&(arint_specval lhs, arint_specval rhs) {
 		return static_cast<arint_specval>(
 			static_cast<std::underlying_type_t<arint_specval>>(lhs) &
 			static_cast<std::underlying_type_t<arint_specval>>(rhs)
@@ -146,7 +146,7 @@ namespace launch {
 	}
 
 	arint arint::operator-() const {
-		return arint(0) - *this;
+		return arint(value, sign ? arint_specval::neg : arint_specval::nop);
 	}
 
 	std::partial_ordering arint::operator<=>(const arint& other) const {
@@ -201,18 +201,33 @@ namespace launch {
 	}
 
 	std::istream& operator>>(std::istream& in, arint& val) {
-		char sign = (in >> std::ws).peek();
-		unsigned long long value;
-		if (sign == '+' || sign == '-') {
-			in.get();
-		}
-		in >> value;
-		if (sign == '-') {
-			val = arint(value, arint_specval::neg);
+		std::string s_value;
+		unsigned long long value = 0;
+		arint_specval attr = arint_specval::nop;
+		in >> s_value;
+		if (s_value == "NaN") {
+			attr = attr | arint_specval::nan;
 		}
 		else {
-			val = arint(value);
+			switch (s_value[0]) {
+			case '-':
+				attr = attr | arint_specval::neg;
+			case '+':
+				s_value = s_value.substr(1);
+			}
+			if (s_value == "inf") {
+				attr = attr | arint_specval::inf;
+			}
+			else {
+				try {
+					value = std::stoull(s_value);
+				}
+				catch (const std::out_of_range&) {
+					attr = attr | arint_specval::inf;
+				}
+			}
 		}
+		val = arint(value, attr);
 		return in;
 	}
 }
