@@ -27,11 +27,7 @@ namespace launch {
 		bool inf;
 
 	public:
-		constexpr arint() : value(0), sign(true), nan(false), inf(false) {}
-
-		constexpr arint(unsigned long long _value) : value(_value), sign(true), nan(false), inf(false) {}
-
-		constexpr arint(unsigned long long _value, arint_specval specval) :
+		constexpr arint(unsigned long long _value = 0, arint_specval specval = arint_specval::nop) :
 			value(_value),
 			sign(!static_cast<bool>(specval & arint_specval::neg)),
 			nan(static_cast<bool>(specval & arint_specval::nan)),

@@ -45,7 +45,7 @@
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
 | The namespace `launch` has the same name as `std::launch`. How do you deal with that? | We don't deal with that; we don't want to deal with that. Legacy problems are always annoying >:-( |
-| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 1 (LEISURE features). |
+| How many modules are there? | Currently, there are 9 (LAUNCH itself) + 1 (LEISURE features). |
 | Well, what's LEISURE, then? | It's still a backronym - **L**ibrary of **E**xperimental **I**deas for **SURE**! |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 
@@ -61,6 +61,13 @@ For details, please go to `CMakeLists.txt`.
 
 Simply `#include "launch.h"`.  
 If you need more precise module controls, please `#define` macros before `#include "launch.h"`.
+The macros look like this:
+```cpp
+LAUNCH_NO_<MODULENAME> // to disable a specific module such as caref, chroyes, etc.
+LAUNCH_<MODULENAME>_<SUBMODULENAME> // to enable a specific submodule such as arint, nullstream, etc.
+LAUNCH_NO_THREAD_SAFE // to disable thread safety in some modules
+LAUNCH_EXPERIMENTAL // to enable LEISURE features
+```
 
 <h2 id="part3">Part III: The Modules</h2>
 
@@ -153,17 +160,18 @@ launch::fmtin<int, double>(hh2);
 launch::fmtout("You entered: {0} & {1}.\n", hh2);
 ```
 
-### \<goodmath\> & \<goodstr\>
+### \<goodmath\>, \<goodrand\> & \<goodstr\>
 
 - What do the names mean?  
 **-** They're just *the goods*. (Or technically, we use these names to prevent ambiguity.)
 - What can they do?
 ```cpp
-double deg;
-std::cin >> deg;
-std::cout << "Sine value: " << launch::sin(launch::dtor(deg)) << "\n";
-launch::hstr str = "Hello World!\n";
-std::cout << launch::replace(str, "Hello", "Goodbye");
+std::string hint = "Sine value of ";
+launch::randgen_real rand(0.0, 360.0);
+double deg = rand.next();
+std::cout << hint << deg << "deg: " << launch::sin(launch::dtor(deg)) << "\n";
+std::cout << launch::replace(hint, "Sine", "Cosine");
+std::cout << hint << deg << "deg: " << launch::cos(launch::dtor(deg)) << "\n";
 ```
 
 ### \<lidevec\> (LEISURE feature)
