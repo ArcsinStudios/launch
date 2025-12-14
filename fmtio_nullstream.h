@@ -1,6 +1,7 @@
 #pragma once
 
-#include <iostream>
+#include <ostream>
+#include <streambuf>
 
 namespace launch {
 	class nullbuf : public std::streambuf {

@@ -130,7 +130,7 @@ namespace launch {
 
 			T& at(size_t index) {
 				if (index >= size_) {
-					throw std::out_of_range("Index out of range");
+					throw std::out_of_range("Index Out of Range");
 				}
 				return (*this)[index];
 			}

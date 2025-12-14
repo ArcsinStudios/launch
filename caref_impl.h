@@ -9,13 +9,6 @@
 #include <unordered_map>
 
 namespace launch {
-	class uaf_error final : public std::runtime_error {
-	public:
-		explicit uaf_error(const std::string& msg) : std::runtime_error(msg) {}
-
-		const char* what() const noexcept override;
-	};
-
 	template <class T>
 	class caref {
 	private:
@@ -55,7 +48,7 @@ namespace launch {
 
 		caref<T>& operator=(const caref<T>& other) {
 			if (owner) {
-				throw std::runtime_error("Cannot discard an owner");
+				throw std::runtime_error("Cannot Discard an Owner");
 			}
 			ptr = other.ptr;
 			owner = false;
@@ -73,14 +66,14 @@ namespace launch {
 			if (it != sentinel.end() && it->second) {
 				return *ptr;
 			}
-			throw uaf_error("Use-After-Free");
+			throw std::runtime_error("Use-After-Free");
 		}
 
 		T* operator->() const {
 			try {
 				**this;
 			}
-			catch (uaf_error&) {
+			catch (std::runtime_error&) {
 				return nullptr;
 			}
 			return ptr;

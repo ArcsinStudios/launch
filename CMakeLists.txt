@@ -9,7 +9,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(launch STATIC)
 
 target_sources(launch PRIVATE
-  caref_impl.cpp
   chroyes_impl.cpp
   clap_impl.cpp
   escseq_impl.cpp

@@ -3,8 +3,10 @@
 #if !defined(LAUNCH_NO_HEDGEHOG)
 
 #include <iostream>
-#include <string>
 #include <regex>
+#include <stdexcept>
+#include <string>
+#include <vector>
 
 #include "hedgehog.h"
 

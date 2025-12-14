@@ -1,7 +1,6 @@
 #pragma once
 
 #include <compare>
-#include <vector>
 
 namespace launch {
 	class hedgehog;
