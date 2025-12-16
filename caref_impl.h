@@ -48,7 +48,7 @@ namespace launch {
 
 		caref<T>& operator=(const caref<T>& other) {
 			if (owner) {
-				throw std::runtime_error("Cannot Discard an Owner");
+				throw std::runtime_error("caref::operator=: operation tries to discard the ownership");
 			}
 			ptr = other.ptr;
 			owner = false;
@@ -66,7 +66,7 @@ namespace launch {
 			if (it != sentinel.end() && it->second) {
 				return *ptr;
 			}
-			throw std::runtime_error("Use-After-Free");
+			throw std::runtime_error("caref::operator*: operation tries to access a freed address");
 		}
 
 		T* operator->() const {

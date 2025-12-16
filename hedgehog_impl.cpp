@@ -73,67 +73,102 @@ namespace launch {
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator+=(const std::any& _value) {
 		if (!_value.has_value()) {
-			throw std::invalid_argument("Empty Operand");
+			throw std::invalid_argument("hedgehog_elemproxy::operator+=: _value.has_value() == false");
 		}
-		const std::type_info& type = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::add, type});
+		const std::type_info& type0 = value.type();
+		const std::type_info& type1 = _value.type();
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::add, type1});
 		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
-		throw std::runtime_error("No Such Operator");
+		throw std::runtime_error(
+			std::string("hedgehog_elemproxy::operator+=: no such operator registered between type0 (mangled name: ") +
+			type0.name() +
+			") and type1 (mangled name: "
+			+ type1.name() +
+			")"
+		);
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator-=(const std::any& _value) {
 		if (!_value.has_value()) {
-			throw std::invalid_argument("Empty Operand");
+			throw std::invalid_argument("hedgehog_elemproxy::operator-=: _value.has_value() == false");
 		}
-		const std::type_info& type = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::sub, type});
+		const std::type_info& type0 = value.type();
+		const std::type_info& type1 = _value.type();
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::sub, type1});
 		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
-		throw std::runtime_error("No Such Operator");
+		throw std::runtime_error(
+			std::string("hedgehog_elemproxy::operator-=: no such operator registered between type0 (mangled name: ") +
+			type0.name() +
+			") and type1 (mangled name: " +
+			type1.name() +
+			")"
+		);
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator*=(const std::any& _value) {
 		if (!_value.has_value()) {
-			throw std::invalid_argument("Empty Operand");
+			throw std::invalid_argument("hedgehog_elemproxy::operator*=: _value.has_value() == false");
 		}
-		const std::type_info& type = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::mul, type});
+		const std::type_info& type0 = value.type();
+		const std::type_info& type1 = _value.type();
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::mul, type1});
 		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
-		throw std::runtime_error("No Such Operator");
+		throw std::runtime_error(
+			std::string("hedgehog_elemproxy::operator*=: no such operator registered between type0 (mangled name: ") +
+			type0.name() +
+			") and type1 (mangled name: " +
+			type1.name() +
+			")"
+		);
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator/=(const std::any& _value) {
 		if (!_value.has_value()) {
-			throw std::invalid_argument("Empty Operand");
+			throw std::invalid_argument("hedgehog_elemproxy::operator/=: _value.has_value() == false");
 		}
-		const std::type_info& type = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::div, type});
+		const std::type_info& type0 = value.type();
+		const std::type_info& type1 = _value.type();
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::div, type1});
 		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
-		throw std::runtime_error("No Such Operator");
+		throw std::runtime_error(
+			std::string("hedgehog_elemproxy::operator/=: no such operator registered between type0 (mangled name: ") +
+			type0.name() +
+			") and type1 (mangled name: " +
+			type1.name() +
+			")"
+		);
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator%=(const std::any& _value) {
 		if (!_value.has_value()) {
-			throw std::invalid_argument("Empty Operand");
+			throw std::invalid_argument("hedgehog_elemproxy::operator%=: _value.has_value() == false");
 		}
-		const std::type_info& type = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::mod, type});
+		const std::type_info& type0 = value.type();
+		const std::type_info& type1 = _value.type();
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::mod, type1});
 		if (func_it != hregistry.get_oper().end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
-		throw std::runtime_error("No Such Operator");
+		throw std::runtime_error(
+			std::string("hedgehog_elemproxy::operator%=: no such operator registered between type0 (mangled name: ") +
+			type0.name() +
+			") and type1 (mangled name: " +
+			type1.name() +
+			")"
+		);
 	}
 
 	std::ostream& operator<<(std::ostream& out, const hedgehog_elemproxy& proxy) {

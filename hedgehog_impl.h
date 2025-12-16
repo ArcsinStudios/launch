@@ -220,8 +220,16 @@ namespace launch {
 
 		template <typename T>
 		void assert_strict() const {
-			if (value.type() != typeid(T)) {
-				throw std::runtime_error("Type Assertion Failed");
+			const std::type_info& type0 = value.type();
+			const std::type_info& type1 = typeid(T);
+			if (type0 != type1) {
+				throw std::runtime_error(
+					std::string("hedgehog_elemproxy::assert_strict: type0 (mangled name: ") +
+					type0.name() +
+					") does not match with type1 (mangled name: " +
+					type1.name() +
+					")"
+				);
 			}
 		}
 

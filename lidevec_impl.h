@@ -130,7 +130,13 @@ namespace launch {
 
 			T& at(size_t index) {
 				if (index >= size_) {
-					throw std::out_of_range("Index Out of Range");
+					throw std::out_of_range(
+						"lidevec::at: index (which is " +
+						std::to_string(index) +
+						") >= size_ (which is " +
+						std::to_string(size_) +
+						")"
+					);
 				}
 				return (*this)[index];
 			}
