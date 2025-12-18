@@ -5,6 +5,8 @@
 #include <iostream>
 #include <istream>
 #include <limits>
+#include <numeric>
+#include <sstream>
 #include <string>
 #include <type_traits>
 
@@ -19,7 +21,11 @@ namespace launch {
 	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs);
 	constexpr arint_specval operator&(arint_specval lhs, arint_specval rhs);
 
+	class arreal;
+
 	class arint {
+		friend class arreal;
+
 	private:
 		unsigned long long value;
 		bool sign;
@@ -81,6 +87,47 @@ namespace launch {
 		friend std::ostream& operator<<(std::ostream& out, const arint& val);
 
 		friend std::istream& operator>>(std::istream& in, arint& val);
+	};
+
+	class arreal {
+	private:
+		arint num;
+		arint den;
+
+		constexpr void adjust();
+
+	public:
+		constexpr arreal(const arint& _num = 0, const arint& _den = 1);
+
+		arreal& operator=(const arreal& other) = default;
+
+		arreal& operator+=(const arreal& other);
+
+		arreal& operator-=(const arreal& other);
+
+		arreal& operator*=(const arreal& other);
+
+		arreal& operator/=(const arreal& other);
+
+		arreal operator+(const arreal& other) const;
+
+		arreal operator-(const arreal& other) const;
+
+		arreal operator*(const arreal& other) const;
+
+		arreal operator/(const arreal& other) const;
+
+		arreal operator+() const;
+
+		arreal operator-() const;
+
+		std::partial_ordering operator<=>(const arreal& other) const;
+
+		bool operator==(const arreal& other) const;
+
+		friend std::ostream& operator<<(std::ostream& out, const arreal& val);
+
+		friend std::istream& operator>>(std::istream& in, arreal& val);
 	};
 }
 

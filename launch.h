@@ -1,5 +1,11 @@
 #pragma once
 
+#if defined(LAUNCH_EVERYTHING)
+#define LAUNCH_FMTIO_NULLSTREAM
+#define LAUNCH_GOODMATH_ARITH
+#define LAUNCH_EXPERIMENTAL
+#endif
+
 #if !defined(LAUNCH_NO_CAREF)
 #include "caref.h"
 #endif

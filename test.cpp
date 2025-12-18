@@ -2,10 +2,8 @@
 #include <list>
 #include <vector>
 
-#define LAUNCH_FMTIO_NULLSTREAM
-#define LAUNCH_GOODMATH_ARINT
+#define LAUNCH_EVERYTHING
 #define LAUNCH_NO_THREAD_SAFE
-#define LAUNCH_EXPERIMENTAL
 #include "launch.h"
 using namespace launch;
 using namespace launch::leisure;
@@ -227,10 +225,10 @@ int main(int argc, char* argv[]) {
 	if (parser.get_flag("goodmath")) {
 		++cnt;
 		std::cout << "=== START OF TEST - GOODMATH ===\n";
-		arint lhs, rhs;
+		arreal lhs, rhs;
 		char op;
-		std::cout << "Two numbers and one operator please: ";
-		std::cin >> lhs >> rhs >> op;
+		std::cout << "Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ";
+		std::cin >> lhs >> op >> rhs;
 		std::cout << lhs << " " << op << " " << rhs << " = ";
 		switch (op) {
 		case '+':

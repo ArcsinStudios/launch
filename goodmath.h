@@ -1,7 +1,7 @@
 #pragma once
 
-#if defined(LAUNCH_GOODMATH_ARINT)
-#include "goodmath_arint.h"
+#if defined(LAUNCH_GOODMATH_ARITH)
+#include "goodmath_arith.h"
 #endif
 
 #include "goodmath_consts.h"
