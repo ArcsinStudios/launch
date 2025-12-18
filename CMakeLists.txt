@@ -14,7 +14,7 @@ target_sources(launch PRIVATE
   escseq_impl.cpp
   fmtio_impl.cpp
   fmtio_nullstream.cpp
-  goodmath_arint.cpp
+  goodmath_arith.cpp
   goodmath_impl.cpp
   goodstr_impl.cpp
   hedgehog_impl.cpp

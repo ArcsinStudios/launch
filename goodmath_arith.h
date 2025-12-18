@@ -194,4 +194,67 @@ namespace std {
 			return 0;
 		}
 	};
+
+	template <>
+	struct numeric_limits<launch::arreal> {
+		static constexpr bool is_specialized = true;
+		static constexpr bool is_signed = true;
+		static constexpr bool is_integer = false;
+		static constexpr bool is_exact = true;
+		static constexpr bool has_infinity = true;
+		static constexpr bool has_quiet_NaN = true;
+		static constexpr bool has_signaling_NaN = false;
+		static constexpr std::float_denorm_style has_denorm = std::denorm_absent;
+		static constexpr bool has_denorm_loss = false;
+		static constexpr std::float_round_style round_style = std::round_toward_zero;
+		static constexpr bool is_iec559 = false;
+		static constexpr bool is_bounded = true;
+		static constexpr bool is_modulo = false;
+		static constexpr int digits = 0;
+		static constexpr int digits10 = 0;
+		static constexpr int max_digits10 = 0;
+		static constexpr int radix = 2;
+		static constexpr int min_exponent = 0;
+		static constexpr int min_exponent10 = 0;
+		static constexpr int max_exponent = 0;
+		static constexpr int max_exponent10 = 0;
+		static constexpr bool traps = false;
+		static constexpr bool tinyness_before = false;
+
+		static constexpr launch::arreal min() {
+			return launch::arreal(1, numeric_limits<unsigned long long>::max());
+		}
+
+		static constexpr launch::arreal lowest() {
+			return launch::arint(numeric_limits<unsigned long long>::max(), launch::arint_specval::neg);
+		}
+
+		static constexpr launch::arreal max() {
+			return launch::arint(numeric_limits<unsigned long long>::max());
+		}
+
+		static constexpr launch::arreal epsilon() {
+			return min();
+		}
+
+		static constexpr launch::arreal round_error() {
+			return launch::arreal(0);
+		}
+
+		static constexpr launch::arreal infinity() {
+			return launch::arint(0, launch::arint_specval::inf);
+		}
+
+		static constexpr launch::arreal quiet_NaN() {
+			return launch::arint(0, launch::arint_specval::nan);
+		}
+
+		static constexpr launch::arreal signaling_NaN() {
+			return launch::arreal(0);
+		}
+
+		static constexpr launch::arreal denorm_min() {
+			return launch::arreal(0);
+		}
+	};
 }

@@ -184,6 +184,43 @@ While iterating through `lidevec` forward, you'll find that it's really fast to 
 Actually, it's **hundreds** **of** **times** **faster** than `vector` when `erase`-ing, and **dozens** **of** **times** **faster** than `vector` when `insert`-ing!  
 (But it's, well, extremely slow when iterating backwards.)
 
+## Appendix I: Optional Submodules
+
+### `nullstream`
+
+- What does the name mean?
+**-** It's just, well, a `stream` that sends text into `null`, i.e., nowhere. (Sorry for the tautology.)
+- What can `nullstream` do?
+```cpp
+launch::nullout << "Hello World...? Anyone here?\n"; // nullout is a global nullstream instance
+```
+
+### `arith`
+
+- What does the name mean?
+**-** To be honest, the name `arith` does **not** appear in any actual code. Instead, there are `arint` and `arreal`, and they stand for **Ar**ithmetic **Int**eger and **Ar**ithmetic **Real** Number.
+- What can `arint` & `arreal` do?
+```cpp
+std::cout <<
+    "Very big: " <<
+    launch::arint(std::numeric_limits<unsigned long long>::max()) <<
+    "\n";
+std::cout <<
+    "Very small (hey, it's way too small): " <<
+    launch::arint(std::numeric_limits<unsigned long long>::max(), launch::arint_specval::neg) <<
+    "\n";
+std::cout <<
+    "Wait, what? " <<
+    launch::arint(0, launch::arint_specval::inf) <<
+    launch::arint(0, launch::arint_specval::inf | launch::arint_specval::neg) <<
+    launch::arint(0, launch::arint_specval::nan) <<
+    "\n";
+std::cout <<
+    "Ooh, rational: " <<
+    launch::arreal(launch::arint(3, launch::arint_specval::neg), 4) <<
+    "\n";
+```
+
 
 <h2 id="part4">Part IV: Conclusion</h2>
 
