@@ -231,7 +231,7 @@ namespace launch {
 		return in;
 	}
 
-	constexpr void arreal::adjust() {
+	constexpr void arreal::_Adjust() {
 		unsigned long long nd_gcd = std::gcd(num.value, den.value);
 		num.value /= nd_gcd;
 		den.value /= nd_gcd;
@@ -246,7 +246,7 @@ namespace launch {
 	}
 
 	constexpr arreal::arreal(const arint& _num, const arint& _den) : num(_num), den(_den) {
-		adjust();
+		_Adjust();
 	}
 
 	arreal& arreal::operator+=(const arreal& other) {
@@ -258,7 +258,7 @@ namespace launch {
 			num = num * (den_lcm / den.value) + other.num * (den_lcm / other.den.value);
 			den.value = den_lcm;
 		}
-		adjust();
+		_Adjust();
 		return *this;
 	}
 
@@ -270,7 +270,7 @@ namespace launch {
 	arreal& arreal::operator*=(const arreal& other) {
 		num *= other.num;
 		den *= other.den;
-		adjust();
+		_Adjust();
 		return *this;
 	}
 

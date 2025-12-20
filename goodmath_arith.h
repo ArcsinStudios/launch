@@ -94,7 +94,7 @@ namespace launch {
 		arint num;
 		arint den;
 
-		constexpr void adjust();
+		constexpr void _Adjust();
 
 	public:
 		constexpr arreal(const arint& _num = 0, const arint& _den = 1);
