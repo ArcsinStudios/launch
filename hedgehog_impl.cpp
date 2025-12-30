@@ -1,5 +1,4 @@
 #include "hedgehog_impl.h"
-#include "hedgehog_iterators.h"
 
 namespace launch {
 	hedgehog_registry hregistry;
@@ -41,8 +40,8 @@ namespace launch {
 		this->regtype_5ops_auto<arint>();
 #endif
 #if !defined(LAUNCH_NO_GOODSTR)
-		this->regtype_output_auto<hstr>();
-		this->regtype_add_auto<hstr>();
+		this->regtype_output_auto<std::string>();
+		this->regtype_add_auto<std::string>();
 #endif
 	}
 
@@ -182,108 +181,5 @@ namespace launch {
 			return (func_it->second)(out, _value);
 		}
 		return out << "[UNKTYP:" << type.name() << "]";
-	}
-
-	hedgehog::hedgehog(std::initializer_list<std::any> init_list) {
-		vec.reserve(init_list.size());
-		for (const std::any& elem : init_list) {
-			vec.push_back(elem);
-		}
-	}
-
-	hedgehog_elemproxy& hedgehog::operator[](size_t index) {
-		return vec[index];
-	}
-
-	const hedgehog_elemproxy& hedgehog::operator[](size_t index) const {
-		return vec[index];
-	}
-
-	hedgehog_elemproxy& hedgehog::at(size_t index) {
-		return vec.at(index);
-	}
-
-	const hedgehog_elemproxy& hedgehog::at(size_t index) const {
-		return vec.at(index);
-	}
-
-	hedgehog_iterator hedgehog::begin() {
-		return hedgehog_iterator(this, 0);
-	}
-
-	hedgehog_iterator hedgehog::end() {
-		return hedgehog_iterator(this, vec.size());
-	}
-
-	hedgehog_const_iterator hedgehog::begin() const {
-		return hedgehog_const_iterator(this, 0);
-	}
-
-	hedgehog_const_iterator hedgehog::end() const {
-		return hedgehog_const_iterator(this, vec.size());
-	}
-
-	hedgehog_const_iterator hedgehog::cbegin() const {
-		return hedgehog_const_iterator(this, 0);
-	}
-
-	hedgehog_const_iterator hedgehog::cend() const {
-		return hedgehog_const_iterator(this, vec.size());
-	}
-
-	hedgehog_elemproxy& hedgehog::front() {
-		return vec.front();
-	}
-
-	const hedgehog_elemproxy& hedgehog::front() const {
-		return vec.front();
-	}
-
-	hedgehog_elemproxy& hedgehog::back() {
-		return vec.back();
-	}
-
-	const hedgehog_elemproxy& hedgehog::back() const {
-		return vec.back();
-	}
-
-	size_t hedgehog::size() const {
-		return vec.size();
-	}
-
-	size_t hedgehog::capacity() const {
-		return vec.capacity();
-	}
-
-	bool hedgehog::empty() const {
-		return vec.empty();
-	}
-
-	void hedgehog::reserve(int n) {
-		vec.reserve(n);
-	}
-
-	void hedgehog::shrink_to_fit() {
-		vec.shrink_to_fit();
-	}
-
-	void hedgehog::push_back(std::any value) {
-		vec.push_back(value);
-	}
-
-	void hedgehog::pop_back() {
-		vec.pop_back();
-	}
-
-	void hedgehog::insert(size_t index, std::any value) {
-		vec.insert(vec.begin() + index, value);
-	}
-
-	void hedgehog::erase(size_t index) {
-		vec.erase(vec.begin() + index);
-	}
-
-	void hedgehog::clear() {
-		vec.clear();
 	}
 }

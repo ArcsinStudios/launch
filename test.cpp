@@ -252,11 +252,11 @@ int main(int argc, char* argv[]) {
 	if (parser.get_flag("goodstr")) {
 		++cnt;
 		std::cout << "=== START OF TEST - GOODSTR ===\n";
-		hstr str0, str1, str2;
+		std::string str0, str1, str2;
 		std::cout << "Enter three strings:\n";
-		std::getline(std::cin >> std::ws, str0.raw());
-		std::getline(std::cin >> std::ws, str1.raw());
-		std::getline(std::cin >> std::ws, str2.raw());
+		std::getline(std::cin >> std::ws, str0);
+		std::getline(std::cin >> std::ws, str1);
+		std::getline(std::cin >> std::ws, str2);
 		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
 		std::cout << "=== END OF TEST - GOODSTR ===\n";
 	}

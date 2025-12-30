@@ -5,15 +5,16 @@
 #include <functional>
 #include <initializer_list>
 #include <iostream>
+#include <memory>
+#include <stdexcept>
+#include <typeindex>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 #include <shared_mutex>
 #endif
-
-#include <stdexcept>
-#include <typeindex>
-#include <unordered_map>
-#include <vector>
 
 #if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARINT)
 #include "goodmath.h"
@@ -197,7 +198,8 @@ namespace launch {
 		std::any value;
 
 	public:
-		hedgehog_elemproxy(const std::any& _value) : value(_value) {}
+		template <typename T>
+		hedgehog_elemproxy(T _value) : value(std::forward<T>(_value)) {}
 
 		hedgehog_elemproxy& operator=(const std::any& _value);
 
@@ -239,72 +241,10 @@ namespace launch {
 		}
 	};
 
-	class hedgehog {
-	private:
-		std::vector<hedgehog_elemproxy> vec;
+	template <typename Allocator>
+	using hedgehog_alloc = std::vector<hedgehog_elemproxy, Allocator>;
 
-	public:
-		hedgehog(std::initializer_list<std::any> init_list);
-
-		hedgehog_elemproxy& operator[](size_t index);
-
-		const hedgehog_elemproxy& operator[](size_t index) const;
-
-		hedgehog_elemproxy& at(size_t index);
-
-		const hedgehog_elemproxy& at(size_t index) const;
-
-		hedgehog_iterator begin();
-
-		hedgehog_iterator end();
-
-		hedgehog_const_iterator begin() const;
-
-		hedgehog_const_iterator end() const;
-
-		hedgehog_const_iterator cbegin() const;
-
-		hedgehog_const_iterator cend() const;
-
-		hedgehog_elemproxy& front();
-
-		const hedgehog_elemproxy& front() const;
-
-		hedgehog_elemproxy& back();
-
-		const hedgehog_elemproxy& back() const;
-
-		size_t size() const;
-
-		size_t capacity() const;
-
-		bool empty() const;
-
-		void reserve(int n);
-
-		void shrink_to_fit();
-
-		void push_back(std::any value);
-
-		void pop_back();
-
-		void insert(size_t index, std::any value);
-
-		void erase(size_t index);
-
-		void clear();
-
-		template <typename T>
-		std::vector<T> filter() {
-			std::vector<T> filtered;
-			for (const hedgehog_elemproxy& elem : vec) {
-				if (elem.assert_bool<T>()) {
-					filtered.push_back(elem.as<T>());
-				}
-			}
-			return filtered;
-		}
-	};
+	using hedgehog = hedgehog_alloc<std::allocator<hedgehog_elemproxy>>;
 
 	extern hedgehog_registry hregistry;
 }

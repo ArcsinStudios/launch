@@ -1,15 +1,15 @@
 #pragma once
 
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-#include <shared_mutex>
-#endif
-
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
 
+#if !defined(LAUNCH_NO_THREAD_SAFE)
+#include <shared_mutex>
+#endif
+
 namespace launch {
-	template <class T>
+	template <typename T>
 	class caref {
 	private:
 		static std::unordered_map<T*, bool> sentinel;
@@ -86,11 +86,11 @@ namespace launch {
 		}
 	};
 
-	template <class T>
+	template <typename T>
 	inline std::unordered_map<T*, bool> caref<T>::sentinel;
 
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-	template <class T>
+	template <typename T>
 	inline std::shared_mutex caref<T>::mutex_;
 #endif
 }

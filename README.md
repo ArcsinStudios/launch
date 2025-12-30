@@ -37,8 +37,8 @@
 [Part I: FAQs](#part1)  
 [Part II: Building / Using](#part2)  
 [Part III: The Modules](#part3)  
-[Appendix I: Optional Submodules](#appendix1)
 [Part IV: Conclusion](#part4)
+[Appendix I: Optional Submodules](#appendix1)
 
 <h2 id="part1">Part I: FAQs</h2>
 
@@ -64,11 +64,12 @@ Simply `#include "launch.h"`.
 If you need more precise module controls, please `#define` macros before `#include "launch.h"`.
 The macros look like this:
 ```cpp
-LAUNCH_NO_<MODULENAME> // to disable a specific module such as caref, chroyes, etc.
-LAUNCH_<MODULENAME>_<SUBMODULENAME> // to enable a specific submodule such as nullstream, arith, etc.
-LAUNCH_NO_THREAD_SAFE // to disable thread safety in some modules
-LAUNCH_EXPERIMENTAL // to enable LEISURE features
+LAUNCH_NO_<MODULENAME> // To disable a specific module.
+LAUNCH_<MODULENAME>_<SUBMODULENAME> // To enable a specific submodule.
+LAUNCH_EXPERIMENTAL // To enable LEISURE features.
+LAUNCH_NO_THREAD_SAFE // As the name implies.
 ```
+Or, there's a special macro: `LAUNCH_EVERYTHING`, which enables every submodule and also LEISURE features.
 
 <h2 id="part3">Part III: The Modules</h2>
 
@@ -219,12 +220,16 @@ Cosine value of <random>deg: <cos(random)>
 ### \<lidevec\> (LEISURE feature)
 
 - What does the name mean?  
-**-** To be honest, it's a legacy name -  but "vec" stands for **vec**tor, of course.
+**-** I don't know either. Perhaps you can think of that as **Li**st / **De**que / **Vec**tor, I think?
 - What can \<lidevec\> do?  
-(Notice that `lidevec` does **not** support iterators.)  
-While iterating through `lidevec` forward, you'll find that it's really fast to do **any** **operation**!  
-Actually, it's **hundreds** **of** **times** **faster** than `vector` when `erase`-ing, and **dozens** **of** **times** **faster** than `vector` when `insert`-ing!  
-(But it's, well, extremely slow when iterating backwards.)
+Well, it's just a `std::forward_list`, but **faster**. To be accurate, it's **dozens** **of** **times** **faster**.  
+If you're using or going to use C++26, then don't use `lidevec`. Instead, use `std::hive`. `lidevec` does **not** support iterators while `std::hive` do.
+
+<h2 id="part4">Part IV: Conclusion</h2>
+
+Conclusion: LAUNCH is good. Use LAUNCH, thank you.
+
+---
 
 <h2 id="appendix1">Appendix I: Optional Submodules</h2>
 
@@ -270,11 +275,7 @@ Very big: 18446744073709551615
 Very small (hey, it's way too small): -18446744073709551615
 Wait, what?: inf -inf NaN
 Ooh, rational: 22/7
-```  
-
-<h2 id="part4">Part IV: Conclusion</h2>
-
-Conclusion: LAUNCH is good. Use LAUNCH, thank you.
+```
 
 ---
 

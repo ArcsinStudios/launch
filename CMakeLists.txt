@@ -18,7 +18,6 @@ target_sources(launch PRIVATE
   goodmath_impl.cpp
   goodstr_impl.cpp
   hedgehog_impl.cpp
-  hedgehog_iterators.cpp
 )
 
 target_include_directories(launch PUBLIC

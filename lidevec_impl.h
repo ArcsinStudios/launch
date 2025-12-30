@@ -19,7 +19,7 @@ namespace launch {
 			lidevec_elemnode() : next_vidx(npos), status(0) {}
 		};
 	
-		template <class T>
+		template <typename T>
 		class lidevec {
 		private:
 			static const size_t init_size = 32;

@@ -6,115 +6,23 @@
 #include <vector>
 
 namespace launch {
-	class hstr {
-	private:
-		std::string str;
+	std::vector<std::string> split(const std::string& orig, char delim);
 
-	public:
-		hstr() : str("") {}
+	std::string concat(const std::vector<std::string>& list, const std::string& sep = "");
 
-		hstr(const char* _str) : str(_str) {}
+	std::string replace(std::string orig, const std::string& from, const std::string& to);
 
-		hstr(std::string _str) : str(_str) {}
+	void replace_inplace(std::string& orig, const std::string& from, const std::string& to);
 
-		hstr& operator=(const hstr& _str);
+	std::string trim(const std::string& orig);
 
-		hstr& operator+=(const hstr& _str);
+	std::string ltrim(const std::string& orig);
 
-		hstr operator+(const hstr& _str) const;
+	std::string rtrim(const std::string& orig);
 
-		bool operator==(const hstr& _str) const;
+	void trim_inplace(std::string& orig);
 
-		friend std::ostream& operator<<(std::ostream& out, const hstr& _str);
+	void ltrim_inplace(std::string& orig);
 
-		friend std::istream& operator>>(std::istream& in, hstr& _str);
-
-		std::string std_str() const;
-
-		const char* c_str() const;
-
-		std::string& raw();
-
-		const std::string& raw_cr() const;
-
-		size_t length() const;
-
-		bool empty() const;
-	};
-
-	class lstr {
-	private:
-		std::wstring str;
-
-	public:
-		lstr() : str(L"") {}
-
-		lstr(const wchar_t* _str) : str(_str) {}
-
-		lstr(std::wstring _str) : str(_str) {}
-
-		lstr& operator=(const lstr& _str);
-
-		lstr& operator+=(const lstr& _str);
-
-		lstr operator+(const lstr& _str) const;
-
-		bool operator==(const lstr& _str) const;
-
-		friend std::wostream& operator<<(std::wostream& wout, const lstr& _str);
-
-		friend std::wistream& operator>>(std::wistream& win, lstr& _str);
-
-		std::wstring std_str() const;
-
-		const wchar_t* c_str() const;
-
-		std::wstring& raw();
-
-		const std::wstring& raw_cr() const;
-
-		size_t length() const;
-
-		bool empty() const;
-	};
-
-	std::vector<hstr> split(const hstr& orig, char delim);
-
-	hstr concat(const std::vector<hstr>& list, const hstr& sep = "");
-
-	hstr replace(hstr orig, const hstr& from, const hstr& to);
-
-	void replace_inplace(hstr& orig, const hstr& from, const hstr& to);
-
-	hstr trim(const hstr& orig);
-
-	hstr ltrim(const hstr& orig);
-
-	hstr rtrim(const hstr& orig);
-
-	void trim_inplace(hstr& orig);
-
-	void ltrim_inplace(hstr& orig);
-
-	void rtrim_inplace(hstr& orig);
-
-	std::vector<lstr> split(const lstr& orig, wchar_t delim);
-
-	lstr concat(const std::vector<lstr>& list, const lstr& sep = L"");
-
-	lstr replace(lstr orig, const lstr& from, const lstr& to);
-
-	void replace_inplace(lstr& orig, const lstr& from, const lstr& to);
-
-	lstr trim(const lstr& orig);
-
-	lstr ltrim(const lstr& orig);
-
-	lstr rtrim(const lstr& orig);
-
-	void trim_inplace(lstr& orig);
-
-	void ltrim_inplace(lstr& orig);
-
-	void rtrim_inplace(lstr& orig);
+	void rtrim_inplace(std::string& orig);
 }
