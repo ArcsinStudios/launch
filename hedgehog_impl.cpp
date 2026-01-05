@@ -1,3 +1,5 @@
+#include "launch_config.h"
+
 #include "hedgehog_impl.h"
 
 namespace launch {
@@ -8,12 +10,16 @@ namespace launch {
 	}
 
 	void hedgehog_registry::regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func) {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::unique_lock lock(output_mutex_);
+#endif
 		output_reg[key] = func;
 	}
 
 	void hedgehog_registry::regtype_oper(hedgehog_opersign key, std::function<std::any(std::any, std::any)> func) {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::unique_lock lock(oper_mutex_);
+#endif
 		oper_reg[key] = func;
 	}
 
@@ -35,33 +41,39 @@ namespace launch {
 		this->regtype_output_auto<const char*>();
 		this->regtype_output_auto<std::string>();
 		this->regtype_add_auto<std::string>();
-#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARINT)
+#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARITH)
 		this->regtype_output_auto<arint>();
 		this->regtype_5ops_auto<arint>();
-#endif
-#if !defined(LAUNCH_NO_GOODSTR)
-		this->regtype_output_auto<std::string>();
-		this->regtype_add_auto<std::string>();
+		this->regtype_output_auto<arreal>();
+		this->regtype_4ops_auto<arreal>();
 #endif
 	}
 
 	const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& hedgehog_registry::get_output() const {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::shared_lock lock(output_mutex_);
+#endif
 		return output_reg;
 	}
 
 	const std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>& hedgehog_registry::get_oper() const {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::shared_lock lock(oper_mutex_);
+#endif
 		return oper_reg;
 	}
 
 	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_registry::output_func_it(std::type_index key) const {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::shared_lock lock(output_mutex_);
+#endif
 		return output_reg.find(key);
 	}
 
 	std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator hedgehog_registry::oper_func_it(hedgehog_opersign key) const {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::shared_lock lock(oper_mutex_);
+#endif
 		return oper_reg.find(key);
 	}
 

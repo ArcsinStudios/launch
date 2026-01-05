@@ -1,3 +1,5 @@
+#include "launch_config.h"
+
 #include "goodstr_impl.h"
 
 namespace launch {

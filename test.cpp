@@ -1,9 +1,6 @@
-// #include <deque>
 #include <list>
 #include <vector>
 
-#define LAUNCH_EVERYTHING
-#define LAUNCH_NO_THREAD_SAFE
 #include "launch.h"
 using namespace launch;
 using namespace launch::leisure;
@@ -166,29 +163,29 @@ int main(int argc, char* argv[]) {
 		{"l", "lidevec"}
 	});
 	int cnt = 0;
-	std::cout << "=== START OF PROGRAM ===\n";
+	fmtout("=== START OF PROGRAM ===\n");
 	if (parser.get_flag("caref")) {
 		++cnt;
-		std::cout << "=== START OF TEST - CAREF ===\n";
+		fmtout("=== START OF TEST - CAREF ===\n");
 		caref<int> observer;
-		std::cout << "Outer scope: observer constructed\n";
-		std::cout << "Outer scope: entering inner scope\n";
+		fmtout("Outer scope: observer constructed\n");
+		fmtout("Outer scope: entering inner scope\n");
 		{
 			caref<int> owner(new int(42));
-			std::cout << "Inner scope: owner constructed, value: " << *owner << '\n';
+			fmtout("Inner scope: owner constructed, value: {0}\n", { *owner });
 			observer = owner;
-			std::cout << "Inner scope: observing owner, value: " << *observer << '\n';
+			fmtout("Inner scope: observing owner, value: {0}\n", { *observer });
 			owner.move(observer);
-			std::cout << "Inner scope: moving ownership to observer\n";
-			std::cout << "Inner scope: exiting inner scope\n";
+			fmtout("Inner scope: moving ownership to observer\n");
+			fmtout("Inner scope: exiting inner scope\n");
 		}
-		std::cout << "Outer scope: owner destructed\n";
-		std::cout << "Outer scope: value held by observer: " << *observer << '\n';
-		std::cout << "=== END OF TEST - CAREF ===\n";
+		fmtout("Outer scope: owner destructed\n");
+		fmtout("Outer scope: value held by observer: {0}\n", { *observer });
+		fmtout("=== END OF TEST - CAREF ===\n");
 	}
 	if (parser.get_flag("escseq")) {
 		++cnt;
-		std::cout << "=== START OF TEST - ESCSEQ ===\n";
+		fmtout("=== START OF TEST - ESCSEQ ===\n");
 		std::cout
 			<< gen_style(escseq_style::italic | escseq_style::underline)
 			<< foreground_color(0, 0, 255)
@@ -211,79 +208,76 @@ int main(int argc, char* argv[]) {
 			<< foreground_color(127, 132, 142)
 			<< "// This is the palette of One Dark Pro"
 			<< rendl_fast;
-		std::cout << "=== END OF TEST - ESCSEQ ===\n";
+		fmtout("=== END OF TEST - ESCSEQ ===\n");
 	}
 	if (parser.get_flag("hedgehog")) {
 		++cnt;
-		std::cout << "=== START OF TEST - HEDGEHOG ===\n";
+		fmtout("=== START OF TEST - HEDGEHOG ===\n");
 		hedgehog hh = {};
-		std::cout << "Benchmark 0, adding 768 elements: " << hedgehog_test0(hh) << " microseconds\n";
-		std::cout << "Benchmark 1, printing 768 elements: " << hedgehog_test1(hh) << " microseconds\n";
-		std::cout << "Benchmark 2, calculating 256 times: " << hedgehog_test2(hh) << " microseconds\n";
-		std::cout << "=== END OF TEST -  ===\n";
+		fmtout("Benchmark 0, adding 768 elements: {0} microseconds\n", { hedgehog_test0(hh) });
+		fmtout("Benchmark 1, printing 768 elements: {0} microseconds\n", { hedgehog_test1(hh) });
+		fmtout("Benchmark 2, calculating 256 times: {0} microseconds\n", { hedgehog_test2(hh) });
+		fmtout("=== END OF TEST -  ===\n");
 	}
 	if (parser.get_flag("goodmath")) {
 		++cnt;
-		std::cout << "=== START OF TEST - GOODMATH ===\n";
+		fmtout("=== START OF TEST - GOODMATH ===\n");
 		arreal lhs, rhs;
 		char op;
-		std::cout << "Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ";
+		fmtout("Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ");
 		std::cin >> lhs >> op >> rhs;
-		std::cout << lhs << " " << op << " " << rhs << " = ";
+		fmtout("{0} {1} {2} = ", { lhs, op, rhs });
 		switch (op) {
 		case '+':
-			std::cout << lhs + rhs;
+			fmtout("{0}", { lhs + rhs });
 			break;
 		case '-':
-			std::cout << lhs - rhs;
+			fmtout("{0}", { lhs - rhs });
 			break;
 		case '*':
-			std::cout << lhs * rhs;
+			fmtout("{0}", { lhs * rhs });
 			break;
 		case '/':
-			std::cout << lhs / rhs;
+			fmtout("{0}", { lhs / rhs });
 			break;
 		default:
-			std::cout << "Wrong operator!";
+			fmtout("Wrong operator!");
 		}
-		std::cout << "\n";
-		std::cout << "=== END OF TEST - GOODMATH ===\n";
+		fmtout("\n");
+		fmtout("=== END OF TEST - GOODMATH ===\n");
 	}
 	if (parser.get_flag("goodstr")) {
 		++cnt;
-		std::cout << "=== START OF TEST - GOODSTR ===\n";
+		fmtout("=== START OF TEST - GOODSTR ===\n");
 		std::string str0, str1, str2;
-		std::cout << "Enter three strings:\n";
+		fmtout("Enter three strings:\n");
 		std::getline(std::cin >> std::ws, str0);
 		std::getline(std::cin >> std::ws, str1);
 		std::getline(std::cin >> std::ws, str2);
-		std::cout << "After replacing \"" << str1 << "\" with \"" << str2 << "\": " << replace(str0, str1, str2) << '\n';
-		std::cout << "=== END OF TEST - GOODSTR ===\n";
+		fmtout("After replacing \"{0}\" with \"{1}\": {2}\n", { str1, str2, replace(str0, str1, str2) });
+		fmtout("=== END OF TEST - GOODSTR ===\n");
 	}
 	if (parser.get_flag("lidevec")) {
-		std::cout << "INFO: PLEASE WAIT PATIENTLY WHILE THE TEST IS RUNNING.\n";
-		std::cout << "      THIS IS ABOUT TO TAKE 1-2 MINUTES.\n";
-		std::cout << "      PRESS ENTER TO PROCEED.";
+		fmtout("INFO: PLEASE WAIT PATIENTLY WHILE THE TEST IS RUNNING.\n");
+		fmtout("      THIS IS ABOUT TO TAKE 1-2 MINUTES.\n");
+		fmtout("      PRESS ENTER TO PROCEED.");
 		std::cin.get();
 		++cnt;
-		std::cout << "=== START OF TEST - LIDEVEC ===\n";
-		std::cout << "Pushing back 100,000 times.\n";
-		// std::cout << "std::deque took: " << lidevec_test0<std::deque<int>>() << " microseconds\n";
-		std::cout << "std::list took: " << lidevec_test0<std::list<int>>() << " microseconds\n";
-		std::cout << "std::vector took: " << lidevec_test0<std::vector<int>>() << " microseconds\n";
-		std::cout << "lidevec took: " << lidevec_test0<lidevec<int>>() << " microseconds\n";
-		std::cout << "Erasing ~25,000 times.\n";
-		// std::cout << "std::deque took: " << lidevec_test1<std::deque<int>>() << " microseconds\n";
-		std::cout << "std::list took: " << lidevec_test1<std::list<int>>() << " microseconds\n";
-		std::cout << "std::vector took: " << lidevec_test1<std::vector<int>>() << " microseconds\n";
-		std::cout << "lidevec took: " << lidevec_test1<lidevec<int>>() << " microseconds\n";
-		std::cout << "Inserting ~25,000 times.\n";
-		// std::cout << "std::deque took: " << lidevec_test2<std::deque<int>>() << " microseconds\n";
-		std::cout << "std::list took: " << lidevec_test2<std::list<int>>() << " microseconds\n";
-		std::cout << "std::vector took: " << lidevec_test2<std::vector<int>>() << " microseconds\n";
-		std::cout << "lidevec took: " << lidevec_test2<lidevec<int>>() << " microseconds\n";
-		std::cout << "=== END OF TEST - LIDEVEC ===\n";
+		fmtout("=== START OF TEST - LIDEVEC ===\n");
+		fmtout("Pushing back 100,000 times.\n");
+		fmtout("std::list took: {0} microseconds\n", { lidevec_test0<std::list<int>>() });
+		fmtout("std::vector took: {0} microseconds\n", { lidevec_test0<std::vector<int>>() });
+		fmtout("lidevec took: {0} microseconds\n", { lidevec_test0<lidevec<int>>() });
+		fmtout("Erasing ~25,000 times.\n");
+		fmtout("std::list took: {0} microseconds\n", { lidevec_test1<std::list<int>>() });
+		fmtout("std::vector took: {0} microseconds\n", { lidevec_test1<std::vector<int>>() });
+		fmtout("lidevec took: {0} microseconds\n", { lidevec_test1<lidevec<int>>() });
+		fmtout("Inserting ~25,000 times.\n");
+		fmtout("std::list took: {0} microseconds\n", { lidevec_test2<std::list<int>>() });
+		fmtout("std::vector took: {0} microseconds\n", { lidevec_test2<std::vector<int>>() });
+		fmtout("lidevec took: {0} microseconds\n", { lidevec_test2<lidevec<int>>() });
+		fmtout("=== END OF TEST - LIDEVEC ===\n");
 	}
-	std::cout << "=== END OF PROGRAM - " << cnt << " TEST(S) EXECUTED ===\n";
+	fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });
 	return 0;
 }

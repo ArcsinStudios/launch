@@ -1,3 +1,5 @@
+#include "launch_config.h"
+
 #include "fmtio_nullstream.h"
 
 namespace launch {

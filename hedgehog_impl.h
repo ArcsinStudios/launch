@@ -16,12 +16,8 @@
 #include <shared_mutex>
 #endif
 
-#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARINT)
+#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARITH)
 #include "goodmath.h"
-#endif
-
-#if !defined(LAUNCH_NO_GOODSTR)
-#include "goodstr.h"
 #endif
 
 namespace launch {

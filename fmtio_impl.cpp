@@ -1,3 +1,5 @@
+#include "launch_config.h"
+
 #include "fmtio_impl.h"
 
 #if !defined(LAUNCH_NO_HEDGEHOG)

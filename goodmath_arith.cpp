@@ -1,3 +1,5 @@
+#include "launch_config.h"
+
 #include "goodmath_arith.h"
 
 namespace launch {
