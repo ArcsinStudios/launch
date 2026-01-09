@@ -22,10 +22,13 @@ long long hedgehog_test0(hedgehog& hh) {
 long long hedgehog_test1(hedgehog& hh) {
 	hedgehog_test0(hh);
 	stopwatch watch;
-	watch.start();
-	for (const hedgehog_elemproxy& elem : hh) {
-		nullout << elem;
+	std::string fmt = "";
+	int size = hh.size();
+	for (int i = 0; i < size; ++i) {
+		fmt += "{" + std::to_string(i) + "} ";
 	}
+	watch.start();
+	fmtout(fmt, hh, nullout);
 	watch.stop();
 	return watch.get_dur().microseconds();
 }
@@ -42,6 +45,21 @@ long long hedgehog_test2(hedgehog& hh) {
 	}
 	watch.stop();
 	return watch.get_dur().microseconds();
+}
+
+void hedgehog_test3() {
+	hedgehog hh = { 42, 3.14, "Hello World!" };
+	fmtout("int: {0}, double: {1}, const char*: {2}\n", hh);
+	for (hedgehog_elemproxy& elem : hh) {
+		try {
+			elem += 1;
+		}
+		catch (const std::runtime_error& e) {
+			fmtout("Oops: {0}\n", { e.what() });
+		}
+	}
+	hh[2] += " Hello Everyone!";
+	fmtout("int: {0}, double: {1}, std::string: {2}\n", hh);
 }
 
 template <typename T>
@@ -186,28 +204,23 @@ int main(int argc, char* argv[]) {
 	if (parser.get_flag("escseq")) {
 		++cnt;
 		fmtout("=== START OF TEST - ESCSEQ ===\n");
-		std::cout
-			<< gen_style(escseq_style::italic | escseq_style::underline)
-			<< foreground_color(0, 0, 255)
-			<< background_color(255, 255, 255)
-			<< "Hyperlink\n"
-			<< foreground_color(128, 0, 255)
-			<< "Hyperlink (clicked)"
-			<< rendl_fast;
-		std::cout
-			<< foreground_color(198, 120, 221)
-			<< "int "
-			<< foreground_color(224, 108, 117)
-			<< "var "
-			<< foreground_color(97, 175, 239)
-			<< "= "
-			<< foreground_color(209, 154, 102)
-			<< "42"
-			<< foreground_color(97, 175, 239)
-			<< "; "
-			<< foreground_color(127, 132, 142)
-			<< "// This is the palette of One Dark Pro"
-			<< rendl_fast;
+		fmtout("{0}{1}{2}Hyperlink\n", {
+			gen_style(escseq_style::italic | escseq_style::underline),
+			foreground_color(0, 0, 255),
+			background_color(255, 255, 255)
+		});
+		fmtout("{0}Hyperlink (clicked){1}", {
+			foreground_color(128, 0, 255),
+			rendl_fast
+		});
+		fmtout("{0}int {1}var {2}= {3}42{2}; {4}// This is the palette of One Dark Pro{5}", {
+			foreground_color(198, 120, 221),
+			foreground_color(224, 108, 117),
+			foreground_color(97, 175, 239),
+			foreground_color(209, 154, 102),
+			foreground_color(127, 132, 142),
+			rendl_fast
+		});
 		fmtout("=== END OF TEST - ESCSEQ ===\n");
 	}
 	if (parser.get_flag("hedgehog")) {
@@ -217,15 +230,21 @@ int main(int argc, char* argv[]) {
 		fmtout("Benchmark 0, adding 768 elements: {0} microseconds\n", { hedgehog_test0(hh) });
 		fmtout("Benchmark 1, printing 768 elements: {0} microseconds\n", { hedgehog_test1(hh) });
 		fmtout("Benchmark 2, calculating 256 times: {0} microseconds\n", { hedgehog_test2(hh) });
+		fmtout("Test 3:\n");
+		hedgehog_test3();
 		fmtout("=== END OF TEST -  ===\n");
 	}
 	if (parser.get_flag("goodmath")) {
 		++cnt;
 		fmtout("=== START OF TEST - GOODMATH ===\n");
+		hedgehog hh;
 		arreal lhs, rhs;
 		char op;
 		fmtout("Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ");
-		std::cin >> lhs >> op >> rhs;
+		fmtin<arreal, char, arreal>(hh);
+		lhs = hh[0].as<arreal>();
+		op = hh[1].as<char>();
+		rhs = hh[2].as<arreal>();
 		fmtout("{0} {1} {2} = ", { lhs, op, rhs });
 		switch (op) {
 		case '+':

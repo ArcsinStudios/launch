@@ -33,14 +33,36 @@ namespace launch {
 		this->regtype_5ops_auto<int>();
 		this->regtype_output_auto<long long>();
 		this->regtype_5ops_auto<long long>();
+		this->regtype_5ops_auto_rev<short, int>();
+		this->regtype_5ops_auto_rev<short, long long>();
+		this->regtype_5ops_auto_rev<int, long long>();
 		this->regtype_output_auto<float>();
 		this->regtype_4ops_auto<float>();
 		this->regtype_output_auto<double>();
 		this->regtype_4ops_auto<double>();
+		this->regtype_4ops_auto_rev<float, double>();
+		this->regtype_4ops_auto_rev<float, short>();
+		this->regtype_4ops_auto_rev<float, int>();
+		this->regtype_4ops_auto_rev<float, long long>();
+		this->regtype_4ops_auto_rev<double, short>();
+		this->regtype_4ops_auto_rev<double, int>();
+		this->regtype_4ops_auto_rev<double, long long>();
 		this->regtype_output_auto<char>();
 		this->regtype_output_auto<const char*>();
+		this->regtype_oper(
+			{typeid(const char*), hedgehog_opertype::add, typeid(const char*)},
+			[](std::any a, std::any b) -> std::any {
+				return std::string(std::any_cast<const char*>(a)) + std::string(std::any_cast<const char*>(b));
+			}
+		);
 		this->regtype_output_auto<std::string>();
 		this->regtype_add_auto<std::string>();
+		this->regtype_add_auto_rev<std::string, const char*>();
+#if !defined(LAUNCH_NO_ESCSEQ)
+		this->regtype_output_auto<escseq_manip>();
+		this->regtype_output_auto<style_manip>();
+		this->regtype_output_auto<reset_endl>();
+#endif
 #if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARITH)
 		this->regtype_output_auto<arint>();
 		this->regtype_5ops_auto<arint>();

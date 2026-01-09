@@ -18,7 +18,7 @@ namespace launch {
 
 	arint& arint::operator+=(const arint& other) {
 		if (nan || inf || other.nan || other.inf) {
-			nan = nan || other.nan || (inf && other.inf && (sign != other.sign));
+			nan = nan || other.nan || inf && other.inf && sign != other.sign;
 			inf = !nan && (inf || other.inf);
 			sign = other.inf ? other.sign : sign;
 			return *this;
@@ -47,7 +47,7 @@ namespace launch {
 	arint& arint::operator*=(const arint& other) {
 		sign = sign == other.sign;
 		if (nan || inf || other.nan || other.inf) {
-			nan = nan || other.nan || (inf && !other.value) || (!value && other.inf);
+			nan = nan || other.nan || inf && !other.value || !value && other.inf;
 			inf = !nan && (inf || other.inf);
 			return *this;
 		}
@@ -62,8 +62,8 @@ namespace launch {
 	arint& arint::operator/=(const arint& other) {
 		sign = sign == other.sign;
 		if (!other.value || nan || inf || other.nan || other.inf) {
-			nan = nan || other.nan || (inf && other.inf) || (!value && !other.value);
-			inf = !nan && (inf || (value && !other.value));
+			nan = nan || other.nan || inf && other.inf || !value && !other.value;
+			inf = !nan && (inf || value && !other.value);
 			value = (!nan && !inf && other.inf) ? 0 : value;
 			return *this;
 		}
@@ -72,8 +72,29 @@ namespace launch {
 	}
 
 	arint& arint::operator^=(const arint& other) {
+		if (!value || nan || other.nan || inf || other.inf) {
+			nan = nan || other.nan || inf && !other.value || !value && !other.value || !sign && other.inf;
+			inf = !nan || other.inf && value;
+			return *this;
+		}
+		if (value == 1) {
+			sign = sign || !(other.value % 2);
+			return *this;
+		}
+		if (!other.sign) {
+			value = 0;
+			return *this;
+		}
+		if (other > 64) {
+			inf = true;
+			return *this;
+		}
 		arint p = 1;
 		for (arint i = 0; i < other; ++i) {
+			if (p.inf) {
+				*this = p;
+				return *this;
+			}
 			p *= *this;
 		}
 		*this = p;
@@ -154,6 +175,9 @@ namespace launch {
 	std::partial_ordering arint::operator<=>(const arint& other) const {
 		if (nan || other.nan) {
 			return std::partial_ordering::unordered;
+		}
+		if (inf == other.inf && sign == other.sign) {
+			return std::strong_ordering::equal;
 		}
 		if (sign != other.sign) {
 			return sign ? std::strong_ordering::greater : std::strong_ordering::less;

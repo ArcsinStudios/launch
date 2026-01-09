@@ -8,12 +8,12 @@ namespace launch {
 	void fmtout(const std::string& fmt, const hedgehog& captures, std::ostream& out) {
 		std::regex pattern("\\{(\\d+)\\}");
 
-		auto specifiers_begin = std::sregex_iterator(fmt.begin(), fmt.end(), pattern);
-		auto specifiers_end = std::sregex_iterator();
+		std::sregex_iterator specifiers_begin(fmt.begin(), fmt.end(), pattern);
+		std::sregex_iterator specifiers_end;
 		std::vector<int> indices;
 
-		auto split_begin = std::sregex_token_iterator(fmt.begin(), fmt.end(), pattern, -1);
-		auto split_end = std::sregex_token_iterator();
+		std::sregex_token_iterator split_begin(fmt.begin(), fmt.end(), pattern, -1);
+		std::sregex_token_iterator split_end;
 		std::vector<std::string> split;
 
 		for (std::sregex_iterator i = specifiers_begin; i != specifiers_end; ++i) {
