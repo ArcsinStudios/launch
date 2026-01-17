@@ -46,7 +46,7 @@
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
 | The namespace `launch` has the same name as `std::launch`. How do you deal with that? | It's just simply too expensive. Think about it, you not only have to change the code, but also the filenames, repo names, etc... Ugh. |
-| How many modules are there? | Currently, there are 9 (LAUNCH itself) + 1 (LEISURE features). |
+| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 1 (LEISURE features). |
 | Well, what's *LEISURE*, then? | It's still a backronym - **L**ibrary of **E**xperimental **I**deas for **SURE**! |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 
@@ -72,35 +72,6 @@ LAUNCH_NO_THREAD_SAFE // As the name implies.
 Or, there's a special macro: `LAUNCH_EVERYTHING`, which enables every submodule and also LEISURE features.
 
 <h2 id="part3">Part III: The Modules</h2>
-
-### \<caref\>
-
-- What does the name mean?  
-**-** **C**lever & **A**utomatic **Ref**erence
-- What can \<caref\> do?
-```cpp
-launch::caref<int> observer;
-// observer - construct
-{
-    launch::caref<int> owner(new int(42));
-    // owner - construct
-    std::cout << "Owner: " << *owner << "\n";
-    observer = owner;
-    // observer - observing
-    std::cout << "Observer: " << *observer << "\n";
-    owner.move(observer);
-    // owner - move ownership to observer
-}
-// owner - destruct
-std::cout << "Observer outside:" << *observer << "\n";
-// as you can see - the observer is still alive!
-```
-- Expected output:
-```
-Owner: 42
-Observer: 42
-Observer outside: 42
-```
 
 ### \<chroyes\>
 
@@ -217,39 +188,11 @@ Sine value of <random>deg: <sin(random)>
 Cosine value of <random>deg: <cos(random)>
 ```
 
-### \<lidevec\> (LEISURE feature)
+### \<arithing\> (LEISURE feature)
 
 - What does the name mean?  
-**-** I don't know either. Perhaps you can think of that as **Li**st / **De**que / **Vec**tor, I think?
-- What can \<lidevec\> do?  
-Well, it's just a `std::forward_list`, but **faster**. To be accurate, it's **dozens** **of** **times** **faster**.  
-If you're using or going to use C++26, then don't use `lidevec`. Instead, use `std::hive`. `lidevec` does **not** support iterators while `std::hive` do.
-
-<h2 id="part4">Part IV: Conclusion</h2>
-
-Conclusion: LAUNCH is good. Use LAUNCH, thank you.
-
----
-
-<h2 id="appendix1">Appendix I: Optional Submodules</h2>
-
-### \<fmtio_nullstream\>
-
-- What does the name mean?
-**-** `fmtio`: This submodule is a part of \<fmtio\>.  
-**-** `nullstream`: It's just, well, a `stream` that sends text into `null`, i.e., nowhere. (Sorry for the tautology.)
-- What can `nullstream` do?
-```cpp
-launch::nullout << "Hello World...? Anyone here?\n"; // nullout is a global nullstream instance
-```
-Expected output: (nothing)
-
-### \<goodmath_arith\>
-
-- What does the name mean?
-**-** `goodmath`: This submodule is a part of \<goodmath\>.  
-**-** `arith`: Well actually, the name `arith` does not appear in the actual code. Instead, there are `arint` and `arreal`, which stand for **Ar**ithmetic **Int**eger and **Ar**ithmetic **Real** Number.
-- What can `arint` & `arreal` do?
+**-** **Ari***th*metic *Th***ing**s
+- What can \<arithing\> do?
 ```cpp
 std::cout <<
     "Very big: " <<
@@ -276,6 +219,25 @@ Very small (hey, it's way too small): -18446744073709551615
 Wait, what?: inf -inf NaN
 Ooh, rational: 22/7
 ```
+
+<h2 id="part4">Part IV: Conclusion</h2>
+
+Conclusion: LAUNCH is good. Use LAUNCH, thank you.
+
+---
+
+<h2 id="appendix1">Appendix I: Optional Submodules</h2>
+
+### \<fmtio_nullstream\>
+
+- What does the name mean?  
+**-** `fmtio`: This submodule is a part of \<fmtio\>.  
+**-** `nullstream`: It's just, well, a `stream` that sends text into `null`, i.e., nowhere. (Sorry for the tautology.)
+- What can `nullstream` do?
+```cpp
+launch::nullout << "Hello World...? Anyone here?\n"; // nullout is a global nullstream instance
+```
+Expected output: (nothing)
 
 ---
 

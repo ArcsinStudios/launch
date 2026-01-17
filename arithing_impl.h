@@ -10,7 +10,7 @@
 #include <string>
 #include <type_traits>
 
-namespace launch {
+namespace launch::leisure {
 	enum class arint_specval : unsigned char {
 		nop = 0b0000,
 		neg = 0b0001,
@@ -133,7 +133,7 @@ namespace launch {
 
 namespace std {
 	template <>
-	struct numeric_limits<launch::arint> {
+	struct numeric_limits<launch::leisure::arint> {
 		static constexpr bool is_specialized = true;
 		static constexpr bool is_signed = true;
 		static constexpr bool is_integer = true;
@@ -158,45 +158,45 @@ namespace std {
 		static constexpr bool traps = false;
 		static constexpr bool tinyness_before = false;
 
-		static constexpr launch::arint min() {
-			return launch::arint(numeric_limits<unsigned long long>::max(), launch::arint_specval::neg);
+		static constexpr launch::leisure::arint min() {
+			return launch::leisure::arint(numeric_limits<unsigned long long>::max(), launch::leisure::arint_specval::neg);
 		}
 
-		static constexpr launch::arint lowest() {
+		static constexpr launch::leisure::arint lowest() {
 			return min();
 		}
 
-		static constexpr launch::arint max() {
+		static constexpr launch::leisure::arint max() {
 			return numeric_limits<unsigned long long>::max();
 		}
 
-		static constexpr launch::arint epsilon() {
+		static constexpr launch::leisure::arint epsilon() {
 			return 0;
 		}
 
-		static constexpr launch::arint round_error() {
+		static constexpr launch::leisure::arint round_error() {
 			return 0;
 		}
 
-		static constexpr launch::arint infinity() {
-			return launch::arint(0, launch::arint_specval::inf);
+		static constexpr launch::leisure::arint infinity() {
+			return launch::leisure::arint(0, launch::leisure::arint_specval::inf);
 		}
 
-		static constexpr launch::arint quiet_NaN() {
-			return launch::arint(0, launch::arint_specval::nan);
+		static constexpr launch::leisure::arint quiet_NaN() {
+			return launch::leisure::arint(0, launch::leisure::arint_specval::nan);
 		}
 
-		static constexpr launch::arint signaling_NaN() {
+		static constexpr launch::leisure::arint signaling_NaN() {
 			return 0;
 		}
 
-		static constexpr launch::arint denorm_min() {
+		static constexpr launch::leisure::arint denorm_min() {
 			return 0;
 		}
 	};
 
 	template <>
-	struct numeric_limits<launch::arreal> {
+	struct numeric_limits<launch::leisure::arreal> {
 		static constexpr bool is_specialized = true;
 		static constexpr bool is_signed = true;
 		static constexpr bool is_integer = false;
@@ -221,40 +221,40 @@ namespace std {
 		static constexpr bool traps = false;
 		static constexpr bool tinyness_before = false;
 
-		static constexpr launch::arreal min() {
-			return launch::arreal(1, numeric_limits<unsigned long long>::max());
+		static constexpr launch::leisure::arreal min() {
+			return launch::leisure::arreal(1, numeric_limits<unsigned long long>::max());
 		}
 
-		static constexpr launch::arreal lowest() {
-			return launch::arint(numeric_limits<unsigned long long>::max(), launch::arint_specval::neg);
+		static constexpr launch::leisure::arreal lowest() {
+			return launch::leisure::arint(numeric_limits<unsigned long long>::max(), launch::leisure::arint_specval::neg);
 		}
 
-		static constexpr launch::arreal max() {
-			return launch::arint(numeric_limits<unsigned long long>::max());
+		static constexpr launch::leisure::arreal max() {
+			return launch::leisure::arint(numeric_limits<unsigned long long>::max());
 		}
 
-		static constexpr launch::arreal epsilon() {
+		static constexpr launch::leisure::arreal epsilon() {
 			return min();
 		}
 
-		static constexpr launch::arreal round_error() {
-			return launch::arreal(0);
+		static constexpr launch::leisure::arreal round_error() {
+			return launch::leisure::arreal(0);
 		}
 
-		static constexpr launch::arreal infinity() {
-			return launch::arint(0, launch::arint_specval::inf);
+		static constexpr launch::leisure::arreal infinity() {
+			return launch::leisure::arint(0, launch::leisure::arint_specval::inf);
 		}
 
-		static constexpr launch::arreal quiet_NaN() {
-			return launch::arint(0, launch::arint_specval::nan);
+		static constexpr launch::leisure::arreal quiet_NaN() {
+			return launch::leisure::arint(0, launch::leisure::arint_specval::nan);
 		}
 
-		static constexpr launch::arreal signaling_NaN() {
-			return launch::arreal(0);
+		static constexpr launch::leisure::arreal signaling_NaN() {
+			return launch::leisure::arreal(0);
 		}
 
-		static constexpr launch::arreal denorm_min() {
-			return launch::arreal(0);
+		static constexpr launch::leisure::arreal denorm_min() {
+			return launch::leisure::arreal(0);
 		}
 	};
 }

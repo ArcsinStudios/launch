@@ -1,8 +1,8 @@
 #include "launch_config.h"
 
-#include "goodmath_arith.h"
+#include "arithing_impl.h"
 
-namespace launch {
+namespace launch::leisure {
 	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs) {
 		return static_cast<arint_specval>(
 			static_cast<std::underlying_type_t<arint_specval>>(lhs) |

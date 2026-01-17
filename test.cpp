@@ -62,145 +62,16 @@ void hedgehog_test3() {
 	fmtout("int: {0}, double: {1}, std::string: {2}\n", hh);
 }
 
-template <typename T>
-long long lidevec_test0() {
-	T container;
-	stopwatch watch;
-	watch.start();
-	for (int i = 0; i < 100000; ++i) {
-		container.push_back(i);
-	}
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
-template <typename T>
-long long lidevec_test0(T& container) {
-	stopwatch watch;
-	watch.start();
-	for (int i = 0; i < 100000; ++i) {
-		container.push_back(i);
-	}
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
-template <typename T>
-long long lidevec_test1() {
-	T container;
-	lidevec_test0<T>(container);
-	stopwatch watch;
-	randgen_int rand(0, 1);
-	watch.start();
-	watch.pause();
-	for (int i = 0; i < 50000; ++i) {
-		if (i >= container.size()) {
-			continue;
-		}
-		typename T::iterator it = container.begin();
-		for (int j = 0; j < i; ++j) {
-			++it;
-		}
-		if (rand.next()) {
-			watch.resume();
-			container.erase(it);
-			watch.pause();
-		}
-	}
-	watch.resume();
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
-template <>
-long long lidevec_test1<lidevec<int>>() {
-	lidevec<int> container;
-	lidevec_test0(container);
-	stopwatch watch;
-	randgen_int rand(0, 1);
-	watch.start();
-	for (int i = 0; i < 50000; ++i) {
-		if (rand.next()) {
-			container.erase(i);
-		}
-	}
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
-template <typename T>
-long long lidevec_test2() {
-	T container;
-	lidevec_test0<T>(container);
-	stopwatch watch;
-	randgen_int rand(0, 1);
-	watch.start();
-	watch.pause();
-	for (int i = 0; i < 50000; ++i) {
-		if (i >= container.size()) {
-			continue;
-		}
-		typename T::iterator it = container.begin();
-		for (int j = 0; j < i; ++j) {
-			++it;
-		}
-		if (rand.next()) {
-			watch.resume();
-			container.insert(it, i);
-			watch.pause();
-		}
-	}
-	watch.resume();
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
-template <>
-long long lidevec_test2<lidevec<int>>() {
-	lidevec<int> container;
-	lidevec_test0(container);
-	stopwatch watch;
-	randgen_int rand(0, 1);
-	watch.start();
-	for (int i = 0; i < 50000; ++i) {
-		if (rand.next()) {
-			container.insert(i, i);
-		}
-	}
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
 int main(int argc, char* argv[]) {
 	clap parser(argc, argv, {
-		{"c", "caref"},
 		{"e", "escseq"},
 		{"h", "hedgehog"},
 		{"m", "goodmath"},
 		{"s", "goodstr"},
-		{"l", "lidevec"}
+		{"a", "arithing"}
 	});
 	int cnt = 0;
 	fmtout("=== START OF PROGRAM ===\n");
-	if (parser.get_flag("caref")) {
-		++cnt;
-		fmtout("=== START OF TEST - CAREF ===\n");
-		caref<int> observer;
-		fmtout("Outer scope: observer constructed\n");
-		fmtout("Outer scope: entering inner scope\n");
-		{
-			caref<int> owner(new int(42));
-			fmtout("Inner scope: owner constructed, value: {0}\n", { *owner });
-			observer = owner;
-			fmtout("Inner scope: observing owner, value: {0}\n", { *observer });
-			owner.move(observer);
-			fmtout("Inner scope: moving ownership to observer\n");
-			fmtout("Inner scope: exiting inner scope\n");
-		}
-		fmtout("Outer scope: owner destructed\n");
-		fmtout("Outer scope: value held by observer: {0}\n", { *observer });
-		fmtout("=== END OF TEST - CAREF ===\n");
-	}
 	if (parser.get_flag("escseq")) {
 		++cnt;
 		fmtout("=== START OF TEST - ESCSEQ ===\n");
@@ -238,6 +109,34 @@ int main(int argc, char* argv[]) {
 		++cnt;
 		fmtout("=== START OF TEST - GOODMATH ===\n");
 		hedgehog hh;
+		fmtout("Enter an angle (in degrees) please: ");
+		fmtin<double>(hh);
+		double rad = dtor(hh[0].as<double>());
+		double cos_ = ::launch::cos(rad);
+		double sin_ = ::launch::sin(rad);
+		fmtout(
+			"If O is at (0, 0), A is at (1, 0), both OA and OP are 1, "
+			"and angle AOP is {0} degrees, then P is at ({1}, {2}).\n"
+			"By the way, this should be 1: {3}.\n",
+			{ hh[0], cos_, sin_, ::launch::pow(cos_, 2) + ::launch::pow(sin_, 2) }
+		);
+		fmtout("=== END OF TEST - GOODMATH ===\n");
+	}
+	if (parser.get_flag("goodstr")) {
+		++cnt;
+		fmtout("=== START OF TEST - GOODSTR ===\n");
+		std::string str0, str1, str2;
+		fmtout("Enter three strings:\n");
+		std::getline(std::cin >> std::ws, str0);
+		std::getline(std::cin >> std::ws, str1);
+		std::getline(std::cin >> std::ws, str2);
+		fmtout("After replacing \"{0}\" with \"{1}\": {2}\n", { str1, str2, replace(str0, str1, str2) });
+		fmtout("=== END OF TEST - GOODSTR ===\n");
+	}
+	if (parser.get_flag("arithing")) {
+		++cnt;
+		fmtout("=== START OF TEST - ARITHING ===\n");
+		hedgehog hh;
 		arreal lhs, rhs;
 		char op;
 		fmtout("Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ");
@@ -263,39 +162,7 @@ int main(int argc, char* argv[]) {
 			fmtout("Wrong operator!");
 		}
 		fmtout("\n");
-		fmtout("=== END OF TEST - GOODMATH ===\n");
-	}
-	if (parser.get_flag("goodstr")) {
-		++cnt;
-		fmtout("=== START OF TEST - GOODSTR ===\n");
-		std::string str0, str1, str2;
-		fmtout("Enter three strings:\n");
-		std::getline(std::cin >> std::ws, str0);
-		std::getline(std::cin >> std::ws, str1);
-		std::getline(std::cin >> std::ws, str2);
-		fmtout("After replacing \"{0}\" with \"{1}\": {2}\n", { str1, str2, replace(str0, str1, str2) });
-		fmtout("=== END OF TEST - GOODSTR ===\n");
-	}
-	if (parser.get_flag("lidevec")) {
-		fmtout("INFO: PLEASE WAIT PATIENTLY WHILE THE TEST IS RUNNING.\n");
-		fmtout("      THIS IS ABOUT TO TAKE 1-2 MINUTES.\n");
-		fmtout("      PRESS ENTER TO PROCEED.");
-		std::cin.get();
-		++cnt;
-		fmtout("=== START OF TEST - LIDEVEC ===\n");
-		fmtout("Pushing back 100,000 times.\n");
-		fmtout("std::list took: {0} microseconds\n", { lidevec_test0<std::list<int>>() });
-		fmtout("std::vector took: {0} microseconds\n", { lidevec_test0<std::vector<int>>() });
-		fmtout("lidevec took: {0} microseconds\n", { lidevec_test0<lidevec<int>>() });
-		fmtout("Erasing ~25,000 times.\n");
-		fmtout("std::list took: {0} microseconds\n", { lidevec_test1<std::list<int>>() });
-		fmtout("std::vector took: {0} microseconds\n", { lidevec_test1<std::vector<int>>() });
-		fmtout("lidevec took: {0} microseconds\n", { lidevec_test1<lidevec<int>>() });
-		fmtout("Inserting ~25,000 times.\n");
-		fmtout("std::list took: {0} microseconds\n", { lidevec_test2<std::list<int>>() });
-		fmtout("std::vector took: {0} microseconds\n", { lidevec_test2<std::vector<int>>() });
-		fmtout("lidevec took: {0} microseconds\n", { lidevec_test2<lidevec<int>>() });
-		fmtout("=== END OF TEST - LIDEVEC ===\n");
+		fmtout("=== END OF TEST - ARITHING ===\n");
 	}
 	fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });
 	return 0;
