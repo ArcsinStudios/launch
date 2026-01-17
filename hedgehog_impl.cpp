@@ -63,11 +63,11 @@ namespace launch {
 		this->regtype_output_auto<style_manip>();
 		this->regtype_output_auto<reset_endl>();
 #endif
-#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARITH)
-		this->regtype_output_auto<arint>();
-		this->regtype_5ops_auto<arint>();
-		this->regtype_output_auto<arreal>();
-		this->regtype_4ops_auto<arreal>();
+#if defined(LAUNCH_EXPERIMENTAL)
+		this->regtype_output_auto<leisure::arint>();
+		this->regtype_5ops_auto<leisure::arint>();
+		this->regtype_output_auto<leisure::arreal>();
+		this->regtype_4ops_auto<leisure::arreal>();
 #endif
 	}
 

@@ -28,7 +28,7 @@ You don't know what's going on. You gave us the entire code.
 
 #### Concepts
 
-`PascalCase`.
+`Like_This`.
 
 #### Constants & Macros
 

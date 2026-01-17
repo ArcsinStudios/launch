@@ -20,8 +20,8 @@
 #include "escseq.h"
 #endif
 
-#if !defined(LAUNCH_NO_GOODMATH) && defined(LAUNCH_GOODMATH_ARITH)
-#include "goodmath.h"
+#if defined(LAUNCH_EXPERIMENTAL)
+#include "arithing.h"
 #endif
 
 namespace launch {
@@ -59,12 +59,12 @@ namespace launch {
 	class hedgehog_const_iterator;
 
 	template <typename T>
-	concept Printable = requires(std::ostream& out, const T& value) {
+	concept printable = requires(std::ostream& out, const T& value) {
 		{ out << value } -> std::same_as<std::ostream&>;
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic_Add = requires(T a, U b) {
+	concept arithmetic_add = requires(T a, U b) {
 		a + b;
 	};
 
@@ -89,7 +89,7 @@ namespace launch {
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic = Arithmetic_Add<T, U> && Arithmetic_Sub<T, U> && Arithmetic_Mul<T, U> && Arithmetic_Div<T, U>;
+	concept Arithmetic = arithmetic_add<T, U> && Arithmetic_Sub<T, U> && Arithmetic_Mul<T, U> && Arithmetic_Div<T, U>;
 
 	template <typename T, typename U>
 	concept Fully_Arithmetic = Arithmetic<T, U> && Arithmetic_Mod<T, U>;
@@ -106,7 +106,7 @@ namespace launch {
 	public:
 		void regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func);
 
-		template <Printable T>
+		template <printable T>
 		void regtype_output_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(output_mutex_);
@@ -118,7 +118,7 @@ namespace launch {
 
 		void regtype_oper(hedgehog_opersign key, std::function<std::any(std::any, std::any)> func);
 
-		template <typename T, typename U = T> requires Arithmetic_Add<T, U>
+		template <typename T, typename U = T> requires arithmetic_add<T, U>
 		void regtype_add_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
@@ -128,7 +128,7 @@ namespace launch {
 			});
 		}
 
-		template <typename T, typename U> requires Arithmetic_Add<T, U>
+		template <typename T, typename U> requires arithmetic_add<T, U>
 		void regtype_add_auto_rev() {
 			this->regtype_add_auto<T, U>();
 			this->regtype_add_auto<U, T>();
