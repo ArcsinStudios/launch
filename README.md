@@ -37,7 +37,7 @@
 [Part I: FAQs](#part1)  
 [Part II: Building / Using](#part2)  
 [Part III: The Modules](#part3)  
-[Part IV: Conclusion](#part4)
+[Part IV: Conclusion](#part4)  
 [Appendix I: Optional Submodules](#appendix1)
 
 <h2 id="part1">Part I: FAQs</h2>
@@ -61,7 +61,7 @@ For details, please go to `CMakeLists.txt`.
 ### Part II-2: Using
 
 Simply `#include "launch.h"`.  
-If you need more precise module controls, please `#define` macros in `launch_config.h`.
+If you need more precise module controls, please `#define` macros in `launch_config.h`.  
 The macros look like this:
 ```cpp
 LAUNCH_NO_<MODULENAME> // To disable a specific module.

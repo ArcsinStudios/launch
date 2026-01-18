@@ -19,20 +19,20 @@ You don't know what's going on. You gave us the entire code.
 
 ### Identifiers
 
-#### Variables, Functions & Classes
+#### Variables, Functions, Classes & Structs
 
 `snake_case`, with a few extra rules.  
-1. Especially for class names, the name shouldn't be the same as names in standard libraries. For example, `duration` -> `timespan`.  
+1. Especially for class and struct names, the name shouldn't be the same as names in standard libraries. For example, `duration` -> `timespan`.  
 2. Especially for helper class names, use the main classes' names as prefixes. For example, `oper_type` -> `hedgehog_opertype`.  
 3. Abbreviate names just right. For example, `arint_special_value` -> `arint_specval`.
-
-#### Concepts
-
-`Like_This`.
 
 #### Constants & Macros
 
 `SCREAMING_SNAKE_CASE`.
+
+#### Concepts & Template Parameters
+
+`PascalCase`.
 
 ### Indentations & Formatting
 

@@ -59,40 +59,40 @@ namespace launch {
 	class hedgehog_const_iterator;
 
 	template <typename T>
-	concept printable = requires(std::ostream& out, const T& value) {
+	concept Printable = requires(std::ostream& out, const T& value) {
 		{ out << value } -> std::same_as<std::ostream&>;
 	};
 
 	template <typename T, typename U>
-	concept arithmetic_add = requires(T a, U b) {
+	concept ArithmeticAdd = requires(T a, U b) {
 		a + b;
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic_Sub = requires(T a, U b) {
+	concept ArithmeticSub = requires(T a, U b) {
 		a - b;
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic_Mul = requires(T a, U b) {
+	concept ArithmeticMul = requires(T a, U b) {
 		a * b;
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic_Div = requires(T a, U b) {
+	concept ArithmeticDiv = requires(T a, U b) {
 		a / b;
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic_Mod = requires(T a, U b) {
+	concept ArithmeticMod = requires(T a, U b) {
 		a % b;
 	};
 
 	template <typename T, typename U>
-	concept Arithmetic = arithmetic_add<T, U> && Arithmetic_Sub<T, U> && Arithmetic_Mul<T, U> && Arithmetic_Div<T, U>;
+	concept Arithmetic = ArithmeticAdd<T, U> && ArithmeticSub<T, U> && ArithmeticMul<T, U> && ArithmeticDiv<T, U>;
 
 	template <typename T, typename U>
-	concept Fully_Arithmetic = Arithmetic<T, U> && Arithmetic_Mod<T, U>;
+	concept FullyArithmetic = Arithmetic<T, U> && ArithmeticMod<T, U>;
 
 	class hedgehog_registry {
 	private:
@@ -106,7 +106,7 @@ namespace launch {
 	public:
 		void regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func);
 
-		template <printable T>
+		template <Printable T>
 		void regtype_output_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(output_mutex_);
@@ -118,7 +118,7 @@ namespace launch {
 
 		void regtype_oper(hedgehog_opersign key, std::function<std::any(std::any, std::any)> func);
 
-		template <typename T, typename U = T> requires arithmetic_add<T, U>
+		template <typename T, typename U = T> requires ArithmeticAdd<T, U>
 		void regtype_add_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
@@ -128,13 +128,13 @@ namespace launch {
 			});
 		}
 
-		template <typename T, typename U> requires arithmetic_add<T, U>
+		template <typename T, typename U> requires ArithmeticAdd<T, U>
 		void regtype_add_auto_rev() {
 			this->regtype_add_auto<T, U>();
 			this->regtype_add_auto<U, T>();
 		}
 
-		template <typename T, typename U = T> requires Arithmetic_Sub<T, U>
+		template <typename T, typename U = T> requires ArithmeticSub<T, U>
 		void regtype_sub_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
@@ -144,13 +144,13 @@ namespace launch {
 			});
 		}
 
-		template <typename T, typename U> requires Arithmetic_Sub<T, U>
+		template <typename T, typename U> requires ArithmeticSub<T, U>
 		void regtype_sub_auto_rev() {
 			this->regtype_sub_auto<T, U>();
 			this->regtype_sub_auto<U, T>();
 		}
 
-		template <typename T, typename U = T> requires Arithmetic_Mul<T, U>
+		template <typename T, typename U = T> requires ArithmeticMul<T, U>
 		void regtype_mul_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
@@ -160,13 +160,13 @@ namespace launch {
 			});
 		}
 
-		template <typename T, typename U> requires Arithmetic_Mul<T, U>
+		template <typename T, typename U> requires ArithmeticMul<T, U>
 		void regtype_mul_auto_rev() {
 			this->regtype_mul_auto<T, U>();
 			this->regtype_mul_auto<U, T>();
 		}
 
-		template <typename T, typename U = T> requires Arithmetic_Div<T, U>
+		template <typename T, typename U = T> requires ArithmeticDiv<T, U>
 		void regtype_div_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
@@ -176,13 +176,13 @@ namespace launch {
 			});
 		}
 
-		template <typename T, typename U> requires Arithmetic_Div<T, U>
+		template <typename T, typename U> requires ArithmeticDiv<T, U>
 		void regtype_div_auto_rev() {
 			this->regtype_div_auto<T, U>();
 			this->regtype_div_auto<U, T>();
 		}
 
-		template <typename T, typename U = T> requires Arithmetic_Mod<T, U>
+		template <typename T, typename U = T> requires ArithmeticMod<T, U>
 		void regtype_mod_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 			std::unique_lock lock(oper_mutex_);
@@ -192,7 +192,7 @@ namespace launch {
 			});
 		}
 
-		template <typename T, typename U> requires Arithmetic_Mod<T, U>
+		template <typename T, typename U> requires ArithmeticMod<T, U>
 		void regtype_mod_auto_rev() {
 			this->regtype_mod_auto<T, U>();
 			this->regtype_mod_auto<U, T>();
@@ -214,13 +214,13 @@ namespace launch {
 			this->regtype_div_auto_rev<T, U>();
 		}
 
-		template <typename T, typename U = T> requires Fully_Arithmetic<T, U>
+		template <typename T, typename U = T> requires FullyArithmetic<T, U>
 		void regtype_5ops_auto() {
 			this->regtype_4ops_auto<T, U>();
 			this->regtype_mod_auto<T, U>();
 		}
 
-		template <typename T, typename U> requires Fully_Arithmetic<T, U>
+		template <typename T, typename U> requires FullyArithmetic<T, U>
 		void regtype_5ops_auto_rev() {
 			this->regtype_4ops_auto_rev<T, U>();
 			this->regtype_mod_auto_rev<T, U>();
