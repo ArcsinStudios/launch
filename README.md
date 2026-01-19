@@ -241,7 +241,7 @@ Expected output: (nothing)
 
 ---
 
-<sub>Author: Arcsin Studios<br>License (of this README): CC BY-SA 4.0</sub>
+<sub>Author: Arcsin Studios<br>License (of this document): CC BY-SA 4.0</sub>
 
 <style>
 @keyframes splash {
