@@ -3,7 +3,7 @@
 
 #include "launch.h"
 using namespace launch;
-using namespace launch::leisure;
+using namespace leisure;
 
 long long hedgehog_test0(hedgehog& hh) {
 	stopwatch watch;

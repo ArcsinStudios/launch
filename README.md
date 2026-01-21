@@ -196,21 +196,21 @@ Cosine value of <random>deg: <cos(random)>
 ```cpp
 std::cout <<
     "Very big: " <<
-    launch::arint(std::numeric_limits<unsigned long long>::max()) <<
+    leisure::arint(std::numeric_limits<unsigned long long>::max()) <<
     "\n";
 std::cout <<
     "Very small (hey, it's way too small): " <<
-    launch::arint(std::numeric_limits<unsigned long long>::max(), launch::arint_specval::neg) <<
+    leisure::arint(std::numeric_limits<unsigned long long>::max(), leisure::arint_specval::neg) <<
     "\n";
 std::cout <<
     "Wait, what?: " <<
-    launch::arint(0, launch::arint_specval::inf) <<
+    leisure::arint(0, leisure::arint_specval::inf) <<
     " " <<
-    launch::arint(0, launch::arint_specval::inf | launch::arint_specval::neg) <<
+    leisure::arint(0, leisure::arint_specval::inf | leisure::arint_specval::neg) <<
     " " <<
-    launch::arint(0, launch::arint_specval::nan) <<
+    leisure::arint(0, leisure::arint_specval::nan) <<
     "\n";
-std::cout << "Ooh, rational: " << launch::arreal(22, 7) << "\n";
+std::cout << "Ooh, rational: " << leisure::arreal(22, 7) << "\n";
 ```
 Expected output:
 ```

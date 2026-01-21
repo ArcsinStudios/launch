@@ -24,19 +24,19 @@ namespace launch {
 	}
 
 	long long floor_ll(double x) {
-		return floor(x);
+		return static_cast<long long>(floor(x));
 	}
 
 	long long ceil_ll(double x) {
-		return ceil(x);
+		return static_cast<long long>(ceil(x));
 	}
 
 	long long round_ll(double x) {
-		return round(x);
+		return static_cast<long long>(round(x));
 	}
 
 	long long trunc_ll(double x) {
-		return trunc(x);
+		return static_cast<long long>(trunc(x));
 	}
 
 	double max(double x, double y) {

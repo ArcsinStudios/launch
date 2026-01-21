@@ -2,7 +2,7 @@
 
 #include "arithing_impl.h"
 
-namespace launch::leisure {
+namespace leisure {
 	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs) {
 		return static_cast<arint_specval>(
 			static_cast<std::underlying_type_t<arint_specval>>(lhs) |
