@@ -68,7 +68,8 @@ int main(int argc, char* argv[]) {
 		{"h", "hedgehog"},
 		{"m", "goodmath"},
 		{"s", "goodstr"},
-		{"a", "arithing"}
+		{"a", "arithing"},
+		{"f", "exfmtio"}
 	});
 	int cnt = 0;
 	fmtout("=== START OF PROGRAM ===\n");
@@ -166,6 +167,16 @@ int main(int argc, char* argv[]) {
 		}
 		fmtout("\n");
 		fmtout("=== END OF TEST - ARITHING ===\n");
+	}
+	if (parser.get_flag("exfmtio")) {
+		++cnt;
+		fmtout("=== START OF TEST - EXFMTIO ===\n");
+		hedgehog hh = { -1, -1 };
+		fmtout("Enter anything: ");
+		fmtin_deduce_auto(hh[0]);
+		hh[1] = hh[0].type().name();
+		fmtout("Got {0} with type {1}\n", hh);
+		fmtout("=== END OF TEST - EXFMTIO ===\n");
 	}
 	fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });
 	return 0;

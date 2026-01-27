@@ -283,6 +283,8 @@ namespace launch {
 		bool assert_bool() const {
 			return value.type() == typeid(T);
 		}
+
+		const std::type_info& type() const;
 	};
 
 	template <typename Allocator>

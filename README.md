@@ -37,8 +37,7 @@
 [Part I: FAQs](#part1)  
 [Part II: Building / Using](#part2)  
 [Part III: The Modules](#part3)  
-[Part IV: Conclusion / TL;DR](#part4)  
-[Appendix I: Optional Submodules](#appendix1)
+[Part IV: Conclusion / TL;DR](#part4)
 
 <h2 id="part1">Part I: FAQs</h2>
 
@@ -46,7 +45,7 @@
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
 | The namespace `launch` has the same name as `std::launch`. How do you deal with that? | It's just simply too expensive. Think about it, you not only have to change the code, but also the filenames, repo names, etc... Ugh. |
-| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 1 (LEISURE features). |
+| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 2 (LEISURE features). |
 | Well, what's *LEISURE*, then? | It's still a backronym - **L**ibrary of **E**xperimental **I**deas for **SURE**! |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 
@@ -65,11 +64,9 @@ If you need more precise module controls, please `#define` macros in `launch_con
 The macros look like this:
 ```cpp
 LAUNCH_NO_<MODULENAME> // To disable a specific module.
-LAUNCH_<MODULENAME>_<SUBMODULENAME> // To enable a specific submodule.
 LAUNCH_EXPERIMENTAL // To enable LEISURE features.
 LAUNCH_NO_THREAD_SAFE // As the name implies.
 ```
-Or, there's a special macro: `LAUNCH_EVERYTHING`, which enables every submodule and also LEISURE features.
 
 <h2 id="part3">Part III: The Modules</h2>
 
@@ -220,25 +217,30 @@ Wait, what?: inf -inf NaN
 Ooh, rational: 22/7
 ```
 
+### \<exfmtio\> (LEISURE feature)
+
+- What does the name mean?  
+**-** **Ex**tended **F**or**m**a**t**ted **I**nput/**O**utput
+- What can \<exfmtio\> do?
+```cpp
+leisure::nullout << "Hello World...? Anyone here?\n"; // nullout is a global nullstream instance
+launch::hedgehog hh = { -1, -1 };
+launch::fmtout("Enter anything: ");
+leisure::fmtin_deduce_auto(hh[0]);
+hh[1] = hh[0].type().name();
+launch::fmtout("Got {0} with type {1}\n", hh);
+```
+Expected output:
+```
+<nothing>
+Enter anything: <something>
+Got <something> with type <type name of something>
+```
+
 <h2 id="part4">Part IV: Conclusion / TL;DR</h2>
 
 In general, LAUNCH is a collection of utilities that solves everyday problems easily and quickly.  
 Why not use LAUNCH?
-
----
-
-<h2 id="appendix1">Appendix I: Optional Submodules</h2>
-
-### \<fmtio_nullstream\>
-
-- What does the name mean?  
-**-** `fmtio`: This submodule is a part of \<fmtio\>.  
-**-** `nullstream`: It's just, well, a `stream` that sends text into `null`, i.e., nowhere. (Sorry for the tautology.)
-- What can `nullstream` do?
-```cpp
-launch::nullout << "Hello World...? Anyone here?\n"; // nullout is a global nullstream instance
-```
-Expected output: (nothing)
 
 ---
 

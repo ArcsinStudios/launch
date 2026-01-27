@@ -25,7 +25,7 @@ namespace launch {
 
 	hedgehog_registry::hedgehog_registry() {
 		this->regtype_output(typeid(bool), [](std::ostream& out, const std::any& value) -> std::ostream& {
-			return out << (std::any_cast<bool>(value) ? "true" : "false");
+			return out << std::boolalpha << std::any_cast<bool>(value) << std::noboolalpha;
 		});
 		this->regtype_output_auto<short>();
 		this->regtype_5ops_auto<short>();
@@ -202,6 +202,10 @@ namespace launch {
 			type1.name() +
 			")"
 		);
+	}
+
+	const std::type_info& hedgehog_elemproxy::type() const {
+		return value.type();
 	}
 
 	std::ostream& operator<<(std::ostream& out, const hedgehog_elemproxy& proxy) {
