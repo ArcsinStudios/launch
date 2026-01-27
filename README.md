@@ -37,7 +37,7 @@
 [Part I: FAQs](#part1)  
 [Part II: Building / Using](#part2)  
 [Part III: The Modules](#part3)  
-[Part IV: Conclusion](#part4)  
+[Part IV: Conclusion / TL;DR](#part4)  
 [Appendix I: Optional Submodules](#appendix1)
 
 <h2 id="part1">Part I: FAQs</h2>
@@ -220,9 +220,10 @@ Wait, what?: inf -inf NaN
 Ooh, rational: 22/7
 ```
 
-<h2 id="part4">Part IV: Conclusion</h2>
+<h2 id="part4">Part IV: Conclusion / TL;DR</h2>
 
-Conclusion: LAUNCH is good. Use LAUNCH, thank you.
+In general, LAUNCH is a collection of utilities that solves everyday problems easily and quickly.  
+Why not use LAUNCH?
 
 ---
 

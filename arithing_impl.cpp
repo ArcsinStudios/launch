@@ -389,4 +389,33 @@ namespace leisure {
 		val = arreal(_num, _den);
 		return in;
 	}
+
+	std::string arreal::to_decimal() const {
+		std::string res;
+		if (!num.sign) {
+			res += "-";
+		}
+		std::string res_str = std::to_string(num.value / den.value);
+		res += res_str;
+		unsigned long long rem = num.value % den.value;
+		if (!rem) {
+			return res;
+		}
+		res += ".";
+		unsigned long long num2 = rem * 10;
+		std::vector<unsigned long long> rem_before = { rem };
+		while (rem) {
+			res += std::to_string(num2 / den.value);
+			rem = num2 % den.value;
+			num2 = rem * 10;
+			std::vector<unsigned long long>::const_iterator it = std::find(rem_before.begin(), rem_before.end(), rem);
+			if (it != rem_before.end()) {
+				size_t pos = res_str.length() + 1 + (it - rem_before.begin());
+				res = res.substr(0, pos) + "(" + res.substr(pos) + ")";
+				break;
+			}
+			rem_before.push_back(rem);
+		}
+		return res;
+	}
 }

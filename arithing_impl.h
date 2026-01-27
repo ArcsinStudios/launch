@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 #include <type_traits>
+#include <vector>
 
 namespace leisure {
 	enum class arint_specval : unsigned char {
@@ -132,6 +133,8 @@ namespace leisure {
 		friend std::ostream& operator<<(std::ostream& out, const arreal& val);
 
 		friend std::istream& operator>>(std::istream& in, arreal& val);
+
+		std::string to_decimal() const;
 	};
 }
 
