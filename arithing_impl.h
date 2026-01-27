@@ -109,6 +109,8 @@ namespace leisure {
 
 		arreal& operator/=(const arreal& other);
 
+		arreal& operator%=(const arreal& other);
+
 		arreal operator+(const arreal& other) const;
 
 		arreal operator-(const arreal& other) const;
@@ -116,6 +118,8 @@ namespace leisure {
 		arreal operator*(const arreal& other) const;
 
 		arreal operator/(const arreal& other) const;
+
+		arreal operator%(const arreal& other) const;
 
 		arreal operator+() const;
 

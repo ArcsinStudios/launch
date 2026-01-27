@@ -158,6 +158,9 @@ int main(int argc, char* argv[]) {
 		case '/':
 			fmtout("{0}", { lhs / rhs });
 			break;
+		case '%':
+			fmtout("{0}", { lhs % rhs });
+			break;
 		default:
 			fmtout("Wrong operator!");
 		}

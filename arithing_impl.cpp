@@ -176,7 +176,7 @@ namespace leisure {
 		if (nan || other.nan) {
 			return std::partial_ordering::unordered;
 		}
-		if (inf == other.inf && sign == other.sign) {
+		if (inf && other.inf && sign == other.sign) {
 			return std::strong_ordering::equal;
 		}
 		if (sign != other.sign) {
@@ -306,6 +306,19 @@ namespace leisure {
 		return *this;
 	}
 
+	arreal& arreal::operator%=(const arreal& other) {
+		if (den == other.den) {
+			num %= other.num;
+		}
+		else {
+			unsigned long long den_lcm = std::lcm(den.value, other.den.value);
+			num = num * (den_lcm / den.value) % other.num * (den_lcm / other.den.value);
+			den.value = den_lcm;
+		}
+		_Adjust();
+		return *this;
+	}
+
 	arreal arreal::operator+(const arreal& other) const {
 		arreal temp = *this;
 		temp += other;
@@ -327,6 +340,12 @@ namespace leisure {
 	arreal arreal::operator/(const arreal& other) const {
 		arreal temp = *this;
 		temp /= other;
+		return temp;
+	}
+
+	arreal arreal::operator%(const arreal& other) const {
+		arreal temp = *this;
+		temp %= other;
 		return temp;
 	}
 
