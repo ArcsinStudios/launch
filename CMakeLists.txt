@@ -9,12 +9,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(launch STATIC)
 
 target_sources(launch PRIVATE
+  arithing_impl.cpp
   chroyes_impl.cpp
   clap_impl.cpp
   escseq_impl.cpp
+  exfmtio_impl.cpp
   fmtio_impl.cpp
-  fmtio_nullstream.cpp
-  goodmath_arith.cpp
   goodmath_impl.cpp
   goodstr_impl.cpp
   hedgehog_impl.cpp
