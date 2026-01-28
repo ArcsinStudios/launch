@@ -1,0 +1,311 @@
+d29f56a Initial commit
+N/A
+===
+c26c7cb Initial commit
+N/A
+===
+7cfba57 Merge branch 'main' of https://github.com/ArcsinStudios/launch Merge initial commits
+[v] All existing modules functional
+[x] Tests unavailable
+[x] CMake unavailable
+===
+995e589 Add benchmarks
+[v] All existing modules functional
+[v] Tests available
+[x] CMake unavailable
+===
+566299c Rename inverse hyperbolic functions
+[o] All existing modules functional
+- [!] Function names have changed
+[v] Tests available
+[x] CMake unavailable
+===
+b19529d New module: <escseq>
+[v] All existing modules functional
+[v] Tests available
+[x] CMake unavailable
+===
+93eb7a3 New module: <clap>
+[v] All existing modules functional
+[v] Tests available
+[x] CMake unavailable
+===
+39abd44 New module: <chroyes>
+[v] All existing modules functional
+[v] Tests available
+[x] CMake unavailable
+===
+6e9bcaf Added module control
+[o] All existing modules functional
+- [!] Broken module control
+[v] Tests available
+[x] CMake unavailable
+===
+0a34426 Renamed methods in hedgehog in order to match with STL
+[o] All existing modules functional
+- [!] Function names have changed
+- [!] Broken module control
+[v] Tests available
+[x] CMake unavailable
+===
+b80f2ac Several functional enhancements on <goodstr> and <chroyes>
+[o] All existing modules functional
+- [!] Broken module control
+[v] Tests available
+[x] CMake unavailable
+===
+d539c20 New features: arint in <goodmath> and nullstream in <fmtio>
+[o] All existing modules functional
+- [!] Broken module control
+[v] Tests available
+[x] CMake unavailable
+===
+b232cf1 New module: <caref>; several module controls
+[o] All existing modules functional
+- [!] Deprecated module: <caref>
+- [!] Broken module control
+[v] Tests available
+[x] CMake unavailable
+===
+2909c2f README.md, CONTRIBUTING.md, CMakeLists.txt
+[o] All existing modules functional
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+8da9925 Updated README.md and CONTRIBUTING.md
+[o] All existing modules functional
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+3300c8d Simplified comparison operators of hedgehog_iterator and hedgehog_const_iterator
+[o] All existing modules functional
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+f380704 Refactored arint
+[o] Existing modules partially functional
+- [!] Something has changed a lot
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+8373895 New module: <lidevec> (beta); fixed known bugs; removed seriously glitched features
+[o] Existing modules partially functional
+- [!] Deprecated module: <lidevec>
+- [!] Something has changed a lot
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+deca730 Updated README
+[o] Existing modules partially functional
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+c0db4c9 Optimized lidevec and added a few features
+[o] Existing modules partially functional
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+5339bca Refined lidevec
+[o] Existing modules partially functional
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+515952a Second refinement on <lidevec> and <hedgehog>; refactored <chroyes>
+[o] Existing modules partially functional
+- [!] Something has changed a lot
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+942c9c4 Updated README
+[o] Existing modules partially functional
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+789e84d Updated README.md and CONTRIBUTING.md
+[o] Existing modules partially functional
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+fb99ca0 Refactored <goodstr>; refined <hedgehog>; unified code style; others
+[o] Existing modules partially functional
+- [!] Something has changed a lot
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+6adf1a8 Overall cleanup
+[o] Existing modules partially functional
+- [!] Broken arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+ddafa46 Refactored arint; miscellaneous renaming
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+50f1b1a Fixed known bugs (2 in total); refined operator>> of arint
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+d9665de Added LEISURE
+[o] Existing modules partially functional
+- [!] Something has changed a lot
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+a65e4f9 New module: <goodrand>
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+f478cfa Updated README.md and CONTRIBUTING.md
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+9e1d1e6 Overall cleanup #2
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+5b73612 Refined "what" strings
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+f58d468 Added arreal
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known bugs
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+bf64226 Updated README.md and CONTRIBUTING.md
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+0ca849d Simplified <hedgehog>; refactored <goodstr>; overall cleanup
+[o] Existing modules partially functional
+- [!] Something has changed a lot
+- [!] Broken comparisons for arint
+- [!] Broken module control
+[v] Tests available
+[v] CMake available
+===
+d27ab2f Fixed config system
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+[v] Tests available
+[v] CMake available
+===
+d31c1ad Enhanced <hedgehog>; fixed known bugs
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+[v] Tests available
+[v] CMake available
+===
+bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
+[o] Existing modules partially functional
+- [!] Removed two modules
+- [!] Something has changed a lot
+- [!] Broken comparisons for arint
+[v] Tests available
+[x] CMake unavailable
+===
+020b955 Fixed known bugs
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+[v] Tests available
+[x] CMake unavailable
+===
+5b8554b Renamed concepts
+[o] Existing modules partially functional
+- [!] Concept names have changed
+- [!] Broken comparisons for arint
+[v] Tests available
+[x] CMake unavailable
+===
+c3998b3 Updated README.md and CONTRIBUTING.md
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+[v] Tests available
+[x] CMake unavailable
+===
+8f89baf Overall cleanup #3
+[o] Existing modules partially functional
+- [!] Broken comparisons for arint
+[v] Tests available
+[x] CMake unavailable
+===
+2641307 Added arreal::operator%; fixed known bugs
+[v] All existing modules functional
+[v] Tests available
+[x] CMake unavailable
+===
+4cd7d00 Added arreal::to_decimal; added one constant
+[v] All existing modules functional
+[v] Tests available
+[x] CMake unavailable
+===
+ff06a0f Separated <exfmtio> from <fmtio_nullstream> and added a few features
+[o] All existing modules functional
+- [!] Something has changed a lot
+[v] Tests available
+[x] CMake unavailable
+===
+82f4ba2 Updated CMakeLists.txt
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Overall cleanup #4; added HISTORY.txt
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available

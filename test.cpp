@@ -138,34 +138,33 @@ int main(int argc, char* argv[]) {
 		++cnt;
 		fmtout("=== START OF TEST - ARITHING ===\n");
 		hedgehog hh;
-		arreal lhs, rhs;
+		arreal lhs, rhs, res;
 		char op;
 		fmtout("Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ");
 		fmtin<arreal, char, arreal>(hh);
 		lhs = hh[0].as<arreal>();
 		op = hh[1].as<char>();
 		rhs = hh[2].as<arreal>();
-		fmtout("{0} {1} {2} = ", { lhs, op, rhs });
 		switch (op) {
 		case '+':
-			fmtout("{0}", { lhs + rhs });
+			res = lhs + rhs;
 			break;
 		case '-':
-			fmtout("{0}", { lhs - rhs });
+			res = lhs - rhs;
 			break;
 		case '*':
-			fmtout("{0}", { lhs * rhs });
+			res = lhs * rhs;
 			break;
 		case '/':
-			fmtout("{0}", { lhs / rhs });
+			res = lhs / rhs;
 			break;
 		case '%':
-			fmtout("{0}", { lhs % rhs });
+			res = lhs % rhs;
 			break;
 		default:
-			fmtout("Wrong operator!");
+			res = arint(0, arint_specval::nan);
 		}
-		fmtout("\n");
+		fmtout("{0} {1} {2} = {3} = {4}\n", { lhs, op, rhs, res, res.to_decimal() });
 		fmtout("=== END OF TEST - ARITHING ===\n");
 	}
 	if (parser.get_flag("exfmtio")) {

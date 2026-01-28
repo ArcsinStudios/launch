@@ -258,9 +258,6 @@ namespace leisure {
 	}
 
 	constexpr void arreal::_Adjust() {
-		unsigned long long nd_gcd = std::gcd(num.value, den.value);
-		num.value /= nd_gcd;
-		den.value /= nd_gcd;
 		if (num.sign && !den.sign) {
 			num.sign = false;
 			den.sign = true;
@@ -269,6 +266,12 @@ namespace leisure {
 			num.sign = true;
 			den.sign = true;
 		}
+		if (num.nan || den.nan || num.inf || den.inf) {
+			return;
+		}
+		unsigned long long nd_gcd = std::gcd(num.value, den.value);
+		num.value /= nd_gcd;
+		den.value /= nd_gcd;
 	}
 
 	constexpr arreal::arreal(const arint& _num, const arint& _den) : num(_num), den(_den) {
@@ -391,9 +394,16 @@ namespace leisure {
 	}
 
 	std::string arreal::to_decimal() const {
+		if (num.nan) {
+			return "NaN";
+		}
 		std::string res;
 		if (!num.sign) {
 			res += "-";
+		}
+		if (num.inf || den.inf) {
+			res += "inf";
+			return res;
 		}
 		std::string res_str = std::to_string(num.value / den.value);
 		res += res_str;
