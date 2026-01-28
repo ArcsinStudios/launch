@@ -213,6 +213,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 f58d468 Added arreal
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -220,6 +221,7 @@ f58d468 Added arreal
 b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -227,6 +229,7 @@ b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known 
 bf64226 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -235,6 +238,7 @@ bf64226 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Something has changed a lot
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -242,12 +246,14 @@ bf64226 Updated README.md and CONTRIBUTING.md
 d27ab2f Fixed config system
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
 d31c1ad Enhanced <hedgehog>; fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
@@ -256,12 +262,14 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 - [!] Removed two modules
 - [!] Something has changed a lot
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 020b955 Fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
@@ -269,43 +277,56 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 [o] Existing modules partially functional
 - [!] Concept names have changed
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 c3998b3 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 8f89baf Overall cleanup #3
 [o] Existing modules partially functional
 - [!] Broken comparisons for arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 2641307 Added arreal::operator%; fixed known bugs
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 4cd7d00 Added arreal::to_decimal; added one constant
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 ff06a0f Separated <exfmtio> from <fmtio_nullstream> and added a few features
-[o] All existing modules functional
+[o] Existing modules partially functional
 - [!] Something has changed a lot
+- [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 82f4ba2 Updated CMakeLists.txt
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
-(HEAD!) Overall cleanup #4; added HISTORY.txt
+c99c969 Overall cleanup #4; added HISTORY.txt
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Fixed known bugs
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

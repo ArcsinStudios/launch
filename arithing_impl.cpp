@@ -269,6 +269,11 @@ namespace leisure {
 		if (num.nan || den.nan || num.inf || den.inf) {
 			return;
 		}
+		if (den.value == 0) {
+			num.inf = true;
+			den.value = 1;
+			return;
+		}
 		unsigned long long nd_gcd = std::gcd(num.value, den.value);
 		num.value /= nd_gcd;
 		den.value /= nd_gcd;

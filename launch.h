@@ -37,7 +37,3 @@
 #if defined(LAUNCH_EXPERIMENTAL)
 #include "leisure.h"
 #endif
-
-namespace launch {
-	constexpr uint32_t EASTER_EGG = 0x8B0BA7EA;
-}
