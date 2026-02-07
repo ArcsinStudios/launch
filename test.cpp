@@ -5,6 +5,15 @@
 using namespace launch;
 using namespace leisure;
 
+const char* artwork =
+R"( ___       ________  ___  ___  ________   ________  ___  ___     )""\n"
+R"(|\  \     |\   __  \|\  \|\  \|\   ___  \|\   ____\|\  \|\  \    )""\n"
+R"(\ \  \    \ \  \|\  \ \  \\\  \ \  \\ \  \ \  \___|\ \  \\\  \   )""\n"
+R"( \ \  \    \ \   __  \ \  \\\  \ \  \\ \  \ \  \    \ \   __  \  )""\n"
+R"(  \ \  \____\ \  \ \  \ \  \\\  \ \  \\ \  \ \  \____\ \  \ \  \ )""\n"
+R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
+R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)""\n\n";
+
 long long hedgehog_test0(hedgehog& hh) {
 	stopwatch watch;
 	hh.clear();
@@ -72,6 +81,7 @@ int main(int argc, char* argv[]) {
 		{"f", "exfmtio"}
 	});
 	int cnt = 0;
+	fmtout(artwork);
 	fmtout("=== START OF PROGRAM ===\n");
 	if (parser.get_flag("escseq")) {
 		++cnt;
@@ -104,7 +114,7 @@ int main(int argc, char* argv[]) {
 		fmtout("Benchmark 2, calculating 256 times: {0} microseconds\n", { hedgehog_test2(hh) });
 		fmtout("Test 3:\n");
 		hedgehog_test3();
-		fmtout("=== END OF TEST -  ===\n");
+		fmtout("=== END OF TEST - HEDGEHOG ===\n");
 	}
 	if (parser.get_flag("goodmath")) {
 		++cnt;

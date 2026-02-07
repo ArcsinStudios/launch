@@ -402,6 +402,16 @@ namespace leisure {
 		if (num.nan) {
 			return "NaN";
 		}
+		unsigned long long temp = den.value;
+		while (!(temp % 2)) {
+			temp /= 2;
+		}
+		while (!(temp % 5)) {
+			temp /= 5;
+		}
+		if (temp >= 500) {
+			return "RESULT TOO BIG!";
+		}
 		std::string res;
 		if (!num.sign) {
 			res += "-";
