@@ -7,19 +7,19 @@ namespace launch {
 		return out << manip.seq;
 	}
 
-	escseq_manip cursor_goto(int line, int col) {
+	escseq_manip cursor_goto(size_t line, size_t col) {
 		return escseq_manip("\033[" + std::to_string(line) + ";" + std::to_string(col) + "H");
 	}
-	escseq_manip cursor_up(int count) {
+	escseq_manip cursor_up(size_t count) {
 		return escseq_manip("\033[" + std::to_string(count) + "A");
 	}
-	escseq_manip cursor_down(int count) {
+	escseq_manip cursor_down(size_t count) {
 		return escseq_manip("\033[" + std::to_string(count) + "B");
 	}
-	escseq_manip cursor_right(int count) {
+	escseq_manip cursor_right(size_t count) {
 		return escseq_manip("\033[" + std::to_string(count) + "C");
 	}
-	escseq_manip cursor_left(int count) {
+	escseq_manip cursor_left(size_t count) {
 		return escseq_manip("\033[" + std::to_string(count) + "D");
 	}
 

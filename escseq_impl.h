@@ -36,11 +36,11 @@ namespace launch {
 	inline const escseq_manip reset_background("\033[49m");
 	inline const escseq_manip reset_font("\033[0m");
 
-	escseq_manip cursor_goto(int line, int col);
-	escseq_manip cursor_up(int count);
-	escseq_manip cursor_down(int count);
-	escseq_manip cursor_right(int count);
-	escseq_manip cursor_left(int count);
+	escseq_manip cursor_goto(size_t line, size_t col);
+	escseq_manip cursor_up(size_t count);
+	escseq_manip cursor_down(size_t count);
+	escseq_manip cursor_right(size_t count);
+	escseq_manip cursor_left(size_t count);
 
 	escseq_manip foreground_color(unsigned char r, unsigned char g, unsigned char b);
 	escseq_manip background_color(unsigned char r, unsigned char g, unsigned char b);

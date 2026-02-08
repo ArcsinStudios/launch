@@ -1,0 +1,30 @@
+Also try Boost!
+Worse than Boost!
+Not peer-reviewed!
+Partially documented!
+Cool README!
+Bad commit messages!
+Really good code!
+Ten nicely polished modules!
+Open-source!
+Licensed under the MIT License!
+Permission is hereby granted!
+Free of charge!
+THE SOFTWARE IS PROVIDED "AS IS"!
+WITHOUT WARRANTY OF ANY KIND!
+Sometimes with bugs!
+Sometimes wiht typo!
+With easter eggs!
+Battery excluded!
+Splash!
+On any platform!
+Hello, CMake!
+Written in C++!
+Written in C++20!
+Hello, Concepts!
+Segmentation fault!
+Core dumped!
+Zero UB!
+Well-defined!
+Thank you, Bjarne!
+Nearly zero AI participation!

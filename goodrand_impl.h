@@ -34,12 +34,6 @@ namespace launch {
 			T max = std::numeric_limits<T>::max()
 		) : engine(rd()), distrib(min, max) {}
 
-		randgen_int(
-			std::random_device::result_type seed,
-			T min = std::numeric_limits<T>::min(),
-			T max = std::numeric_limits<T>::max()
-		) : engine(seed), distrib(min, max) {}
-
 		void set_range(T min, T max) {
 			distrib.param(std::uniform_int_distribution<T>::param_type(min, max));
 		}
@@ -52,7 +46,7 @@ namespace launch {
 			distrib.reset();
 		}
 
-		void resow(std::random_device::result_type seed) {
+		void seed(std::random_device::result_type seed) {
 			engine.seed(seed);
 		}
 	};
@@ -70,12 +64,6 @@ namespace launch {
 			T max = 1
 		) : engine(rd()), distrib(min, max) {}
 
-		randgen_real(
-			std::random_device::result_type seed,
-			T min = 0,
-			T max = 1
-		) : engine(seed), distrib(min, max) {}
-
 		void set_range(T min, T max) {
 			distrib.param(std::uniform_real_distribution<T>::param_type(min, max));
 		}
@@ -88,7 +76,7 @@ namespace launch {
 			distrib.reset();
 		}
 
-		void resow(std::random_device::result_type seed) {
+		void seed(std::random_device::result_type seed) {
 			engine.seed(seed);
 		}
 	};

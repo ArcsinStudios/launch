@@ -12,7 +12,7 @@ Title:
 Defect - (one-line description)
 
 Content:  
-**\*Module**: (module name)
+**\*Module**: (module name)  
 **Applicable** **version(s)**: since (6-digit commit hash)  
 **Environment**: (compiler) (compiler version) (compile options) on (OS)  
 **\*Description**: (detailed description)  

@@ -1,3 +1,4 @@
+#include <fstream>
 #include <list>
 #include <vector>
 
@@ -12,7 +13,9 @@ R"(\ \  \    \ \  \|\  \ \  \\\  \ \  \\ \  \ \  \___|\ \  \\\  \   )""\n"
 R"( \ \  \    \ \   __  \ \  \\\  \ \  \\ \  \ \  \    \ \   __  \  )""\n"
 R"(  \ \  \____\ \  \ \  \ \  \\\  \ \  \\ \  \ \  \____\ \  \ \  \ )""\n"
 R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
-R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)""\n\n";
+R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
+
+std::vector<std::string> splashes;
 
 long long hedgehog_test0(hedgehog& hh) {
 	stopwatch watch;
@@ -32,7 +35,7 @@ long long hedgehog_test1(hedgehog& hh) {
 	hedgehog_test0(hh);
 	stopwatch watch;
 	std::string fmt = "";
-	int size = hh.size();
+	size_t size = hh.size();
 	for (int i = 0; i < size; ++i) {
 		fmt += "{" + std::to_string(i) + "} ";
 	}
@@ -82,6 +85,25 @@ int main(int argc, char* argv[]) {
 	});
 	int cnt = 0;
 	fmtout(artwork);
+	std::ifstream file("splashes.txt");
+	if (!file.is_open()) {
+		splashes.push_back("Unable to load splashes!");
+	}
+	else {
+		std::string line;
+		while (std::getline(file, line)) {
+			splashes.push_back(line);
+		}
+	}
+	file.close();
+	randgen_int<size_t> rand(0, splashes.size() - 1);
+	size_t splash_index = rand.next();
+	fmtout("{0}{1}{2}{3}\n", {
+		cursor_left(splashes[splash_index].length()),
+		foreground_color(255, 255, 0),
+		splashes[splash_index],
+		rendl_fast
+	});
 	fmtout("=== START OF PROGRAM ===\n");
 	if (parser.get_flag("escseq")) {
 		++cnt;

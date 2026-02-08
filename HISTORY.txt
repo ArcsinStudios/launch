@@ -184,6 +184,7 @@ d9665de Added LEISURE
 ===
 a65e4f9 New module: <goodrand>
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Broken module control
 [v] Tests available
@@ -191,6 +192,7 @@ a65e4f9 New module: <goodrand>
 ===
 f478cfa Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Broken module control
 [v] Tests available
@@ -198,6 +200,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 ===
 9e1d1e6 Overall cleanup #2
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Broken module control
 [v] Tests available
@@ -205,6 +208,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 ===
 5b73612 Refined "what" strings
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Broken module control
 [v] Tests available
@@ -212,6 +216,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 ===
 f58d468 Added arreal
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
@@ -220,6 +225,7 @@ f58d468 Added arreal
 ===
 b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
@@ -228,6 +234,7 @@ b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known 
 ===
 bf64226 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
@@ -237,6 +244,7 @@ bf64226 Updated README.md and CONTRIBUTING.md
 0ca849d Simplified <hedgehog>; refactored <goodstr>; overall cleanup
 [o] Existing modules partially functional
 - [!] Something has changed a lot
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
@@ -245,6 +253,7 @@ bf64226 Updated README.md and CONTRIBUTING.md
 ===
 d27ab2f Fixed config system
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -252,6 +261,7 @@ d27ab2f Fixed config system
 ===
 d31c1ad Enhanced <hedgehog>; fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -261,6 +271,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 [o] Existing modules partially functional
 - [!] Removed two modules
 - [!] Something has changed a lot
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -268,6 +279,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 ===
 020b955 Fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -276,6 +288,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 5b8554b Renamed concepts
 [o] Existing modules partially functional
 - [!] Concept names have changed
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -283,6 +296,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 ===
 c3998b3 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -290,6 +304,7 @@ c3998b3 Updated README.md and CONTRIBUTING.md
 ===
 8f89baf Overall cleanup #3
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Broken comparisons for arint
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -297,12 +312,14 @@ c3998b3 Updated README.md and CONTRIBUTING.md
 ===
 2641307 Added arreal::operator%; fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 4cd7d00 Added arreal::to_decimal; added one constant
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -310,18 +327,21 @@ c3998b3 Updated README.md and CONTRIBUTING.md
 ff06a0f Separated <exfmtio> from <fmtio_nullstream> and added a few features
 [o] Existing modules partially functional
 - [!] Something has changed a lot
+- [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
 ===
 82f4ba2 Updated CMakeLists.txt
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
 c99c969 Overall cleanup #4; added HISTORY.txt
 [o] Existing modules partially functional
+- [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -329,11 +349,19 @@ c99c969 Overall cleanup #4; added HISTORY.txt
 ad41129 Fixed known bugs
 [o] All existing modules functional
 - [!] This version cannot successfully compile due to a mistake
+- [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
-(HEAD!) Fixed known bugs (so many bugs)
+2420ca0 Fixed known bugs (so many bugs)
+[o] Existing modules partially functional
+- [!] Broken <goodrand>
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Overall cleanup #5; added splashes; fixed known bugs
 [v] All existing modules functional
+- [!] Something has changed a lot
 [v] Tests available
 [v] CMake available

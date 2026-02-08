@@ -1,5 +1,5 @@
 > [!NOTE]
-> This README was written in assistance of MPE (Visual Studio Code extension).  
+> This README was written in assistance of MPE (a Visual Studio Code extension).  
 > Some of the features used may not work on GitHub.  
 > For the best reading experience, please use MPE.  
 > Thank you for your understanding.
@@ -18,11 +18,11 @@
 <h2 style="
   position: relative;
   top: -70px;
-  left: 400px;
+  left: 330px;
   color: orange;
   transform-origin: 20%;
   animation: splash 1.2s ease-in-out infinite;
-">Also try Boost!</h2>
+">Now with splashes!</h2>
 
 </div>
 
@@ -249,13 +249,13 @@ Why not use LAUNCH?
 <style>
 @keyframes splash {
   0% {
-    transform: rotate(-15deg) scale(1);
+    transform: rotate(-10deg) scale(1);
   }
   50% {
-    transform: rotate(-15deg) scale(1.1);
+    transform: rotate(-10deg) scale(1.1);
   }
   100% {
-    transform: rotate(-15deg) scale(1);
+    transform: rotate(-10deg) scale(1);
   }
 }
 </style>
