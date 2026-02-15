@@ -348,7 +348,7 @@ c99c969 Overall cleanup #4; added HISTORY.txt
 ===
 ad41129 Fixed known bugs
 [o] All existing modules functional
-- [!] This version cannot successfully compile due to a mistake
+- [!] This version cannot be successfully compiled due to a mistake
 - [!] Broken <goodrand>
 - [!] Some edge cases not properly handled
 [v] Tests available
@@ -357,11 +357,17 @@ ad41129 Fixed known bugs
 2420ca0 Fixed known bugs (so many bugs)
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
-(HEAD!) Overall cleanup #5; added splashes; fixed known bugs
+3b65e16 Overall cleanup #5; added splashes; fixed known bugs
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Updated tests; fixed known bugs
 [v] All existing modules functional
-- [!] Something has changed a lot
 [v] Tests available
 [v] CMake available

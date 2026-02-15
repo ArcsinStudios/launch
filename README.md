@@ -87,7 +87,7 @@ watch.resume();
 /* back to work */
 std::this_thread::sleep_for(1s);
 watch.stop();
-std::cout << "Time elapsed: " << watch.get_dur().milliseconds(); << "ms\n";
+std::cout << "Time elapsed: " << watch.get_dur().milliseconds() << "ms\n";
 ```
 - Expected output:
 ```

@@ -50,7 +50,7 @@ namespace launch {
 		this->regtype_output_auto<char>();
 		this->regtype_output_auto<const char*>();
 		this->regtype_oper(
-			{typeid(const char*), hedgehog_opertype::add, typeid(const char*)},
+			{ typeid(const char*), hedgehog_opertype::add, typeid(const char*) },
 			[](std::any a, std::any b) -> std::any {
 				return std::string(std::any_cast<const char*>(a)) + std::string(std::any_cast<const char*>(b));
 			}
@@ -71,20 +71,6 @@ namespace launch {
 #endif
 	}
 
-	const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& hedgehog_registry::get_output() const {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(output_mutex_);
-#endif
-		return output_reg;
-	}
-
-	const std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>& hedgehog_registry::get_oper() const {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(oper_mutex_);
-#endif
-		return oper_reg;
-	}
-
 	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_registry::output_func_it(std::type_index key) const {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
 		std::shared_lock lock(output_mutex_);
@@ -98,6 +84,20 @@ namespace launch {
 #endif
 		return oper_reg.find(key);
 	}
+	
+	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_registry::output_end() const {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
+		std::shared_lock lock(output_mutex_);
+#endif
+		return output_reg.end();
+	}
+
+	std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator hedgehog_registry::oper_end() const {
+#if !defined(LAUNCH_NO_THREAD_SAFE)
+		std::shared_lock lock(oper_mutex_);
+#endif
+		return oper_reg.end();
+	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator=(const std::any& _value) {
 		value = _value;
@@ -110,8 +110,8 @@ namespace launch {
 		}
 		const std::type_info& type0 = value.type();
 		const std::type_info& type1 = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::add, type1});
-		if (func_it != hregistry.get_oper().end()) {
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({ type0, hedgehog_opertype::add, type1 });
+		if (func_it != hregistry.oper_end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -130,8 +130,8 @@ namespace launch {
 		}
 		const std::type_info& type0 = value.type();
 		const std::type_info& type1 = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::sub, type1});
-		if (func_it != hregistry.get_oper().end()) {
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({ type0, hedgehog_opertype::sub, type1 });
+		if (func_it != hregistry.oper_end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -150,8 +150,8 @@ namespace launch {
 		}
 		const std::type_info& type0 = value.type();
 		const std::type_info& type1 = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::mul, type1});
-		if (func_it != hregistry.get_oper().end()) {
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({ type0, hedgehog_opertype::mul, type1 });
+		if (func_it != hregistry.oper_end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -170,8 +170,8 @@ namespace launch {
 		}
 		const std::type_info& type0 = value.type();
 		const std::type_info& type1 = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::div, type1});
-		if (func_it != hregistry.get_oper().end()) {
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({ type0, hedgehog_opertype::div, type1 });
+		if (func_it != hregistry.oper_end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -190,8 +190,8 @@ namespace launch {
 		}
 		const std::type_info& type0 = value.type();
 		const std::type_info& type1 = _value.type();
-		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({value.type(), hedgehog_opertype::mod, type1});
-		if (func_it != hregistry.get_oper().end()) {
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator func_it = hregistry.oper_func_it({ type0, hedgehog_opertype::mod, type1 });
+		if (func_it != hregistry.oper_end()) {
 			value = (func_it->second)(value, _value);
 			return *this;
 		}
@@ -215,7 +215,7 @@ namespace launch {
 		}
 		const std::type_info& type = _value.type();
 		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator func_it = hregistry.output_func_it(type);
-		if (func_it != hregistry.get_output().end()) {
+		if (func_it != hregistry.output_end()) {
 			return (func_it->second)(out, _value);
 		}
 		return out << "[UNKTYP:" << type.name() << "]";

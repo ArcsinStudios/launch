@@ -17,40 +17,32 @@ R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
 
 std::vector<std::string> splashes;
 
-long long hedgehog_test0(hedgehog& hh) {
-	stopwatch watch;
-	hh.clear();
-	hh.reserve(768);
-	watch.start();
+long long hedgehog_test1() {
+	hedgehog hh;
 	for (int i = 0; i < 256; ++i) {
 		hh.push_back(i);
-		hh.push_back((double)i);
+		hh.push_back(i / 10.0);
+		hh.push_back(i % 2 == 0);
 		hh.push_back(std::to_string(i));
 	}
-	watch.stop();
-	return watch.get_dur().microseconds();
-}
-
-long long hedgehog_test1(hedgehog& hh) {
-	hedgehog_test0(hh);
-	stopwatch watch;
-	std::string fmt = "";
 	size_t size = hh.size();
+	std::string fmt = "";
 	for (int i = 0; i < size; ++i) {
 		fmt += "{" + std::to_string(i) + "} ";
 	}
+	stopwatch watch;
 	watch.start();
 	fmtout(fmt, hh, nullout);
 	watch.stop();
 	return watch.get_dur().microseconds();
 }
 
-long long hedgehog_test2(hedgehog& hh) {
-	stopwatch watch;
-	hh.clear();
+long long hedgehog_test2() {
+	hedgehog hh;
 	for (int i = 0; i < 256; ++i) {
 		hh.push_back(0);
 	}
+	stopwatch watch;
 	watch.start();
 	for (int i = 0; i < 256; ++i) {
 		hh[i] += i;
@@ -96,6 +88,9 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	file.close();
+	if (!splashes.size()) {
+		splashes.push_back("Unable to load splashes!");
+	}
 	randgen_int<size_t> rand(0, splashes.size() - 1);
 	size_t splash_index = rand.next();
 	fmtout("{0}{1}{2}{3}\n", {
@@ -130,10 +125,8 @@ int main(int argc, char* argv[]) {
 	if (parser.get_flag("hedgehog")) {
 		++cnt;
 		fmtout("=== START OF TEST - HEDGEHOG ===\n");
-		hedgehog hh = {};
-		fmtout("Benchmark 0, adding 768 elements: {0} microseconds\n", { hedgehog_test0(hh) });
-		fmtout("Benchmark 1, printing 768 elements: {0} microseconds\n", { hedgehog_test1(hh) });
-		fmtout("Benchmark 2, calculating 256 times: {0} microseconds\n", { hedgehog_test2(hh) });
+		fmtout("Test 1, printing 1024 elements: {0} microseconds\n", { hedgehog_test1() });
+		fmtout("Test 2, calculating 256 times: {0} microseconds\n", { hedgehog_test2() });
 		fmtout("Test 3:\n");
 		hedgehog_test3();
 		fmtout("=== END OF TEST - HEDGEHOG ===\n");

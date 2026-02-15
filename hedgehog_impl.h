@@ -55,9 +55,6 @@ namespace std {
 }
 
 namespace launch {
-	class hedgehog_iterator;
-	class hedgehog_const_iterator;
-
 	template <typename T>
 	concept Printable = requires(std::ostream& out, const T& value) {
 		{ out << value } -> std::same_as<std::ostream&>;
@@ -228,13 +225,13 @@ namespace launch {
 
 		hedgehog_registry();
 
-		const std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>& get_output() const;
-
-		const std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>& get_oper() const;
-
 		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator output_func_it(std::type_index key) const;
 
 		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator oper_func_it(hedgehog_opersign key) const;
+
+		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator output_end() const;
+
+		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator oper_end() const;
 	};
 
 	class hedgehog_elemproxy {

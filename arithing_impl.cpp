@@ -402,6 +402,9 @@ namespace leisure {
 		if (num.nan) {
 			return "NaN";
 		}
+		if (den.inf) {
+			return num.inf ? "NaN" : "0";
+		}
 		unsigned long long temp = den.value;
 		while (!(temp % 2)) {
 			temp /= 2;
@@ -410,13 +413,13 @@ namespace leisure {
 			temp /= 5;
 		}
 		if (temp >= 500) {
-			return "RESULT TOO BIG!";
+			return "[RES2LONG]";
 		}
 		std::string res;
 		if (!num.sign) {
 			res += "-";
 		}
-		if (num.inf || den.inf) {
+		if (num.inf) {
 			res += "inf";
 			return res;
 		}
