@@ -61,29 +61,44 @@ namespace launch {
 	};
 
 	template <typename T, typename U>
-	concept ArithmeticAdd = requires(T a, U b) {
-		a + b;
-	};
+	concept ArithmeticAdd =
+		requires(T a, U b) {
+			a + b;
+		} &&
+		!std::is_pointer_v<T> && !std::is_pointer_v<U> &&
+		!std::is_same_v<T, bool> && !std::is_same_v<U, bool>;
 
 	template <typename T, typename U>
-	concept ArithmeticSub = requires(T a, U b) {
-		a - b;
-	};
+	concept ArithmeticSub =
+		requires(T a, U b) {
+			a - b;
+		} &&
+		!std::is_pointer_v<T> && !std::is_pointer_v<U> &&
+		!std::is_same_v<T, bool> && !std::is_same_v<U, bool>;
 
 	template <typename T, typename U>
-	concept ArithmeticMul = requires(T a, U b) {
-		a * b;
-	};
+	concept ArithmeticMul =
+		requires(T a, U b) {
+			a * b;
+		} &&
+		!std::is_pointer_v<T> && !std::is_pointer_v<U> &&
+		!std::is_same_v<T, bool> && !std::is_same_v<U, bool>;
 
 	template <typename T, typename U>
-	concept ArithmeticDiv = requires(T a, U b) {
-		a / b;
-	};
+	concept ArithmeticDiv =
+		requires(T a, U b) {
+			a / b;
+		} &&
+		!std::is_pointer_v<T> && !std::is_pointer_v<U> &&
+		!std::is_same_v<T, bool> && !std::is_same_v<U, bool>;
 
 	template <typename T, typename U>
-	concept ArithmeticMod = requires(T a, U b) {
-		a % b;
-	};
+	concept ArithmeticMod =
+		requires(T a, U b) {
+			a % b;
+		} &&
+		!std::is_pointer_v<T> && !std::is_pointer_v<U> &&
+		!std::is_same_v<T, bool> && !std::is_same_v<U, bool>;
 
 	template <typename T, typename U>
 	concept Arithmetic = ArithmeticAdd<T, U> && ArithmeticSub<T, U> && ArithmeticMul<T, U> && ArithmeticDiv<T, U>;
@@ -221,6 +236,37 @@ namespace launch {
 		void regtype_5ops_auto_rev() {
 			this->regtype_4ops_auto_rev<T, U>();
 			this->regtype_mod_auto_rev<T, U>();
+		}
+
+		template <typename T, typename U>
+		void regtype_helper_process() {
+			if constexpr (ArithmeticAdd<T, U>) {
+				this->regtype_add_auto_rev<T, U>();
+			}
+			if constexpr (ArithmeticSub<T, U>) {
+				this->regtype_sub_auto_rev<T, U>();
+			}
+			if constexpr (ArithmeticMul<T, U>) {
+				this->regtype_mul_auto_rev<T, U>();
+			}
+			if constexpr (ArithmeticDiv<T, U>) {
+				this->regtype_div_auto_rev<T, U>();
+			}
+			if constexpr (ArithmeticMod<T, U>) {
+				this->regtype_mod_auto_rev<T, U>();
+			}
+		}
+
+		template <typename T, typename... Us>
+		void regtype_helper() {
+			if constexpr (Printable<T>) {
+				this->regtype_output_auto<T>();
+			}
+			this->regtype_helper_process<T, T>();
+			if constexpr (sizeof...(Us)) {
+				(this->regtype_helper_process<T, Us>(), ...);
+				this->regtype_helper<Us...>();
+			}
 		}
 
 		hedgehog_registry();

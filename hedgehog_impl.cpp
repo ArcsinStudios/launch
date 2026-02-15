@@ -24,50 +24,18 @@ namespace launch {
 	}
 
 	hedgehog_registry::hedgehog_registry() {
-		this->regtype_output(typeid(bool), [](std::ostream& out, const std::any& value) -> std::ostream& {
-			return out << std::boolalpha << std::any_cast<bool>(value) << std::noboolalpha;
-		});
-		this->regtype_output_auto<short>();
-		this->regtype_5ops_auto<short>();
-		this->regtype_output_auto<int>();
-		this->regtype_5ops_auto<int>();
-		this->regtype_output_auto<long long>();
-		this->regtype_5ops_auto<long long>();
-		this->regtype_5ops_auto_rev<short, int>();
-		this->regtype_5ops_auto_rev<short, long long>();
-		this->regtype_5ops_auto_rev<int, long long>();
-		this->regtype_output_auto<float>();
-		this->regtype_4ops_auto<float>();
-		this->regtype_output_auto<double>();
-		this->regtype_4ops_auto<double>();
-		this->regtype_4ops_auto_rev<float, double>();
-		this->regtype_4ops_auto_rev<float, short>();
-		this->regtype_4ops_auto_rev<float, int>();
-		this->regtype_4ops_auto_rev<float, long long>();
-		this->regtype_4ops_auto_rev<double, short>();
-		this->regtype_4ops_auto_rev<double, int>();
-		this->regtype_4ops_auto_rev<double, long long>();
-		this->regtype_output_auto<char>();
-		this->regtype_output_auto<const char*>();
-		this->regtype_oper(
-			{ typeid(const char*), hedgehog_opertype::add, typeid(const char*) },
-			[](std::any a, std::any b) -> std::any {
-				return std::string(std::any_cast<const char*>(a)) + std::string(std::any_cast<const char*>(b));
-			}
-		);
-		this->regtype_output_auto<std::string>();
-		this->regtype_add_auto<std::string>();
-		this->regtype_add_auto_rev<std::string, const char*>();
+		this->regtype_helper<
+			char, short, int, long long,
+			unsigned char, unsigned short, unsigned int, unsigned long long,
+			float, double,
+			bool,
+			const char*, std::string
+		>();
 #if !defined(LAUNCH_NO_ESCSEQ)
-		this->regtype_output_auto<escseq_manip>();
-		this->regtype_output_auto<style_manip>();
-		this->regtype_output_auto<reset_endl>();
+		this->regtype_helper<escseq_manip, style_manip, reset_endl>();
 #endif
 #if defined(LAUNCH_EXPERIMENTAL)
-		this->regtype_output_auto<leisure::arint>();
-		this->regtype_5ops_auto<leisure::arint>();
-		this->regtype_output_auto<leisure::arreal>();
-		this->regtype_4ops_auto<leisure::arreal>();
+		this->regtype_helper<leisure::arint, leisure::arreal>();
 #endif
 	}
 

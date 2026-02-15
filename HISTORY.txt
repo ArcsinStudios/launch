@@ -367,7 +367,12 @@ ad41129 Fixed known bugs
 [v] Tests available
 [v] CMake available
 ===
-(HEAD!) Updated tests; fixed known bugs
+ced7bf7 Updated tests; fixed known bugs
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Enhanced <hedgehog>
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available
