@@ -13,8 +13,6 @@ R"(  \ \  \____\ \  \ \  \ \  \\\  \ \  \\ \  \ \  \____\ \  \ \  \ )""\n"
 R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
 R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
 
-std::vector<std::string> splashes;
-
 long long hedgehog_test1() {
 	hedgehog hh;
 	for (int i = 0; i < 256; ++i) {
@@ -73,10 +71,10 @@ int main(int argc, char* argv[]) {
 			{"s", "goodstr"},
 			{"a", "arithing"},
 			{"f", "exfmtio"}
-			});
-		int cnt = 0;
+		});
 		fmtout(artwork);
 		std::ifstream file("splashes.txt");
+		std::vector<std::string> splashes;
 		if (!file.is_open()) {
 			splashes.push_back("Unable to load splashes!");
 		}
@@ -97,7 +95,8 @@ int main(int argc, char* argv[]) {
 			foreground_color(255, 255, 0),
 			splashes[splash_index],
 			rendl_fast
-			});
+		});
+		size_t cnt = 0;
 		fmtout("=== START OF PROGRAM ===\n");
 		if (parser.get_flag("escseq") || parser.get_flag("all")) {
 			++cnt;
@@ -106,11 +105,11 @@ int main(int argc, char* argv[]) {
 				gen_style(escseq_style::italic | escseq_style::underline),
 				foreground_color(0, 0, 255),
 				background_color(255, 255, 255)
-				});
+			});
 			fmtout("{0}Hyperlink (clicked){1}", {
 				foreground_color(128, 0, 255),
 				rendl_fast
-				});
+			});
 			fmtout("{0}int {1}var {2}= {3}42{2}; {4}// This is the palette of One Dark Pro{5}", {
 				foreground_color(198, 120, 221),
 				foreground_color(224, 108, 117),
@@ -118,7 +117,7 @@ int main(int argc, char* argv[]) {
 				foreground_color(209, 154, 102),
 				foreground_color(127, 132, 142),
 				rendl_fast
-				});
+			});
 			fmtout("=== END OF TEST - ESCSEQ ===\n");
 		}
 		if (parser.get_flag("hedgehog") || parser.get_flag("all")) {
@@ -139,11 +138,13 @@ int main(int argc, char* argv[]) {
 			double rad = dtor(hh[0].as<double>());
 			double cos_ = ::launch::cos(rad);
 			double sin_ = ::launch::sin(rad);
+			hh.push_back(cos_);
+			hh.push_back(sin_);
+			hh.push_back(::launch::pow(cos_, 2) + ::launch::pow(sin_, 2));
 			fmtout(
 				"If O is at (0, 0), A is at (1, 0), both OA and OP are 1, "
 				"and angle AOP is {0} degrees, then P is at ({1}, {2}).\n"
-				"By the way, this should be 1: {3}.\n",
-				{ hh[0], cos_, sin_, ::launch::pow(cos_, 2) + ::launch::pow(sin_, 2) }
+				"By the way, this should be 1: {3}.\n", hh
 			);
 			fmtout("=== END OF TEST - GOODMATH ===\n");
 		}
@@ -194,18 +195,32 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("exfmtio") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - EXFMTIO ===\n");
-			hedgehog hh = { -1, -1 };
+			hedgehog hh;
 			fmtout("Enter anything: ");
-			fmtin_deduce_auto(hh[0]);
-			hh[1] = hh[0].type().name();
+			fmtin_deduce_auto(hh);
+			hh.push_back(hh[0].type().name());
 			fmtout("Got {0} with type {1}\n", hh);
 			fmtout("=== END OF TEST - EXFMTIO ===\n");
 		}
 		fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });
+		if (!cnt) {
+			fmtout(
+				"\nOh, it seems like that none of our wonderful tests have been executed!\n"
+				"Please consider running this program with one or more options.\n"
+				"The available options are:\n"
+				"--escseq (-e)\n"
+				"--hedgehog (-h)\n"
+				"--goodmath (-m)\n"
+				"--goodstr (-s)\n"
+				"--arithing (-a)\n"
+				"--exfmtio (-f)\n"
+				"--all\n"
+			);
+		}
 	}
 	catch (const std::exception& e) {
-		std::cerr << "ERROR: Program exited abnormally\n";
-		std::cerr << "       " << e.what() << "\n";
+		std::cerr << "ERROR: " << e.what() << "\n";
+		std::cerr << "Program exited abnormally.\n";
 	}
 	return 0;
 }

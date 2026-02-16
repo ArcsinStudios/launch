@@ -287,7 +287,7 @@ namespace launch {
 	public:
 		template <typename T>
 		hedgehog_elemproxy(T _value) : value(std::forward<T>(_value)) {}
-
+		
 		hedgehog_elemproxy& operator=(const std::any& _value);
 
 		hedgehog_elemproxy& operator+=(const std::any& _value);

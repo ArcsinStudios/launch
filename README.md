@@ -224,10 +224,10 @@ Ooh, rational: 22/7
 - What can \<exfmtio\> do?
 ```cpp
 leisure::nullout << "Hello World...? Anyone here?\n"; // nullout is a global nullstream instance
-launch::hedgehog hh = { -1, -1 };
+launch::hedgehog hh;
 launch::fmtout("Enter anything: ");
-leisure::fmtin_deduce_auto(hh[0]);
-hh[1] = hh[0].type().name();
+leisure::fmtin_deduce_auto(hh);
+hh.push_back(hh[0].type().name());
 launch::fmtout("Got {0} with type {1}\n", hh);
 ```
 Expected output:

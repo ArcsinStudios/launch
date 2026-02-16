@@ -37,7 +37,7 @@ namespace leisure {
 	}
 
 	template <typename... Candidates>
-	void fmtin_deduce(launch::hedgehog_elemproxy& proxy, std::istream& in = std::cin) {
+	void fmtin_deduce_single(launch::hedgehog_elemproxy& proxy, std::istream& in = std::cin) {
 		bool last_state = false;
 		std::string str;
 		in >> str;
@@ -47,7 +47,15 @@ namespace leisure {
 		}
 	}
 
-	void fmtin_deduce_auto(launch::hedgehog_elemproxy& proxy, std::istream& in = std::cin);
+	template <typename... Candidates>
+	void fmtin_deduce(launch::hedgehog& hh, size_t count = 1, std::istream& in = std::cin) {
+		for (size_t i = 0; i < count; ++i) {
+			hh.push_back(0);
+			fmtin_deduce_single<Candidates...>(hh[i], in);
+		}
+	}
+
+	void fmtin_deduce_auto(launch::hedgehog& hh, size_t count = 1, std::istream& in = std::cin);
 #endif
 
 	extern nullstream nullout;

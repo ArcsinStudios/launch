@@ -15,7 +15,7 @@ WITHOUT WARRANTY OF ANY KIND!
 Sometimes with bugs!
 Sometimes wiht typo!
 With easter eggs!
-Battery excluded!
+Batteries excluded!
 Splash!
 On any platform!
 Hello, CMake!
