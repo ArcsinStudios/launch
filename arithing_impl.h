@@ -1,6 +1,5 @@
 #pragma once
 
-#include <algorithm>
 #include <compare>
 #include <iostream>
 #include <istream>

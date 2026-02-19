@@ -377,7 +377,13 @@ ced7bf7 Updated tests; fixed known bugs
 [v] Tests available
 [v] CMake available
 ===
-(HEAD!) Enhanced <exfmtio>; updated tests
+1edb049 Enhanced <exfmtio>; updated tests
 [v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Overall cleanup #6; refactored concepts
+[v] All existing modules functional
+- [!] Something has changed a lot
 [v] Tests available
 [v] CMake available

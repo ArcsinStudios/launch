@@ -3,25 +3,11 @@
 #include <limits>
 #include <random>
 
+#include "goodrand_concepts.h"
+
 namespace launch {
-	template <typename T>
-	concept DistribIntType =
-		std::is_same_v<short, T> ||
-		std::is_same_v<int, T> ||
-		std::is_same_v<long, T> ||
-		std::is_same_v<long long, T> ||
-		std::is_same_v<unsigned short, T> ||
-		std::is_same_v<unsigned int, T> ||
-		std::is_same_v<unsigned long, T> ||
-		std::is_same_v<unsigned long long, T>;
 
-	template <typename T>
-	concept DistribRealType =
-		std::is_same_v<float, T> ||
-		std::is_same_v<double, T> ||
-		std::is_same_v<long double, T>;
-
-	template <DistribIntType T>
+	template <distrib_int T>
 	class randgen_int {
 	private:
 		std::random_device rd;
@@ -51,7 +37,7 @@ namespace launch {
 		}
 	};
 
-	template <DistribRealType T>
+	template <distrib_real T>
 	class randgen_real {
 	private:
 		std::random_device rd;

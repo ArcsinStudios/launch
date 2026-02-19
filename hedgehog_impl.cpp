@@ -172,6 +172,36 @@ namespace launch {
 		);
 	}
 
+	hedgehog_elemproxy hedgehog_elemproxy::operator+(const std::any& _value) {
+		hedgehog_elemproxy temp = *this;
+		temp += _value;
+		return temp;
+	}
+
+	hedgehog_elemproxy hedgehog_elemproxy::operator-(const std::any& _value) {
+		hedgehog_elemproxy temp = *this;
+		temp -= _value;
+		return temp;
+	}
+
+	hedgehog_elemproxy hedgehog_elemproxy::operator*(const std::any& _value) {
+		hedgehog_elemproxy temp = *this;
+		temp *= _value;
+		return temp;
+	}
+
+	hedgehog_elemproxy hedgehog_elemproxy::operator/(const std::any& _value) {
+		hedgehog_elemproxy temp = *this;
+		temp /= _value;
+		return temp;
+	}
+
+	hedgehog_elemproxy hedgehog_elemproxy::operator%(const std::any& _value) {
+		hedgehog_elemproxy temp = *this;
+		temp %= _value;
+		return temp;
+	}
+
 	const std::type_info& hedgehog_elemproxy::type() const {
 		return value.type();
 	}
