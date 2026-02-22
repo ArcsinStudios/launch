@@ -44,7 +44,6 @@
 | Qs | As |
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
-| The namespace `launch` has the same name as `std::launch`. How do you deal with that? | It's just simply too expensive. Think about it, you not only have to change the code, but also the filenames, repo names, etc... Ugh. |
 | How many modules are there? | Currently, there are 8 (LAUNCH itself) + 2 (LEISURE features). |
 | Well, what's *LEISURE*, then? | It's still a backronym - **L**ibrary of **E**xperimental **I**deas for **SURE**! |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |

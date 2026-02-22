@@ -58,7 +58,6 @@ void hedgehog_test3() {
 			fmtout("Oops: {0}\n", { e.what() });
 		}
 	}
-	hh[2] += std::string(" Hello Everyone!");
 	fmtout("int: {0}, double: {1}, std::string: {2}\n", hh);
 }
 
@@ -72,6 +71,8 @@ int main(int argc, char* argv[]) {
 			{"a", "arithing"},
 			{"f", "exfmtio"}
 		});
+		std::cout << std::boolalpha;
+		std::cin >> std::boolalpha;
 		fmtout(artwork);
 		std::ifstream file("splashes.txt");
 		std::vector<std::string> splashes;

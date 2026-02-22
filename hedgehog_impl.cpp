@@ -11,20 +11,20 @@ namespace launch {
 
 	void hedgehog_registry::regtype_output(std::type_index key, std::function<std::ostream&(std::ostream&, const std::any&)> func) {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::unique_lock lock(output_mutex_);
+		std::unique_lock lock(output_mutex);
 #endif
 		output_reg[key] = func;
 	}
 
 	void hedgehog_registry::regtype_oper(hedgehog_opersign key, std::function<std::any(std::any, std::any)> func) {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::unique_lock lock(oper_mutex_);
+		std::unique_lock lock(oper_mutex);
 #endif
 		oper_reg[key] = func;
 	}
 
 	hedgehog_registry::hedgehog_registry() {
-		this->regtype_helper<
+		regtype_helper<
 			char, short, int, long long,
 			unsigned char, unsigned short, unsigned int, unsigned long long,
 			float, double,
@@ -32,47 +32,43 @@ namespace launch {
 			const char*, std::string
 		>();
 #if !defined(LAUNCH_NO_ESCSEQ)
-		this->regtype_helper<escseq_manip, style_manip, reset_endl>();
+		regtype_helper<escseq_manip, style_manip, reset_endl>();
 #endif
 #if defined(LAUNCH_EXPERIMENTAL)
-		this->regtype_helper<leisure::arint, leisure::arreal>();
+		regtype_helper<leisure::arint, leisure::arreal>();
 #endif
 	}
 
 	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_registry::output_func_it(std::type_index key) const {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(output_mutex_);
+		std::shared_lock lock(output_mutex);
 #endif
 		return output_reg.find(key);
 	}
 
 	std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator hedgehog_registry::oper_func_it(hedgehog_opersign key) const {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(oper_mutex_);
+		std::shared_lock lock(oper_mutex);
 #endif
 		return oper_reg.find(key);
 	}
 	
 	std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>>::const_iterator hedgehog_registry::output_end() const {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(output_mutex_);
+		std::shared_lock lock(output_mutex);
 #endif
 		return output_reg.end();
 	}
 
 	std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>>::const_iterator hedgehog_registry::oper_end() const {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(oper_mutex_);
+		std::shared_lock lock(oper_mutex);
 #endif
 		return oper_reg.end();
 	}
 
-	hedgehog_elemproxy& hedgehog_elemproxy::operator=(const std::any& _value) {
-		value = _value;
-		return *this;
-	}
-
-	hedgehog_elemproxy& hedgehog_elemproxy::operator+=(const std::any& _value) {
+	hedgehog_elemproxy& hedgehog_elemproxy::operator+=(const hedgehog_elemproxy& other) {
+		const std::any& _value = other.value;
 		if (!_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator+=: _value.has_value() == false");
 		}
@@ -92,7 +88,8 @@ namespace launch {
 		);
 	}
 
-	hedgehog_elemproxy& hedgehog_elemproxy::operator-=(const std::any& _value) {
+	hedgehog_elemproxy& hedgehog_elemproxy::operator-=(const hedgehog_elemproxy& other) {
+		const std::any& _value = other.value;
 		if (!_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator-=: _value.has_value() == false");
 		}
@@ -112,7 +109,8 @@ namespace launch {
 		);
 	}
 
-	hedgehog_elemproxy& hedgehog_elemproxy::operator*=(const std::any& _value) {
+	hedgehog_elemproxy& hedgehog_elemproxy::operator*=(const hedgehog_elemproxy& other) {
+		const std::any& _value = other.value;
 		if (!_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator*=: _value.has_value() == false");
 		}
@@ -132,7 +130,8 @@ namespace launch {
 		);
 	}
 
-	hedgehog_elemproxy& hedgehog_elemproxy::operator/=(const std::any& _value) {
+	hedgehog_elemproxy& hedgehog_elemproxy::operator/=(const hedgehog_elemproxy& other) {
+		const std::any& _value = other.value;
 		if (!_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator/=: _value.has_value() == false");
 		}
@@ -152,7 +151,8 @@ namespace launch {
 		);
 	}
 
-	hedgehog_elemproxy& hedgehog_elemproxy::operator%=(const std::any& _value) {
+	hedgehog_elemproxy& hedgehog_elemproxy::operator%=(const hedgehog_elemproxy& other) {
+		const std::any& _value = other.value;
 		if (!_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator%=: _value.has_value() == false");
 		}
@@ -172,33 +172,33 @@ namespace launch {
 		);
 	}
 
-	hedgehog_elemproxy hedgehog_elemproxy::operator+(const std::any& _value) {
+	hedgehog_elemproxy hedgehog_elemproxy::operator+(const hedgehog_elemproxy& other) {
 		hedgehog_elemproxy temp = *this;
-		temp += _value;
+		temp += other;
 		return temp;
 	}
 
-	hedgehog_elemproxy hedgehog_elemproxy::operator-(const std::any& _value) {
+	hedgehog_elemproxy hedgehog_elemproxy::operator-(const hedgehog_elemproxy& other) {
 		hedgehog_elemproxy temp = *this;
-		temp -= _value;
+		temp -= other;
 		return temp;
 	}
 
-	hedgehog_elemproxy hedgehog_elemproxy::operator*(const std::any& _value) {
+	hedgehog_elemproxy hedgehog_elemproxy::operator*(const hedgehog_elemproxy& other) {
 		hedgehog_elemproxy temp = *this;
-		temp *= _value;
+		temp *= other;
 		return temp;
 	}
 
-	hedgehog_elemproxy hedgehog_elemproxy::operator/(const std::any& _value) {
+	hedgehog_elemproxy hedgehog_elemproxy::operator/(const hedgehog_elemproxy& other) {
 		hedgehog_elemproxy temp = *this;
-		temp /= _value;
+		temp /= other;
 		return temp;
 	}
 
-	hedgehog_elemproxy hedgehog_elemproxy::operator%(const std::any& _value) {
+	hedgehog_elemproxy hedgehog_elemproxy::operator%(const hedgehog_elemproxy& other) {
 		hedgehog_elemproxy temp = *this;
-		temp %= _value;
+		temp %= other;
 		return temp;
 	}
 

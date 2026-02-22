@@ -77,13 +77,7 @@ Use tabs. If possible, make them 4 spaces in width.
 
 #### Preprocessors
 
-- Use `#if defined(...)` and `#if !defined(...)` instead of `#ifdef` and `#ifndef`.  
-
-#### Member Things
-
-- Use `this->foo` or `this->foo()` if `foo` is `public`.
-- Use `bar` or `bar()` if `bar` is `private` or `protected`.
-- Use `_Baz` instead of `baz` if it is a `private` or `protected` member function.
+- Use `#if defined(...)` and `#if !defined(...)` instead of `#ifdef` and `#ifndef`.
 
 #### Templates
 

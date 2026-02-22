@@ -94,7 +94,7 @@ namespace leisure {
 		arint num;
 		arint den;
 
-		constexpr void _Adjust();
+		constexpr void adjust();
 
 	public:
 		constexpr arreal(const arint& _num = 0, const arint& _den = 1);

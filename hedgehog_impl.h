@@ -46,9 +46,10 @@ namespace std {
 	template<>
 	struct hash<launch::hedgehog_opersign> {
 		size_t operator()(const launch::hedgehog_opersign& sign) const {
-			size_t h1 = hash<type_index>{}(sign.lhs);
-			size_t h2 = hash<int>{}(static_cast<int>(sign.oper));
-			size_t h3 = hash<type_index>{}(sign.rhs);
+			size_t h1 = hash<type_index>()(sign.lhs);
+			size_t h2 = hash<std::underlying_type_t<launch::hedgehog_opertype>>()
+				(static_cast<std::underlying_type_t<launch::hedgehog_opertype>>(sign.oper));
+			size_t h3 = hash<type_index>()(sign.rhs);
 			return h1 ^ (h2 << 1) ^ (h3 << 2);
 		}
 	};
@@ -60,8 +61,8 @@ namespace launch {
 		std::unordered_map<std::type_index, std::function<std::ostream&(std::ostream&, const std::any&)>> output_reg;
 		std::unordered_map<hedgehog_opersign, std::function<std::any(std::any, std::any)>> oper_reg;
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-		mutable std::shared_mutex output_mutex_;
-		mutable std::shared_mutex oper_mutex_;
+		mutable std::shared_mutex output_mutex;
+		mutable std::shared_mutex oper_mutex;
 #endif
 
 	public:
@@ -70,9 +71,9 @@ namespace launch {
 		template <writable T>
 		void regtype_output_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(output_mutex_);
+			std::unique_lock lock(output_mutex);
 #endif
-			this->regtype_output(typeid(T), [](std::ostream& out, const std::any& value) -> std::ostream& {
+			regtype_output(typeid(T), [](std::ostream& out, const std::any& value) -> std::ostream& {
 				return out << std::any_cast<T>(value);
 			});
 		}
@@ -82,139 +83,154 @@ namespace launch {
 		template <typename T, typename U = T> requires arithmetic_add<T, U>
 		void regtype_add_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex_);
+			std::unique_lock lock(oper_mutex);
 #endif
-			this->regtype_oper({ typeid(T), hedgehog_opertype::add, typeid(U) }, [](std::any a, std::any b) -> std::any {
+			regtype_oper({ typeid(T), hedgehog_opertype::add, typeid(U) }, [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) + std::any_cast<U>(b);
 			});
 		}
 
 		template <typename T, typename U> requires arithmetic_add<T, U> && arithmetic_add<U, T>
 		void regtype_add_auto_rev() {
-			this->regtype_add_auto<T, U>();
-			this->regtype_add_auto<U, T>();
+			regtype_add_auto<T, U>();
+			regtype_add_auto<U, T>();
 		}
 
 		template <typename T, typename U = T> requires arithmetic_sub<T, U>
 		void regtype_sub_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex_);
+			std::unique_lock lock(oper_mutex);
 #endif
-			this->regtype_oper({ typeid(T), hedgehog_opertype::sub, typeid(U) }, [](std::any a, std::any b) -> std::any {
+			regtype_oper({ typeid(T), hedgehog_opertype::sub, typeid(U) }, [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) - std::any_cast<U>(b);
 			});
 		}
 
 		template <typename T, typename U> requires arithmetic_sub<T, U> && arithmetic_sub<U, T>
 		void regtype_sub_auto_rev() {
-			this->regtype_sub_auto<T, U>();
-			this->regtype_sub_auto<U, T>();
+			regtype_sub_auto<T, U>();
+			regtype_sub_auto<U, T>();
 		}
 
 		template <typename T, typename U = T> requires arithmetic_mul<T, U>
 		void regtype_mul_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex_);
+			std::unique_lock lock(oper_mutex);
 #endif
-			this->regtype_oper({ typeid(T), hedgehog_opertype::mul, typeid(U) }, [](std::any a, std::any b) -> std::any {
+			regtype_oper({ typeid(T), hedgehog_opertype::mul, typeid(U) }, [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) * std::any_cast<U>(b);
 			});
 		}
 
 		template <typename T, typename U> requires arithmetic_mul<T, U> && arithmetic_mul<U, T>
 		void regtype_mul_auto_rev() {
-			this->regtype_mul_auto<T, U>();
-			this->regtype_mul_auto<U, T>();
+			regtype_mul_auto<T, U>();
+			regtype_mul_auto<U, T>();
 		}
 
 		template <typename T, typename U = T> requires arithmetic_div<T, U>
 		void regtype_div_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex_);
+			std::unique_lock lock(oper_mutex);
 #endif
-			this->regtype_oper({ typeid(T), hedgehog_opertype::div, typeid(U) }, [](std::any a, std::any b) -> std::any {
+			regtype_oper({ typeid(T), hedgehog_opertype::div, typeid(U) }, [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) / std::any_cast<U>(b);
 			});
 		}
 
 		template <typename T, typename U> requires arithmetic_div<T, U> && arithmetic_div<U, T>
 		void regtype_div_auto_rev() {
-			this->regtype_div_auto<T, U>();
-			this->regtype_div_auto<U, T>();
+			regtype_div_auto<T, U>();
+			regtype_div_auto<U, T>();
 		}
 
 		template <typename T, typename U = T> requires arithmetic_mod<T, U>
 		void regtype_mod_auto() {
 #if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex_);
+			std::unique_lock lock(oper_mutex);
 #endif
-			this->regtype_oper({ typeid(T), hedgehog_opertype::mod, typeid(U) }, [](std::any a, std::any b) -> std::any {
+			regtype_oper({ typeid(T), hedgehog_opertype::mod, typeid(U) }, [](std::any a, std::any b) -> std::any {
 				return std::any_cast<T>(a) % std::any_cast<U>(b);
 			});
 		}
 
 		template <typename T, typename U> requires arithmetic_mod<T, U> && arithmetic_mod<U, T>
 		void regtype_mod_auto_rev() {
-			this->regtype_mod_auto<T, U>();
-			this->regtype_mod_auto<U, T>();
+			regtype_mod_auto<T, U>();
+			regtype_mod_auto<U, T>();
 		}
 
 		template <typename T, typename U = T> requires arithmetic<T, U>
 		void regtype_4ops_auto() {
-			this->regtype_add_auto<T, U>();
-			this->regtype_sub_auto<T, U>();
-			this->regtype_mul_auto<T, U>();
-			this->regtype_div_auto<T, U>();
+			regtype_add_auto<T, U>();
+			regtype_sub_auto<T, U>();
+			regtype_mul_auto<T, U>();
+			regtype_div_auto<T, U>();
 		}
 
 		template <typename T, typename U> requires arithmetic<T, U> && arithmetic<U, T>
 		void regtype_4ops_auto_rev() {
-			this->regtype_add_auto_rev<T, U>();
-			this->regtype_sub_auto_rev<T, U>();
-			this->regtype_mul_auto_rev<T, U>();
-			this->regtype_div_auto_rev<T, U>();
+			regtype_add_auto_rev<T, U>();
+			regtype_sub_auto_rev<T, U>();
+			regtype_mul_auto_rev<T, U>();
+			regtype_div_auto_rev<T, U>();
 		}
 
 		template <typename T, typename U = T> requires fully_arithmetic<T, U>
 		void regtype_5ops_auto() {
-			this->regtype_4ops_auto<T, U>();
-			this->regtype_mod_auto<T, U>();
+			regtype_4ops_auto<T, U>();
+			regtype_mod_auto<T, U>();
 		}
 
 		template <typename T, typename U> requires fully_arithmetic<T, U> && fully_arithmetic<U, T>
 		void regtype_5ops_auto_rev() {
-			this->regtype_4ops_auto_rev<T, U>();
-			this->regtype_mod_auto_rev<T, U>();
+			regtype_4ops_auto_rev<T, U>();
+			regtype_mod_auto_rev<T, U>();
 		}
 
 		template <typename T, typename U>
 		void regtype_helper_process() {
 			if constexpr (arithmetic_add<T, U>) {
-				this->regtype_add_auto_rev<T, U>();
+				regtype_add_auto<T, U>();
+			}
+			if constexpr (arithmetic_add<U, T>) {
+				regtype_add_auto<U, T>();
 			}
 			if constexpr (arithmetic_sub<T, U>) {
-				this->regtype_sub_auto_rev<T, U>();
+				regtype_sub_auto<T, U>();
+			}
+			if constexpr (arithmetic_sub<U, T>) {
+				regtype_sub_auto<U, T>();
 			}
 			if constexpr (arithmetic_mul<T, U>) {
-				this->regtype_mul_auto_rev<T, U>();
+				regtype_mul_auto<T, U>();
+			}
+			if constexpr (arithmetic_mul<U, T>) {
+				regtype_mul_auto<U, T>();
 			}
 			if constexpr (arithmetic_div<T, U>) {
-				this->regtype_div_auto_rev<T, U>();
+				regtype_div_auto<T, U>();
+			}
+			if constexpr (arithmetic_div<U, T>) {
+				regtype_div_auto<U, T>();
 			}
 			if constexpr (arithmetic_mod<T, U>) {
-				this->regtype_mod_auto_rev<T, U>();
+				regtype_mod_auto<T, U>();
+			}
+			if constexpr (arithmetic_mod<U, T>) {
+				regtype_mod_auto<U, T>();
 			}
 		}
 
 		template <typename T, typename... Us>
 		void regtype_helper() {
 			if constexpr (writable<T>) {
-				this->regtype_output_auto<T>();
+				regtype_output_auto<T>();
 			}
-			this->regtype_helper_process<T, T>();
+			regtype_helper_process<T, T>();
 			if constexpr (sizeof...(Us)) {
-				(this->regtype_helper_process<T, Us>(), ...);
-				this->regtype_helper<Us...>();
+				(regtype_helper_process<T, Us>(), ...);
+				regtype_helper<Us...>();
 			}
 		}
 
@@ -239,27 +255,25 @@ namespace launch {
 		template <typename T>
 		hedgehog_elemproxy(T _value) : value(std::forward<T>(_value)) {}
 
-		hedgehog_elemproxy& operator=(const std::any& _value);
+		hedgehog_elemproxy& operator+=(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy& operator+=(const std::any& _value);
+		hedgehog_elemproxy& operator-=(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy& operator-=(const std::any& _value);
+		hedgehog_elemproxy& operator*=(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy& operator*=(const std::any& _value);
+		hedgehog_elemproxy& operator/=(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy& operator/=(const std::any& _value);
+		hedgehog_elemproxy& operator%=(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy& operator%=(const std::any& _value);
+		hedgehog_elemproxy operator+(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy operator+(const std::any& _value);
+		hedgehog_elemproxy operator-(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy operator-(const std::any& _value);
+		hedgehog_elemproxy operator*(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy operator*(const std::any& _value);
+		hedgehog_elemproxy operator/(const hedgehog_elemproxy& other);
 
-		hedgehog_elemproxy operator/(const std::any& _value);
-
-		hedgehog_elemproxy operator%(const std::any& _value);
+		hedgehog_elemproxy operator%(const hedgehog_elemproxy& other);
 
 		friend std::ostream& operator<<(std::ostream& out, const hedgehog_elemproxy& proxy);
 

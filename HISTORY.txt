@@ -382,8 +382,13 @@ ced7bf7 Updated tests; fixed known bugs
 [v] Tests available
 [v] CMake available
 ===
-(HEAD!) Overall cleanup #6; refactored concepts
+856e519 Overall cleanup #6; refactored concepts
 [v] All existing modules functional
 - [!] Something has changed a lot
+[v] Tests available
+[v] CMake available
+===
+(HEAD!) Overall cleanup #7
+[v] All existing modules functional
 [v] Tests available
 [v] CMake available

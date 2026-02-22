@@ -257,7 +257,7 @@ namespace leisure {
 		return in;
 	}
 
-	constexpr void arreal::_Adjust() {
+	constexpr void arreal::adjust() {
 		if (num.sign && !den.sign) {
 			num.sign = false;
 			den.sign = true;
@@ -280,7 +280,7 @@ namespace leisure {
 	}
 
 	constexpr arreal::arreal(const arint& _num, const arint& _den) : num(_num), den(_den) {
-		_Adjust();
+		adjust();
 	}
 
 	arreal& arreal::operator+=(const arreal& other) {
@@ -292,7 +292,7 @@ namespace leisure {
 			num = num * (den_lcm / den.value) + other.num * (den_lcm / other.den.value);
 			den.value = den_lcm;
 		}
-		_Adjust();
+		adjust();
 		return *this;
 	}
 
@@ -304,7 +304,7 @@ namespace leisure {
 	arreal& arreal::operator*=(const arreal& other) {
 		num *= other.num;
 		den *= other.den;
-		_Adjust();
+		adjust();
 		return *this;
 	}
 
@@ -323,7 +323,7 @@ namespace leisure {
 			num = num * (den_lcm / den.value) % other.num * (den_lcm / other.den.value);
 			den.value = den_lcm;
 		}
-		_Adjust();
+		adjust();
 		return *this;
 	}
 
