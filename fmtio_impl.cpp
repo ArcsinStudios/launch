@@ -6,41 +6,82 @@
 
 namespace launch {
 	void fmtout(const std::string& fmt, const hedgehog& captures, std::ostream& out) {
-		std::regex pattern("\\{(\\d+)\\}");
-
-		std::sregex_iterator specifiers_begin(fmt.begin(), fmt.end(), pattern);
-		std::sregex_iterator specifiers_end;
-		std::vector<int> indices;
-
-		std::sregex_token_iterator split_begin(fmt.begin(), fmt.end(), pattern, -1);
-		std::sregex_token_iterator split_end;
-		std::vector<std::string> split;
-
-		for (std::sregex_iterator i = specifiers_begin; i != specifiers_end; ++i) {
-			std::smatch match = *i;
-			try {
-				indices.push_back(std::stoi(match[1].str()));
-			}
-			catch (const std::out_of_range&) {
-				indices.push_back(-1);
+		if (fmt.find('{') == std::string::npos && fmt.find('}') == std::string::npos) {
+			out << fmt;
+			return;
+		}
+		std::stringstream ss;
+		ss.flags(out.flags());
+		size_t fmt_length = fmt.length();
+		size_t captures_size = captures.size();
+		bool auto_indexing = false;
+		size_t curr_index = 0;
+		for (size_t i = 0; i < fmt_length; ++i) {
+			switch (fmt[i]) {
+			case '{':
+				if (i + 1 == fmt_length) {
+					throw std::runtime_error("fmtout: unmatched {");
+				}
+				if (fmt[i + 1] == '{') {
+					ss << '{';
+					++i;
+				}
+				else {
+					++i;
+					size_t index;
+					if (fmt[i] == '}') {
+						if (!curr_index) {
+							auto_indexing = true;
+						}
+						if (auto_indexing) {
+							index = curr_index++;
+						}
+						else {
+							throw std::runtime_error("fmtout: cannot mix manual and automatic indexing");
+						}
+					}
+					else {
+						if (auto_indexing) {
+							throw std::runtime_error("fmtout: cannot mix manual and automatic indexing");
+						}
+						std::string index_str;
+						for (; fmt[i] != '}'; ++i) {
+							if (i + 1 == fmt_length) {
+								throw std::runtime_error("fmtout: unmatched {");
+							}
+							if (fmt[i] < '0' || fmt[i] > '9') {
+								throw std::runtime_error(std::string("fmtout: expected a digit but got ") + fmt[i]);
+							}
+							index_str += fmt[i];
+						}
+						index = std::stoull(index_str);
+						if (index >= captures_size) {
+							throw std::runtime_error(
+								"fmtout: index (which is " +
+								index_str +
+								") >= captures.size() (which is " +
+								std::to_string(captures_size) +
+								")"
+							);
+						}
+					}
+					ss << captures[index];
+				}
+				break;
+			case '}':
+				if (i + 1 != fmt_length && fmt[i + 1] == '}') {
+					ss << '}';
+					++i;
+				}
+				else {
+					throw std::runtime_error("fmtout: unmatched }");
+				}
+				break;
+			default:
+				ss << fmt[i];
 			}
 		}
-		for (std::sregex_token_iterator i = split_begin; i != split_end; ++i) {
-			split.push_back(i->str());
-		}
-
-		for (size_t i = 0; i < indices.size(); ++i) {
-			out << split[i];
-			try {
-				out << captures[indices.at(i)];
-			}
-			catch (const std::out_of_range&) {
-				out << "[BAD_IDX]";
-			}
-		}
-		if (!split.empty() && !fmt.ends_with("}")) {
-			out << split.back();
-		}
+		out << ss.str();
 	}
 }
 

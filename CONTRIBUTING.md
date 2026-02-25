@@ -13,7 +13,7 @@ Defect - (one-line description)
 
 Content:  
 **\*Module**: (module name)  
-**Applicable** **version(s)**: since (6-digit commit hash)  
+**Applicable** **version(s)**: since (version)  
 **Environment**: (compiler) (compiler version) (compile options) on (OS)  
 **\*Description**: (detailed description)  
 **Expected** **behaviour**: (expected behaviour)  

@@ -153,10 +153,10 @@ std::cout << launch::gen_style(launch::escseq_style::italic | launch::escseq_sty
 - What can they do?
 ```cpp
 launch::hedgehog hh1 = { 42, 3.14, true, "Hello World!", 'A' };
-launch::hedgehog hh2 = { };
-launch::fmtout("int: {0}, double: {1}, bool: {2}, string: {3}, char: {4}\n", hh1);
+launch::hedgehog hh2;
+launch::fmtout("int: {}, double: {}, bool: {}, string: {}, char: {}\n", hh1);
 launch::fmtin<int, double>(hh2);
-launch::fmtout("You entered: {0} & {1}.\n", hh2);
+launch::fmtout("You entered: {} & {}.\n", hh2);
 ```
 - Expected output:
 ```

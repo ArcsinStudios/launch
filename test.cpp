@@ -21,10 +21,10 @@ long long hedgehog_test1() {
 		hh.push_back(i % 2 == 0);
 		hh.push_back(std::to_string(i));
 	}
-	size_t size = hh.size();
+	size_t hh_size = hh.size();
 	std::string fmt = "";
-	for (int i = 0; i < size; ++i) {
-		fmt += "{" + std::to_string(i) + "} ";
+	for (int i = 0; i < hh_size; ++i) {
+		fmt += "{} ";
 	}
 	stopwatch watch;
 	watch.start();
@@ -36,12 +36,16 @@ long long hedgehog_test1() {
 long long hedgehog_test2() {
 	hedgehog hh;
 	for (int i = 0; i < 256; ++i) {
+		hh.push_back((short)0);
 		hh.push_back(0);
+		hh.push_back(0ll);
+		hh.push_back(0.0);
 	}
+	size_t hh_size = hh.size();
 	stopwatch watch;
 	watch.start();
-	for (int i = 0; i < 256; ++i) {
-		hh[i] += i;
+	for (int i = 0; i < hh_size; ++i) {
+		hh[i] += i / 4;
 	}
 	watch.stop();
 	return watch.get_dur().microseconds();
@@ -49,7 +53,7 @@ long long hedgehog_test2() {
 
 void hedgehog_test3() {
 	hedgehog hh = { 42, 3.14, std::string("Hello World!") };
-	fmtout("int: {0}, double: {1}, std::string: {2}\n", hh);
+	fmtout("int: {}, double: {}, std::string: {}\n", hh);
 	for (hedgehog_elemproxy& elem : hh) {
 		try {
 			elem += 1;
@@ -58,7 +62,7 @@ void hedgehog_test3() {
 			fmtout("Oops: {0}\n", { e.what() });
 		}
 	}
-	fmtout("int: {0}, double: {1}, std::string: {2}\n", hh);
+	fmtout("int: {}, double: {}, std::string: {}\n", hh);
 }
 
 int main(int argc, char* argv[]) {
@@ -91,7 +95,7 @@ int main(int argc, char* argv[]) {
 		}
 		randgen_int<size_t> rand(0, splashes.size() - 1);
 		size_t splash_index = rand.next();
-		fmtout("{0}{1}{2}{3}\n", {
+		fmtout("{}{}{}{}\n", {
 			cursor_left(splashes[splash_index].length()),
 			foreground_color(255, 255, 0),
 			splashes[splash_index],
@@ -107,7 +111,7 @@ int main(int argc, char* argv[]) {
 				foreground_color(0, 0, 255),
 				background_color(255, 255, 255)
 			});
-			fmtout("{0}Hyperlink (clicked){1}", {
+			fmtout("{}Hyperlink (clicked){}", {
 				foreground_color(128, 0, 255),
 				rendl_fast
 			});
@@ -124,8 +128,8 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("hedgehog") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - HEDGEHOG ===\n");
-			fmtout("Test 1, printing 1024 elements: {0} microseconds\n", { hedgehog_test1() });
-			fmtout("Test 2, calculating 256 times: {0} microseconds\n", { hedgehog_test2() });
+			fmtout("Test 1, printing 1024 elements: {} microseconds\n", { hedgehog_test1() });
+			fmtout("Test 2, calculating 1024 times: {} microseconds\n", { hedgehog_test2() });
 			fmtout("Test 3:\n");
 			hedgehog_test3();
 			fmtout("=== END OF TEST - HEDGEHOG ===\n");
@@ -144,8 +148,8 @@ int main(int argc, char* argv[]) {
 			hh.push_back(::launch::pow(cos_, 2) + ::launch::pow(sin_, 2));
 			fmtout(
 				"If O is at (0, 0), A is at (1, 0), both OA and OP are 1, "
-				"and angle AOP is {0} degrees, then P is at ({1}, {2}).\n"
-				"By the way, this should be 1: {3}.\n", hh
+				"and angle AOP is {} degrees, then P is at ({}, {}).\n"
+				"By the way, this should be 1: {}.\n", hh
 			);
 			fmtout("=== END OF TEST - GOODMATH ===\n");
 		}
@@ -157,7 +161,7 @@ int main(int argc, char* argv[]) {
 			std::getline(std::cin >> std::ws, str0);
 			std::getline(std::cin >> std::ws, str1);
 			std::getline(std::cin >> std::ws, str2);
-			fmtout("After replacing \"{0}\" with \"{1}\": {2}\n", { str1, str2, replace(str0, str1, str2) });
+			fmtout("After replacing \"{}\" with \"{}\": {}\n", { str1, str2, replace(str0, str1, str2) });
 			fmtout("=== END OF TEST - GOODSTR ===\n");
 		}
 		if (parser.get_flag("arithing") || parser.get_flag("all")) {
@@ -190,7 +194,7 @@ int main(int argc, char* argv[]) {
 			default:
 				res = arint(0, arint_specval::nan);
 			}
-			fmtout("{0} {1} {2} = {3} = {4}\n", { lhs, op, rhs, res, res.to_decimal() });
+			fmtout("{} {} {} = {} = {}\n", { lhs, op, rhs, res, res.to_decimal() });
 			fmtout("=== END OF TEST - ARITHING ===\n");
 		}
 		if (parser.get_flag("exfmtio") || parser.get_flag("all")) {
@@ -200,7 +204,7 @@ int main(int argc, char* argv[]) {
 			fmtout("Enter anything: ");
 			fmtin_deduce_auto(hh);
 			hh.push_back(hh[0].type().name());
-			fmtout("Got {0} with type {1}\n", hh);
+			fmtout("Got {} with type {}\n", hh);
 			fmtout("=== END OF TEST - EXFMTIO ===\n");
 		}
 		fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });

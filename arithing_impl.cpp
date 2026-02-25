@@ -438,7 +438,7 @@ namespace leisure {
 			num2 = rem * 10;
 			std::vector<unsigned long long>::const_iterator it = std::find(rem_before.begin(), rem_before.end(), rem);
 			if (it != rem_before.end()) {
-				size_t pos = res_str.length() + 1 + (it - rem_before.begin());
+				size_t pos = !num.sign + res_str.length() + 1 + (it - rem_before.begin());
 				res = res.substr(0, pos) + "(" + res.substr(pos) + ")";
 				break;
 			}

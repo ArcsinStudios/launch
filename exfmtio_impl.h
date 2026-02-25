@@ -25,15 +25,11 @@ namespace leisure {
 
 #if !defined(LAUNCH_NO_HEDGEHOG)
 	template <typename T>
-	bool fmtin_deduce_process(launch::hedgehog_elemproxy& proxy, const std::string& str, bool is_boolalpha) {
+	bool fmtin_deduce_process(launch::hedgehog_elemproxy& proxy, const std::string& str, std::ios_base::fmtflags in_flags) {
 		T temp;
 		std::stringstream ss(str);
-		if (is_boolalpha) {
-			ss >> std::boolalpha >> temp;
-		}
-		else {
-			ss >> temp;
-		}
+		ss.flags(in_flags);
+		ss >> temp;
 		if (ss.fail() || !ss.eof()) {
 			return false;
 		}
@@ -43,11 +39,10 @@ namespace leisure {
 
 	template <typename... Ts>
 	void fmtin_deduce_single(launch::hedgehog_elemproxy& proxy, std::istream& in = std::cin) {
-		bool is_boolalpha = in.flags() & std::ios_base::boolalpha;
 		bool last_state = false;
 		std::string str;
 		in >> str;
-		((last_state ? 0 : last_state = fmtin_deduce_process<Ts>(proxy, str, is_boolalpha)), ...);
+		((last_state ? 0 : last_state = fmtin_deduce_process<Ts>(proxy, str, in.flags())), ...);
 		if (!last_state) {
 			proxy = str;
 		}
