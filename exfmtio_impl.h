@@ -25,7 +25,7 @@ namespace leisure {
 
 #if !defined(LAUNCH_NO_HEDGEHOG)
 	template <typename T>
-	bool fmtin_deduce_process(launch::hedgehog_elemproxy& proxy, const std::string& str, std::ios_base::fmtflags in_flags) {
+	bool fmtin_deduce_process(launch::hedgehog& hh, const std::string& str, std::ios_base::fmtflags in_flags) {
 		T temp;
 		std::stringstream ss(str);
 		ss.flags(in_flags);
@@ -33,26 +33,28 @@ namespace leisure {
 		if (ss.fail() || !ss.eof()) {
 			return false;
 		}
-		proxy = temp;
+		hh.push_back(temp);
 		return true;
 	}
 
+	template <>
+	bool fmtin_deduce_process<char>(launch::hedgehog& hh, const std::string& str, std::ios_base::fmtflags in_flags);
+
 	template <typename... Ts>
-	void fmtin_deduce_single(launch::hedgehog_elemproxy& proxy, std::istream& in = std::cin) {
+	void fmtin_deduce_single(launch::hedgehog& hh, std::istream& in = std::cin) {
 		bool last_state = false;
 		std::string str;
 		in >> str;
-		((last_state ? 0 : last_state = fmtin_deduce_process<Ts>(proxy, str, in.flags())), ...);
+		((last_state ? 0 : last_state = fmtin_deduce_process<Ts>(hh, str, in.flags())), ...);
 		if (!last_state) {
-			proxy = str;
+			hh.push_back(str);
 		}
 	}
 
 	template <typename... Ts>
 	void fmtin_deduce(launch::hedgehog& hh, size_t count = 1, std::istream& in = std::cin) {
 		for (size_t i = 0; i < count; ++i) {
-			hh.push_back(0);
-			fmtin_deduce_single<Ts...>(hh[i], in);
+			fmtin_deduce_single<Ts...>(hh, in);
 		}
 	}
 

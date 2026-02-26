@@ -161,7 +161,10 @@ int main(int argc, char* argv[]) {
 			std::getline(std::cin >> std::ws, str0);
 			std::getline(std::cin >> std::ws, str1);
 			std::getline(std::cin >> std::ws, str2);
-			fmtout("After replacing \"{}\" with \"{}\": {}\n", { str1, str2, replace(str0, str1, str2) });
+			fmtout(
+				"After replacing \"{}\"(s) in \"{}\" with \"{}\": {}\n",
+				{ str1, str0, str2, replace(str0, str1, str2) }
+			);
 			fmtout("=== END OF TEST - GOODSTR ===\n");
 		}
 		if (parser.get_flag("arithing") || parser.get_flag("all")) {
@@ -200,11 +203,19 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("exfmtio") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - EXFMTIO ===\n");
+			size_t cnt;
 			hedgehog hh;
-			fmtout("Enter anything: ");
-			fmtin_deduce_auto(hh);
-			hh.push_back(hh[0].type().name());
-			fmtout("Got {} with type {}\n", hh);
+			std::string fmt = "----------------------------------------\nYou entered:\n";
+			fmtout("How many elements you're about to enter? ");
+			fmtin_single(cnt);
+			fmtout("----------------------------------------\nPlese enter {} element(s):\n", { cnt });
+			fmtin_deduce_auto(hh, cnt);
+			size_t hh_size = hh.size();
+			for (size_t i = 0; i < hh_size; ++i) {
+				fmt = fmt + "{" + std::to_string(i) + "}: {" + std::to_string(i + hh_size) + "}\n";
+				hh.push_back(hh[i].type().name());
+			}
+			fmtout(fmt, hh);
 			fmtout("=== END OF TEST - EXFMTIO ===\n");
 		}
 		fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });

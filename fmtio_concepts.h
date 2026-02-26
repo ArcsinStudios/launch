@@ -5,7 +5,7 @@
 
 namespace launch {
 	template <typename T>
-	concept readable = requires(std::istream & is, T & x) {
-		{ is >> x } -> std::same_as<std::istream&>;
+	concept readable = requires(std::istream & in, T& x) {
+		{ in >> x } -> std::same_as<std::istream&>;
 	};
 }

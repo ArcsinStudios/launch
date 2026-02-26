@@ -14,15 +14,20 @@ namespace launch {
 	void fmtout(const std::string& fmt, const hedgehog& captures = {}, std::ostream& out = std::cout);
 
 	template <readable T>
-	void fmtin_process(hedgehog& container, std::istream& in) {
+	void fmtin_process(hedgehog& hh, std::istream& in) {
 		T temp;
 		in >> temp;
-		container.push_back(temp);
+		hh.push_back(temp);
 	}
 
 	template <readable... Ts>
-	void fmtin(hedgehog& container, std::istream& in = std::cin) {
-		(fmtin_process<Ts>(container, in), ...);
+	void fmtin(hedgehog& hh, std::istream& in = std::cin) {
+		(fmtin_process<Ts>(hh, in), ...);
+	}
+
+	template <readable T>
+	void fmtin_single(T& x, std::istream& in = std::cin) {
+		in >> x;
 	}
 }
 

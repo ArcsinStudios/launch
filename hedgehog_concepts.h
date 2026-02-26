@@ -5,8 +5,8 @@
 
 namespace launch {
 	template <typename T>
-	concept writable = requires(std::ostream& os, const T& x) {
-		{ os << x } -> std::same_as<std::ostream&>;
+	concept writable = requires(std::ostream& out, const T& x) {
+		{ out << x } -> std::same_as<std::ostream&>;
 	};
 
 	template <typename T>
