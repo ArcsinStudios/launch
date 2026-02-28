@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "launch.h"
+#include "include/launch.h"
 using namespace launch;
 using namespace leisure;
 
@@ -80,10 +80,7 @@ int main(int argc, char* argv[]) {
 		fmtout(artwork);
 		std::ifstream file("splashes.txt");
 		std::vector<std::string> splashes;
-		if (!file.is_open()) {
-			splashes.push_back("Unable to load splashes!");
-		}
-		else {
+		if (file.is_open()) {
 			std::string line;
 			while (std::getline(file, line)) {
 				splashes.push_back(line);
@@ -197,7 +194,7 @@ int main(int argc, char* argv[]) {
 			default:
 				res = arint(0, arint_specval::nan);
 			}
-			fmtout("{} {} {} = {} = {}\n", { lhs, op, rhs, res, res.to_decimal() });
+			fmtout("{} {} {} = {} = {}\n", { lhs, op, rhs, res, to_decimal(res) });
 			fmtout("=== END OF TEST - ARITHING ===\n");
 		}
 		if (parser.get_flag("exfmtio") || parser.get_flag("all")) {

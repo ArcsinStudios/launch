@@ -454,7 +454,14 @@ b0891a4 Overall cleanup #7
 [v] CMake available
 ===
 1.13.2
-(HEAD!) Enhanced <hedgehog> and <fmtio>; added versions; fixed known bugs
+8914503 Enhanced <hedgehog> and <fmtio>; added versions; fixed known bugs
 [v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+1.14.0
+(HEAD!) Refactored file structure; added documentation; changed some code
+[v] All existing modules functional
+- [!] The file structure has changed a lot
 [v] Tests available
 [v] CMake available

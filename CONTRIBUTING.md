@@ -85,4 +85,4 @@ Use `template <typename T>` instead of `template <class T>`, even though they're
 
 ---
 
-<sub>Author: Arcsin Studios<br>License (of this document): CC BY-SA 4.0</sub>
+<small>Author: Arcsin Studios<br>License (of this document): CC BY-SA 4.0</small>
