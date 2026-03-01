@@ -333,15 +333,45 @@ namespace launch {
 		}
 	};
 
-	hedgehog_elemproxy operator+(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b);
+	template <typename T, typename U>
+	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
+	hedgehog_elemproxy operator+(const T& a, const U& b) {
+		hedgehog_elemproxy temp = a;
+		temp += b;
+		return temp;
+	}
 
-	hedgehog_elemproxy operator-(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b);
+	template <typename T, typename U>
+	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
+	hedgehog_elemproxy operator-(const T& a, const U& b) {
+		hedgehog_elemproxy temp = a;
+		temp -= b;
+		return temp;
+	}
 
-	hedgehog_elemproxy operator*(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b);
+	template <typename T, typename U>
+	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
+	hedgehog_elemproxy operator*(const T& a, const U& b) {
+		hedgehog_elemproxy temp = a;
+		temp *= b;
+		return temp;
+	}
 
-	hedgehog_elemproxy operator/(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b);
+	template <typename T, typename U>
+	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
+	hedgehog_elemproxy operator/(const T& a, const U& b) {
+		hedgehog_elemproxy temp = a;
+		temp /= b;
+		return temp;
+	}
 
-	hedgehog_elemproxy operator%(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b);
+	template <typename T, typename U>
+	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
+	hedgehog_elemproxy operator%(const T& a, const U& b) {
+		hedgehog_elemproxy temp = a;
+		temp %= b;
+		return temp;
+	}
 
 	template <typename Allocator>
 	using hedgehog_alloc = std::vector<hedgehog_elemproxy, Allocator>;

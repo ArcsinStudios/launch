@@ -58,8 +58,8 @@ For details, please go to `CMakeLists.txt`.
 
 ### Part II-2: Using
 
-Simply `#include "launch.h"`.  
-If you need more precise module controls, please `#define` macros in `launch_config.h`.  
+Simply `#include "include/launch.h"`.  
+If you need more precise module controls, please `#define` macros in `include/launch_config.h`.  
 The macros look like this:
 ```cpp
 LAUNCH_NO_<MODULENAME> // To disable a specific module.

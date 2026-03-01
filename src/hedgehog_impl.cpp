@@ -172,36 +172,6 @@ namespace launch {
 		);
 	}
 
-	hedgehog_elemproxy operator+(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b) {
-		hedgehog_elemproxy temp = a;
-		temp += b;
-		return temp;
-	}
-
-	hedgehog_elemproxy operator-(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b) {
-		hedgehog_elemproxy temp = a;
-		temp -= b;
-		return temp;
-	}
-
-	hedgehog_elemproxy operator*(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b) {
-		hedgehog_elemproxy temp = a;
-		temp *= b;
-		return temp;
-	}
-
-	hedgehog_elemproxy operator/(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b) {
-		hedgehog_elemproxy temp = a;
-		temp /= b;
-		return temp;
-	}
-
-	hedgehog_elemproxy operator%(const hedgehog_elemproxy& a, const hedgehog_elemproxy& b) {
-		hedgehog_elemproxy temp = a;
-		temp %= b;
-		return temp;
-	}
-
 	const std::type_info& hedgehog_elemproxy::type() const {
 		return value.type();
 	}

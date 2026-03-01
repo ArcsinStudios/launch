@@ -460,8 +460,15 @@ b0891a4 Overall cleanup #7
 [v] CMake available
 ===
 1.14.0
-(HEAD!) Refactored file structure; added documentation; changed some code
-[v] All existing modules functional
+04022d0 Refactored file structure; added documentation; changed some code
+[o] Existing modules partially functional
 - [!] The file structure has changed a lot
+- [!] Broken <hedgehog>
+[v] Tests available
+[v] CMake available
+===
+1.14.1
+(HEAD!) Fixed a serious bug
+[v] All existing modules functional
 [v] Tests available
 [v] CMake available

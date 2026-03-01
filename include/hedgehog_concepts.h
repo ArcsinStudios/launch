@@ -15,32 +15,32 @@ namespace launch {
 	template <typename T, typename U>
 	concept arithmetic_add =
 		requires(T a, U b) {
-		a + b;
-	} && arithmetic_preq<T> && arithmetic_preq<U>;
+			a + b;
+		} && arithmetic_preq<T> && arithmetic_preq<U>;
 
 	template <typename T, typename U>
 	concept arithmetic_sub =
 		requires(T a, U b) {
-		a - b;
-	} && arithmetic_preq<T> && arithmetic_preq<U>;
+			a - b;
+		} && arithmetic_preq<T> && arithmetic_preq<U>;
 
 	template <typename T, typename U>
 	concept arithmetic_mul =
 		requires(T a, U b) {
-		a* b;
-	} && arithmetic_preq<T> && arithmetic_preq<U>;
+			a * b;
+		} && arithmetic_preq<T> && arithmetic_preq<U>;
 
 	template <typename T, typename U>
 	concept arithmetic_div =
 		requires(T a, U b) {
-		a / b;
-	} && arithmetic_preq<T> && arithmetic_preq<U>;
+			a / b;
+		} && arithmetic_preq<T> && arithmetic_preq<U>;
 
 	template <typename T, typename U>
 	concept arithmetic_mod =
 		requires(T a, U b) {
-		a% b;
-	} && arithmetic_preq<T> && arithmetic_preq<U>;
+			a % b;
+		} && arithmetic_preq<T> && arithmetic_preq<U>;
 
 	template <typename T, typename U>
 	concept arithmetic = arithmetic_add<T, U> && arithmetic_sub<T, U> && arithmetic_mul<T, U> && arithmetic_div<T, U>;

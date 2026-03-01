@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
 			std::getline(std::cin >> std::ws, str1);
 			std::getline(std::cin >> std::ws, str2);
 			fmtout(
-				"After replacing \"{}\"(s) in \"{}\" with \"{}\": {}\n",
+				"After replacing \"{}\"s in \"{}\" with \"{}\": {}\n",
 				{ str1, str0, str2, replace(str0, str1, str2) }
 			);
 			fmtout("=== END OF TEST - GOODSTR ===\n");
