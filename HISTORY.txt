@@ -468,7 +468,13 @@ b0891a4 Overall cleanup #7
 [v] CMake available
 ===
 1.14.1
-(HEAD!) Fixed a serious bug
+91d8e0d Fixed a serious bug
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+1.14.2
+(HEAD!) Enhanced <fmtio>
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

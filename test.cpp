@@ -6,12 +6,12 @@ using namespace leisure;
 
 const char* artwork =
 R"( ___       ________  ___  ___  ________   ________  ___  ___     )""\n"
-R"(|\  \     |\   __  \|\  \|\  \|\   ___  \|\   ____\|\  \|\  \    )""\n"
-R"(\ \  \    \ \  \|\  \ \  \\\  \ \  \\ \  \ \  \___|\ \  \\\  \   )""\n"
+R"(||\  \     ||\   __  \||\  \||\  \||\   ___  \||\   ____\||\  \||\  \    )""\n"
+R"(\ \  \    \ \  \||\  \ \  \\\  \ \  \\ \  \ \  \___||\ \  \\\  \   )""\n"
 R"( \ \  \    \ \   __  \ \  \\\  \ \  \\ \  \ \  \    \ \   __  \  )""\n"
 R"(  \ \  \____\ \  \ \  \ \  \\\  \ \  \\ \  \ \  \____\ \  \ \  \ )""\n"
 R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
-R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
+R"(    \||_______||\||__||\||__||\||_______||\||__|| \||__||\||_______||\||__||\||__||)";
 
 long long hedgehog_test1() {
 	hedgehog hh;
@@ -22,10 +22,7 @@ long long hedgehog_test1() {
 		hh.push_back(std::to_string(i));
 	}
 	size_t hh_size = hh.size();
-	std::string fmt = "";
-	for (int i = 0; i < hh_size; ++i) {
-		fmt += "{} ";
-	}
+	std::string fmt = "[ ]";
 	stopwatch watch;
 	watch.start();
 	fmtout(fmt, hh, nullout);
@@ -36,9 +33,9 @@ long long hedgehog_test1() {
 long long hedgehog_test2() {
 	hedgehog hh;
 	for (int i = 0; i < 256; ++i) {
-		hh.push_back((short)0);
 		hh.push_back(0);
 		hh.push_back(0ll);
+		hh.push_back(0.0f);
 		hh.push_back(0.0);
 	}
 	size_t hh_size = hh.size();
@@ -74,7 +71,7 @@ int main(int argc, char* argv[]) {
 			{"s", "goodstr"},
 			{"a", "arithing"},
 			{"f", "exfmtio"}
-		});
+			});
 		std::cout << std::boolalpha;
 		std::cin >> std::boolalpha;
 		fmtout(artwork);
@@ -92,23 +89,23 @@ int main(int argc, char* argv[]) {
 		}
 		randgen_int<size_t> rand(0, splashes.size() - 1);
 		size_t splash_index = rand.next();
-		fmtout("{}{}{}{}\n", {
+		fmtout("[]\n", {
 			cursor_left(splashes[splash_index].length()),
 			foreground_color(255, 255, 0),
 			splashes[splash_index],
 			rendl_fast
-		});
+			});
 		size_t cnt = 0;
 		fmtout("=== START OF PROGRAM ===\n");
 		if (parser.get_flag("escseq") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - ESCSEQ ===\n");
-			fmtout("{0}{1}{2}Hyperlink\n", {
+			fmtout("[]Hyperlink\n", {
 				gen_style(escseq_style::italic | escseq_style::underline),
 				foreground_color(0, 0, 255),
 				background_color(255, 255, 255)
 			});
-			fmtout("{}Hyperlink (clicked){}", {
+			fmtout("[Hyperlink (clicked)]", {
 				foreground_color(128, 0, 255),
 				rendl_fast
 			});
@@ -125,8 +122,8 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("hedgehog") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - HEDGEHOG ===\n");
-			fmtout("Test 1, printing 1024 elements: {} microseconds\n", { hedgehog_test1() });
-			fmtout("Test 2, calculating 1024 times: {} microseconds\n", { hedgehog_test2() });
+			fmtout("Test 1, printing 1024 elements: {}us\n", { hedgehog_test1() });
+			fmtout("Test 2, calculating 1024 times: {}us\n", { hedgehog_test2() });
 			fmtout("Test 3:\n");
 			hedgehog_test3();
 			fmtout("=== END OF TEST - HEDGEHOG ===\n");
@@ -215,7 +212,7 @@ int main(int argc, char* argv[]) {
 			fmtout(fmt, hh);
 			fmtout("=== END OF TEST - EXFMTIO ===\n");
 		}
-		fmtout("=== END OF PROGRAM - {0} TEST(S) EXECUTED ===\n", { cnt });
+		fmtout("=== END OF PROGRAM - {} TEST(S) EXECUTED ===\n", { cnt });
 		if (!cnt) {
 			fmtout(
 				"\nOh, it seems like that none of our wonderful tests have been executed!\n"
