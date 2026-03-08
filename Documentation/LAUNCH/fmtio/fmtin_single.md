@@ -9,8 +9,8 @@ The program is ill-formed if `readable<T>` is `false`.
 **`T`** - type of the element to be read.
 
 ### Parameters
-**`x`** - variable to be filled.  
-**`in`** - input stream to be read.
+**`x`** - the variable to be filled.  
+**`in`** - the input stream to be read.
 
 ### Return value
 (none)

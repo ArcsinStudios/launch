@@ -25,10 +25,10 @@ namespace launch {
 
 	hedgehog_registry::hedgehog_registry() {
 		regtype_helper<
-			char, short, int, long long,
+			signed char, short, int, long long,
 			unsigned char, unsigned short, unsigned int, unsigned long long,
 			float, double,
-			bool,
+			bool, char,
 			const char*, std::string
 		>();
 #if !defined(LAUNCH_NO_ESCSEQ)
@@ -170,6 +170,28 @@ namespace launch {
 			type1.name() +
 			")"
 		);
+	}
+
+	hedgehog_elemproxy& hedgehog_elemproxy::operator++() {
+		*this += 1;
+		return *this;
+	}
+
+	hedgehog_elemproxy hedgehog_elemproxy::operator++(int) {
+		hedgehog_elemproxy temp = *this;
+		++*this;
+		return temp;
+	}
+
+	hedgehog_elemproxy& hedgehog_elemproxy::operator--() {
+		*this -= 1;
+		return *this;
+	}
+
+	hedgehog_elemproxy hedgehog_elemproxy::operator--(int) {
+		hedgehog_elemproxy temp = *this;
+		++*this;
+		return temp;
 	}
 
 	const std::type_info& hedgehog_elemproxy::type() const {

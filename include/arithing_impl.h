@@ -54,11 +54,11 @@ namespace leisure {
 
 		arint& operator++();
 
-		arint operator++(int) const;
+		arint operator++(int);
 
 		arint& operator--();
 
-		arint operator--(int) const;
+		arint operator--(int);
 
 		arint operator+() const;
 

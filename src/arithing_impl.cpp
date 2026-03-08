@@ -111,9 +111,9 @@ namespace leisure {
 		return *this;
 	}
 
-	arint arint::operator++(int) const {
+	arint arint::operator++(int){
 		arint temp = *this;
-		++temp;
+		++*this;
 		return temp;
 	}
 
@@ -122,9 +122,9 @@ namespace leisure {
 		return *this;
 	}
 
-	arint arint::operator--(int) const {
+	arint arint::operator--(int){
 		arint temp = *this;
-		--temp;
+		--*this;
 		return temp;
 	}
 

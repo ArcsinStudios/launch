@@ -5,8 +5,8 @@
 #if !defined(LAUNCH_NO_HEDGEHOG)
 
 namespace launch {
-	void fmtout(const std::string& fmt, const hedgehog& hh, std::ostream& out) {
-		if (fmt.find_first_of("{}[]|") == std::string::npos) {
+	void fmtout(const std::string& fmt, const hedgehog& hh, bool raw, std::ostream& out) {
+		if (raw || fmt.find_first_of("{}[]|") == std::string::npos) {
 			out << fmt;
 			return;
 		}
@@ -161,6 +161,10 @@ namespace launch {
 			}
 		}
 		out << ss.str();
+	}
+
+	void fmtin_line(std::string& str, std::istream& in) {
+		std::getline(in >> std::ws, str);
 	}
 }
 

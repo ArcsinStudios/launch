@@ -4,6 +4,7 @@
 
 #include <format>
 #include <iostream>
+#include <istream>
 #include <stdexcept>
 #include <string>
 
@@ -11,7 +12,7 @@
 #include "fmtio_concepts.h"
 
 namespace launch {
-	void fmtout(const std::string& fmt, const hedgehog& hh = {}, std::ostream& out = std::cout);
+	void fmtout(const std::string& fmt, const hedgehog& hh = {}, bool raw = false, std::ostream& out = std::cout);
 
 	template <readable T>
 	void fmtin_process(hedgehog& hh, std::istream& in) {
@@ -29,6 +30,8 @@ namespace launch {
 	void fmtin_single(T& x, std::istream& in = std::cin) {
 		in >> x;
 	}
+
+	void fmtin_line(std::string& str, std::istream& in = std::cin);
 }
 
 #endif

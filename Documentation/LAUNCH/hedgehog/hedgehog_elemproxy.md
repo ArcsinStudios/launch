@@ -10,6 +10,7 @@
 |(constructor)|constructs `hedgehog_elemproxy` object<br><small>(public member function)</small>|
 |(destructor)|destroys `hedgehog_elemproxy` object<br><small>(public member function)</small>|
 |`operator+=`<br>`operator-=`<br>`operator*=`<br>`operator/=`<br>`operator%=`|compound assignments of two `hedgehog_elemproxy`s<br><small>(public member functions)</small>|
+|`operator++`<br>`operator++(int)`<br>`operator--`<br>`operator--(int)`|apply increment and decrement to `hedgehog_elemproxy`s<br><small>(public member functions)</small>|
 
 #### Getter
 |Function|Description|

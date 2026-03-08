@@ -305,6 +305,14 @@ namespace launch {
 
 		hedgehog_elemproxy& operator%=(const hedgehog_elemproxy& other);
 
+		hedgehog_elemproxy& operator++();
+
+		hedgehog_elemproxy operator++(int);
+
+		hedgehog_elemproxy& operator--();
+
+		hedgehog_elemproxy operator--(int);
+
 		friend std::ostream& operator<<(std::ostream& out, const hedgehog_elemproxy& proxy);
 
 		template <typename T>

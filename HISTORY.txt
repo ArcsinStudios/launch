@@ -187,7 +187,7 @@ fb99ca0 Refactored <goodstr>; refined <hedgehog>; unified code style; others
 1.7.0
 ddafa46 Refactored arint; miscellaneous renaming
 [o] Existing modules partially functional
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -195,7 +195,7 @@ ddafa46 Refactored arint; miscellaneous renaming
 1.7.1
 50f1b1a Fixed known bugs (2 in total); refined operator>> of arint
 [o] Existing modules partially functional
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -204,7 +204,7 @@ ddafa46 Refactored arint; miscellaneous renaming
 d9665de Added LEISURE
 [o] Existing modules partially functional
 - [!] Something has changed a lot
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -213,7 +213,7 @@ d9665de Added LEISURE
 a65e4f9 New module: <goodrand>
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -222,7 +222,7 @@ a65e4f9 New module: <goodrand>
 f478cfa Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -231,7 +231,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 9e1d1e6 Overall cleanup #2
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -240,7 +240,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 5b73612 Refined "what" strings
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Broken module control
 [v] Tests available
 [v] CMake available
@@ -249,7 +249,7 @@ f478cfa Updated README.md and CONTRIBUTING.md
 f58d468 Added arreal
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
@@ -259,7 +259,7 @@ f58d468 Added arreal
 b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
@@ -269,7 +269,7 @@ b1dcee5 Specialized std::numeric_limits for arreal; updated README; fixed known 
 bf64226 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
@@ -280,7 +280,7 @@ bf64226 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Something has changed a lot
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 - [!] Broken module control
 [v] Tests available
@@ -290,7 +290,7 @@ bf64226 Updated README.md and CONTRIBUTING.md
 d27ab2f Fixed config system
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -299,7 +299,7 @@ d27ab2f Fixed config system
 d31c1ad Enhanced <hedgehog>; fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -310,7 +310,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 - [!] Removed two modules
 - [!] Something has changed a lot
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -319,7 +319,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 020b955 Fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -329,7 +329,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 [o] Existing modules partially functional
 - [!] Concept names have changed
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -338,7 +338,7 @@ bc2c790 Removed <caref> and <lidevec>; separated <arithing> from <goodmath>
 c3998b3 Updated README.md and CONTRIBUTING.md
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -347,7 +347,7 @@ c3998b3 Updated README.md and CONTRIBUTING.md
 8f89baf Overall cleanup #3
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
-- [!] Broken comparisons for arint
+- [!] Broken comparisons, post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -356,6 +356,7 @@ c3998b3 Updated README.md and CONTRIBUTING.md
 2641307 Added arreal::operator%; fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -364,6 +365,7 @@ c3998b3 Updated README.md and CONTRIBUTING.md
 4cd7d00 Added arreal::to_decimal; added one constant
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -373,6 +375,7 @@ ff06a0f Separated <exfmtio> from <fmtio_nullstream> and added a few features
 [o] Existing modules partially functional
 - [!] Something has changed a lot
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [x] CMake unavailable
@@ -381,6 +384,7 @@ ff06a0f Separated <exfmtio> from <fmtio_nullstream> and added a few features
 82f4ba2 Updated CMakeLists.txt
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -389,15 +393,17 @@ ff06a0f Separated <exfmtio> from <fmtio_nullstream> and added a few features
 c99c969 Overall cleanup #4; added HISTORY.txt
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
 1.12.3
 ad41129 Fixed known bugs
-[o] All existing modules functional
+[o] Existing modules partially functional
 - [!] This version cannot be successfully compiled due to a mistake
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -406,6 +412,7 @@ ad41129 Fixed known bugs
 2420ca0 Fixed known bugs (so many bugs)
 [o] Existing modules partially functional
 - [!] Broken <goodrand>
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -413,6 +420,7 @@ ad41129 Fixed known bugs
 1.12.5
 3b65e16 Overall cleanup #5; added splashes; fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -420,6 +428,7 @@ ad41129 Fixed known bugs
 1.12.6
 ced7bf7 Updated tests; fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -427,6 +436,7 @@ ced7bf7 Updated tests; fixed known bugs
 1.12.7
 23b138f Enhanced <hedgehog>
 [o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -434,6 +444,7 @@ ced7bf7 Updated tests; fixed known bugs
 1.12.8
 1edb049 Enhanced <exfmtio>; updated tests
 [o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -442,6 +453,7 @@ ced7bf7 Updated tests; fixed known bugs
 856e519 Overall cleanup #6; refactored concepts
 [o] Existing modules partially functional
 - [!] Something has changed a lot
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
@@ -449,13 +461,15 @@ ced7bf7 Updated tests; fixed known bugs
 1.13.1
 b0891a4 Overall cleanup #7
 [o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 - [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
 1.13.2
 8914503 Enhanced <hedgehog> and <fmtio>; added versions; fixed known bugs
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 [v] Tests available
 [v] CMake available
 ===
@@ -464,17 +478,26 @@ b0891a4 Overall cleanup #7
 [o] Existing modules partially functional
 - [!] The file structure has changed a lot
 - [!] Broken <hedgehog>
+- [!] Broken post-increment and post-decrement of arint
 [v] Tests available
 [v] CMake available
 ===
 1.14.1
 91d8e0d Fixed a serious bug
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
 [v] Tests available
 [v] CMake available
 ===
 1.14.2
-(HEAD!) Enhanced <fmtio>
+2b15bb9 Enhanced <fmtio>
+[o] Existing modules partially functional
+- [!] Broken post-increment and post-decrement of arint
+[v] Tests available
+[v] CMake available
+===
+1.14.3
+(HEAD!) Enhanced <hedgehog> and <fmtio>; fixed known bugs
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

@@ -6,12 +6,12 @@ using namespace leisure;
 
 const char* artwork =
 R"( ___       ________  ___  ___  ________   ________  ___  ___     )""\n"
-R"(||\  \     ||\   __  \||\  \||\  \||\   ___  \||\   ____\||\  \||\  \    )""\n"
-R"(\ \  \    \ \  \||\  \ \  \\\  \ \  \\ \  \ \  \___||\ \  \\\  \   )""\n"
+R"(|\  \     |\   __  \|\  \|\  \|\   ___  \|\   ____\|\  \|\  \    )""\n"
+R"(\ \  \    \ \  \|\  \ \  \\\  \ \  \\ \  \ \  \___|\ \  \\\  \   )""\n"
 R"( \ \  \    \ \   __  \ \  \\\  \ \  \\ \  \ \  \    \ \   __  \  )""\n"
 R"(  \ \  \____\ \  \ \  \ \  \\\  \ \  \\ \  \ \  \____\ \  \ \  \ )""\n"
 R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
-R"(    \||_______||\||__||\||__||\||_______||\||__|| \||__||\||_______||\||__||\||__||)";
+R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
 
 long long hedgehog_test1() {
 	hedgehog hh;
@@ -25,7 +25,7 @@ long long hedgehog_test1() {
 	std::string fmt = "[ ]";
 	stopwatch watch;
 	watch.start();
-	fmtout(fmt, hh, nullout);
+	fmtout(fmt, hh, false, nullout);
 	watch.stop();
 	return watch.get_dur().microseconds();
 }
@@ -71,10 +71,9 @@ int main(int argc, char* argv[]) {
 			{"s", "goodstr"},
 			{"a", "arithing"},
 			{"f", "exfmtio"}
-			});
+		});
 		std::cout << std::boolalpha;
 		std::cin >> std::boolalpha;
-		fmtout(artwork);
 		std::ifstream file("splashes.txt");
 		std::vector<std::string> splashes;
 		if (file.is_open()) {
@@ -90,11 +89,14 @@ int main(int argc, char* argv[]) {
 		randgen_int<size_t> rand(0, splashes.size() - 1);
 		size_t splash_index = rand.next();
 		fmtout("[]\n", {
-			cursor_left(splashes[splash_index].length()),
+			artwork,
 			foreground_color(255, 255, 0),
+			cursor_left(65),
+			"v1." + std::to_string(MAJOR) + "." + std::to_string(MINOR),
+			cursor_right(65 - std::strlen(VERSION) - splashes[splash_index].length()),
 			splashes[splash_index],
 			rendl_fast
-			});
+		});
 		size_t cnt = 0;
 		fmtout("=== START OF PROGRAM ===\n");
 		if (parser.get_flag("escseq") || parser.get_flag("all")) {
@@ -131,19 +133,17 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("goodmath") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - GOODMATH ===\n");
-			hedgehog hh;
+			double deg;
 			fmtout("Enter an angle (in degrees) please: ");
-			fmtin<double>(hh);
-			double rad = dtor(hh[0].as<double>());
+			fmtin_single(deg);
+			double rad = dtor(deg);
 			double cos_ = ::launch::cos(rad);
 			double sin_ = ::launch::sin(rad);
-			hh.push_back(cos_);
-			hh.push_back(sin_);
-			hh.push_back(::launch::pow(cos_, 2) + ::launch::pow(sin_, 2));
 			fmtout(
 				"If O is at (0, 0), A is at (1, 0), both OA and OP are 1, "
 				"and angle AOP is {} degrees, then P is at ({}, {}).\n"
-				"By the way, this should be 1: {}.\n", hh
+				"By the way, this should be 1: {}.\n",
+				{ deg, cos_, sin_, ::launch::pow(cos_, 2) + ::launch::pow(sin_, 2) }
 			);
 			fmtout("=== END OF TEST - GOODMATH ===\n");
 		}
@@ -152,9 +152,9 @@ int main(int argc, char* argv[]) {
 			fmtout("=== START OF TEST - GOODSTR ===\n");
 			std::string str0, str1, str2;
 			fmtout("Enter three strings:\n");
-			std::getline(std::cin >> std::ws, str0);
-			std::getline(std::cin >> std::ws, str1);
-			std::getline(std::cin >> std::ws, str2);
+			fmtin_line(str0);
+			fmtin_line(str1);
+			fmtin_line(str2);
 			fmtout(
 				"After replacing \"{}\"s in \"{}\" with \"{}\": {}\n",
 				{ str1, str0, str2, replace(str0, str1, str2) }
