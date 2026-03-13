@@ -10,13 +10,14 @@ namespace launch {
 	};
 
 	template <typename T>
-	concept arithmetic_preq = !std::is_pointer_v<T> && !std::is_same_v<bool, T>;
+	concept arithmetic_preq = !(std::is_pointer_v<T> || std::is_same_v<bool, T> || std::is_same_v<char, T>);
 
 	template <typename T, typename U>
 	concept arithmetic_add =
 		requires(T a, U b) {
 			a + b;
-		} && arithmetic_preq<T> && arithmetic_preq<U>;
+		} &&
+		(arithmetic_preq<T> && arithmetic_preq<U> || std::is_same_v<std::string, T> || std::is_same_v<std::string, U>);
 
 	template <typename T, typename U>
 	concept arithmetic_sub =

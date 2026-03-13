@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
 			artwork,
 			foreground_color(255, 255, 0),
 			cursor_left(65),
-			"v1." + std::to_string(MAJOR) + "." + std::to_string(MINOR),
+			VERSION,
 			cursor_right(65 - std::strlen(VERSION) - splashes[splash_index].length()),
 			splashes[splash_index],
 			rendl_fast

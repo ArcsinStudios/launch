@@ -6,7 +6,8 @@
 |---|---|
 |`writable<T>`|`T` can be chainingly written using `std::ostream`|
 |`arithmetic_preq<T>`|`T` is not a pointer type or `bool`|
-|`arithmetic_add<T, U>`<br>`arithmetic_sub<T, U>`<br>`arithmetic_mul<T, U>`<br>`arithmetic_div<T, U>`<br>`arithmetic_mod<T, U>`<br>|both `T` and `U` satisfy `arithmetic_preq`, and the operation between `T` and `U` is supported|
+|`arithmetic_add<T, U>`|both `T` and `U` satisfy `arithmetic_preq`, and the operation between `T` and `U` is supported or either of `T` and `U` is `std::string`|
+|`arithmetic_sub<T, U>`<br>`arithmetic_mul<T, U>`<br>`arithmetic_div<T, U>`<br>`arithmetic_mod<T, U>`<br>|both `T` and `U` satisfy `arithmetic_preq`, and the operation between `T` and `U` is supported|
 |`arithmetic<T, U>`|all four operations between `T` and `U` are supported|
 |`fully_arithmetic<T, U>`|all five operations between `T` and `U` are supported|
 

@@ -3,7 +3,7 @@
 #include <cstddef>
 
 #define MACRO_MAJOR 14
-#define MACRO_MINOR 3
+#define MACRO_MINOR 4
 #define _STRINGIFY(num) #num
 #define STRINGIFY(num) _STRINGIFY(num)
 
@@ -18,9 +18,11 @@ namespace launch {
 #undef _STRINGIFY
 #undef STRINGIFY
 
-/* vvv CUSTOMIZE THIS BEFORE USE! vvv */
+/*                   CUSTOMIZE THIS BEFORE USE!                   */
+/* vvv THE DEFAULT DEFINITIONS ARE FOR TESTING PURPOSES ONLY! vvv */
 
 #define LAUNCH_EXPERIMENTAL
 #define LAUNCH_NO_THREAD_SAFE
 
-/* ^^^ CUSTOMIZE THIS BEFORE USE! ^^^ */
+/* ^^^ THE DEFAULT DEFINITIONS ARE FOR TESTING PURPOSES ONLY! ^^^ */
+/*                   CUSTOMIZE THIS BEFORE USE!                   */

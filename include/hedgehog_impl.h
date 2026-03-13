@@ -381,8 +381,8 @@ namespace launch {
 		return temp;
 	}
 
-	template <typename Allocator>
-	using hedgehog_alloc = std::vector<hedgehog_elemproxy, Allocator>;
+	template <typename T>
+	using hedgehog_alloc = std::vector<hedgehog_elemproxy, T>;
 
 	using hedgehog = hedgehog_alloc<std::allocator<hedgehog_elemproxy>>;
 
