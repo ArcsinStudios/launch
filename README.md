@@ -64,7 +64,6 @@ The macros look like this:
 ```cpp
 LAUNCH_NO_<MODULENAME> // To disable a specific module.
 LAUNCH_EXPERIMENTAL // To enable LEISURE features.
-LAUNCH_NO_THREAD_SAFE // As the name implies.
 ```
 
 <h2 id="part3">Part III: The Modules</h2>
@@ -243,7 +242,7 @@ Why not use LAUNCH?
 
 ---
 
-<small>Author: Arcsin Studios<br>License (of this document): CC BY-SA 4.0</small>
+<small>Author: Arcsin Studios<br>Licence (of this document): CC BY-SA 4.0</small>
 
 <style>
 @keyframes splash {

@@ -1,37 +1,38 @@
 #pragma once
 
-#if !defined(LAUNCH_NO_HEDGEHOG)
-
 #include <format>
 #include <iostream>
 #include <istream>
 #include <stdexcept>
 #include <string>
 
+#if !defined(LAUNCH_NO_HEDGEHOG)
 #include "hedgehog.h"
+#endif
+
 #include "fmtio_concepts.h"
 
 namespace launch {
-	void fmtout(const std::string& fmt, const hedgehog& hh = {}, bool raw = false, std::ostream& out = std::cout);
+#if !defined(LAUNCH_NO_HEDGEHOG)
+	void fmtout(const std::string& fmt, const hedgehog& cont = {}, bool raw = false, std::ostream& out = std::cout);
 
 	template <readable T>
-	void fmtin_process(hedgehog& hh, std::istream& in) {
+	void fmtin_process(hedgehog& cont, std::istream& in) {
 		T temp;
 		in >> temp;
-		hh.push_back(temp);
+		cont.push_back(temp);
 	}
 
 	template <readable... Ts>
-	void fmtin(hedgehog& hh, std::istream& in = std::cin) {
-		(fmtin_process<Ts>(hh, in), ...);
+	void fmtin(hedgehog& cont, std::istream& in = std::cin) {
+		(fmtin_process<Ts>(cont, in), ...);
 	}
 
 	template <readable T>
 	void fmtin_single(T& x, std::istream& in = std::cin) {
 		in >> x;
 	}
+#endif
 
 	void fmtin_line(std::string& str, std::istream& in = std::cin);
 }
-
-#endif

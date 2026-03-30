@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace launch {
-	std::vector<std::string> split(const std::string& orig, char delim);
+	std::vector<std::string> split(const std::string& orig, const std::string& delim);
 
 	std::string concat(const std::vector<std::string>& list, const std::string& sep = "");
 

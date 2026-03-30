@@ -470,6 +470,7 @@ b0891a4 Overall cleanup #7
 8914503 Enhanced <hedgehog> and <fmtio>; added versions; fixed known bugs
 [o] Existing modules partially functional
 - [!] Broken post-increment and post-decrement of arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
@@ -479,6 +480,7 @@ b0891a4 Overall cleanup #7
 - [!] The file structure has changed a lot
 - [!] Broken <hedgehog>
 - [!] Broken post-increment and post-decrement of arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
@@ -486,6 +488,7 @@ b0891a4 Overall cleanup #7
 91d8e0d Fixed a serious bug
 [o] Existing modules partially functional
 - [!] Broken post-increment and post-decrement of arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
@@ -493,17 +496,27 @@ b0891a4 Overall cleanup #7
 2b15bb9 Enhanced <fmtio>
 [o] Existing modules partially functional
 - [!] Broken post-increment and post-decrement of arint
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
 1.14.3
 f56c140 Enhanced <hedgehog> and <fmtio>; fixed known bugs
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
 [v] Tests available
 [v] CMake available
 ===
 1.14.4
-(HEAD!) Slightly enhanced <hedgehog>
-[v] All existing modules functional
+aaf05c4 Slightly enhanced <hedgehog>
+[o] Existing modules partially functional
+- [!] Some edge cases not properly handled
+[v] Tests available
+[v] CMake available
+===
+1.15.0
+(HEAD!) Removed built-in thread safety; several enhancements; fixed known bugs
+[o] All existing modules functional
+- [!] Built-in thread safety has been removed
 [v] Tests available
 [v] CMake available

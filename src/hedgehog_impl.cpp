@@ -10,16 +10,10 @@ namespace launch {
 	}
 
 	void hedgehog_registry::regtype_output(std::type_index key, output_func_t func) {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::unique_lock lock(output_mutex);
-#endif
 		output_reg[key] = func;
 	}
 
 	void hedgehog_registry::regtype_oper(hedgehog_opersign key, oper_func_t func) {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::unique_lock lock(oper_mutex);
-#endif
 		oper_reg[key] = func;
 	}
 
@@ -40,30 +34,19 @@ namespace launch {
 	}
 
 	output_reg_t::const_iterator hedgehog_registry::output_func_it(std::type_index key) const {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(output_mutex);
-#endif
 		return output_reg.find(key);
 	}
 
 	oper_reg_t::const_iterator hedgehog_registry::oper_func_it(hedgehog_opersign key) const {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(oper_mutex);
-#endif
 		return oper_reg.find(key);
 	}
 	
 	output_reg_t::const_iterator hedgehog_registry::output_reg_end() const {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(output_mutex);
-#endif
 		return output_reg.end();
 	}
 
 	oper_reg_t::const_iterator hedgehog_registry::oper_reg_end() const {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		std::shared_lock lock(oper_mutex);
-#endif
+
 		return oper_reg.end();
 	}
 

@@ -169,7 +169,9 @@ namespace leisure {
 	}
 
 	arint arint::operator-() const {
-		return arint(value, sign ? arint_specval::neg : arint_specval::nop);
+		arint temp = *this;
+		temp.sign = !temp.sign;
+		return temp;
 	}
 
 	std::partial_ordering operator<=>(const arint& a, const arint& b) {
@@ -233,6 +235,22 @@ namespace leisure {
 		}
 		val = arint(value, attr);
 		return in;
+	}
+
+	unsigned long long abs(const arint& val) {
+		return val.value;
+	}
+
+	unsigned long long sign(const arint& val) {
+		return val.sign;
+	}
+
+	unsigned long long nan(const arint& val) {
+		return val.nan;
+	}
+
+	unsigned long long inf(const arint& val) {
+		return val.inf;
 	}
 
 	constexpr void arreal::adjust() {
@@ -344,8 +362,11 @@ namespace leisure {
 	}
 
 	std::partial_ordering operator<=>(const arreal& a, const arreal& b) {
-		unsigned long long den_lcm = std::lcm(a.den.value, b.den.value);
-		return a.num * (den_lcm / a.den.value) <=> b.num * (den_lcm / b.den.value);
+		unsigned long long
+			a_den_value = abs(a.den),
+			b_den_value = abs(b.den),
+			den_lcm = std::lcm(a_den_value, b_den_value);
+		return a.num * (den_lcm / a_den_value) <=> b.num * (den_lcm / b_den_value);
 	}
 
 	bool operator==(const arreal& a, const arreal& b) {
@@ -376,34 +397,46 @@ namespace leisure {
 		return in;
 	}
 
+	arint numerator(const arreal& val) {
+		return val.num;
+	}
+
+	arint denominator(const arreal& val) {
+		return val.den;
+	}
+
 	std::string to_decimal(const arreal& val) {
-		if (val.num.nan) {
+		if (nan(val.num)) {
 			return "NaN";
 		}
-		if (val.den.inf) {
-			return val.num.inf ? "NaN" : "0";
+		bool val_num_inf = inf(val.num);
+		if (inf(val.den)) {
+			return val_num_inf ? "NaN" : "0";
 		}
-		unsigned long long temp = val.den.value;
-		while (!(temp % 2)) {
-			temp /= 2;
+		unsigned long long
+			val_num_value = abs(val.num),
+			val_den_value = abs(val.den);
+		while (!(val_den_value % 2)) {
+			val_den_value /= 2;
 		}
-		while (!(temp % 5)) {
-			temp /= 5;
+		while (!(val_den_value % 5)) {
+			val_den_value /= 5;
 		}
-		if (temp >= 500) {
-			return "[RES2LONG]";
+		if (val_den_value >= 100) {
+			throw std::runtime_error("to_decimal: result too long");
 		}
+		bool val_num_sign = sign(val.num);
 		std::string res;
-		if (!val.num.sign) {
+		if (!val_num_sign) {
 			res += "-";
 		}
-		if (val.num.inf) {
+		if (inf(val.num)) {
 			res += "inf";
 			return res;
 		}
-		std::string res_str = std::to_string(val.num.value / val.den.value);
+		std::string res_str = std::to_string(val_num_value / val_den_value);
 		res += res_str;
-		unsigned long long rem = val.num.value % val.den.value;
+		unsigned long long rem = val_num_value % val_den_value;
 		if (!rem) {
 			return res;
 		}
@@ -411,12 +444,12 @@ namespace leisure {
 		unsigned long long num2 = rem * 10;
 		std::vector<unsigned long long> rem_before = { rem };
 		while (rem) {
-			res += std::to_string(num2 / val.den.value);
-			rem = num2 % val.den.value;
+			res += std::to_string(num2 / val_den_value);
+			rem = num2 % val_den_value;
 			num2 = rem * 10;
 			std::vector<unsigned long long>::const_iterator it = std::find(rem_before.begin(), rem_before.end(), rem);
 			if (it != rem_before.end()) {
-				size_t pos = !val.num.sign + res_str.length() + 1 + (it - rem_before.begin());
+				size_t pos = !val_num_sign + res_str.length() + 1 + (it - rem_before.begin());
 				res = res.substr(0, pos) + "(" + res.substr(pos) + ")";
 				break;
 			}

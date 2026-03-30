@@ -14,44 +14,44 @@ R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
 R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
 
 long long hedgehog_test1() {
-	hedgehog hh;
+	hedgehog cont;
 	for (int i = 0; i < 256; ++i) {
-		hh.push_back(i);
-		hh.push_back(i / 10.0);
-		hh.push_back(i % 2 == 0);
-		hh.push_back(std::to_string(i));
+		cont.push_back(i);
+		cont.push_back(i / 10.0);
+		cont.push_back(i % 2 == 0);
+		cont.push_back(std::to_string(i));
 	}
-	size_t hh_size = hh.size();
+	size_t hh_size = cont.size();
 	std::string fmt = "[ ]";
 	stopwatch watch;
 	watch.start();
-	fmtout(fmt, hh, false, nullout);
+	fmtout(fmt, cont, false, nullout);
 	watch.stop();
 	return watch.get_dur().microseconds();
 }
 
 long long hedgehog_test2() {
-	hedgehog hh;
+	hedgehog cont;
 	for (int i = 0; i < 256; ++i) {
-		hh.push_back(0);
-		hh.push_back(0ll);
-		hh.push_back(0.0f);
-		hh.push_back(0.0);
+		cont.push_back(0);
+		cont.push_back(0ll);
+		cont.push_back(0.0f);
+		cont.push_back(0.0);
 	}
-	size_t hh_size = hh.size();
+	size_t hh_size = cont.size();
 	stopwatch watch;
 	watch.start();
 	for (int i = 0; i < hh_size; ++i) {
-		hh[i] += i / 4;
+		cont[i] += i / 4;
 	}
 	watch.stop();
 	return watch.get_dur().microseconds();
 }
 
 void hedgehog_test3() {
-	hedgehog hh = { 42, 3.14, std::string("Hello World!") };
-	fmtout("int: {}, double: {}, std::string: {}\n", hh);
-	for (hedgehog_elemproxy& elem : hh) {
+	hedgehog cont = { 42, 3.14, std::string("Hello World!") };
+	fmtout("int: {}, double: {}, std::string: {}\n", cont);
+	for (hedgehog_elemproxy& elem : cont) {
 		try {
 			elem += 1;
 		}
@@ -59,7 +59,7 @@ void hedgehog_test3() {
 			fmtout("Oops: {0}\n", { e.what() });
 		}
 	}
-	fmtout("int: {}, double: {}, std::string: {}\n", hh);
+	fmtout("int: {}, double: {}, std::string: {}\n", cont);
 }
 
 int main(int argc, char* argv[]) {
@@ -164,14 +164,14 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("arithing") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - ARITHING ===\n");
-			hedgehog hh;
+			hedgehog cont;
 			arreal lhs, rhs, res;
 			char op;
 			fmtout("Enter a math expression please (e.g. 1 + 2, -1/2 * 3/4): ");
-			fmtin<arreal, char, arreal>(hh);
-			lhs = hh[0].as<arreal>();
-			op = hh[1].as<char>();
-			rhs = hh[2].as<arreal>();
+			fmtin<arreal, char, arreal>(cont);
+			lhs = cont[0].as<arreal>();
+			op = cont[1].as<char>();
+			rhs = cont[2].as<arreal>();
 			switch (op) {
 			case '+':
 				res = lhs + rhs;
@@ -191,25 +191,30 @@ int main(int argc, char* argv[]) {
 			default:
 				res = arint(0, arint_specval::nan);
 			}
-			fmtout("{} {} {} = {} = {}\n", { lhs, op, rhs, res, to_decimal(res) });
+			if (denominator(res) == 1) {
+				fmtout("{} {} {} = {}\n", { lhs, op, rhs, res });
+			}
+			else {
+				fmtout("{} {} {} = {} = {}\n", { lhs, op, rhs, res, to_decimal(res) });
+			}
 			fmtout("=== END OF TEST - ARITHING ===\n");
 		}
 		if (parser.get_flag("exfmtio") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - EXFMTIO ===\n");
 			size_t cnt;
-			hedgehog hh;
+			hedgehog cont;
 			std::string fmt = "----------------------------------------\nYou entered:\n";
 			fmtout("How many elements you're about to enter? ");
 			fmtin_single(cnt);
 			fmtout("----------------------------------------\nPlese enter {} element(s):\n", { cnt });
-			fmtin_deduce_auto(hh, cnt);
-			size_t hh_size = hh.size();
+			fmtin_deduce_auto(cont, cnt);
+			size_t hh_size = cont.size();
 			for (size_t i = 0; i < hh_size; ++i) {
 				fmt = fmt + "{" + std::to_string(i) + "}: {" + std::to_string(i + hh_size) + "}\n";
-				hh.push_back(hh[i].type().name());
+				cont.push_back(cont[i].type().name());
 			}
-			fmtout(fmt, hh);
+			fmtout(fmt, cont);
 			fmtout("=== END OF TEST - EXFMTIO ===\n");
 		}
 		fmtout("=== END OF PROGRAM - {} TEST(S) EXECUTED ===\n", { cnt });

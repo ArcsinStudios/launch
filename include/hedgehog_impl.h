@@ -12,10 +12,6 @@
 
 #include "hedgehog_concepts.h"
 
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-#include <shared_mutex>
-#endif
-
 #if !defined(LAUNCH_NO_ESCSEQ)
 #include "escseq.h"
 #endif
@@ -65,10 +61,6 @@ namespace launch {
 	private:
 		output_reg_t output_reg;
 		oper_reg_t oper_reg;
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-		mutable std::shared_mutex output_mutex;
-		mutable std::shared_mutex oper_mutex;
-#endif
 
 	public:
 		void regtype_output(std::type_index key, output_func_t func);
@@ -102,9 +94,6 @@ namespace launch {
 
 		template <writable T>
 		void regtype_output_auto() {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(output_mutex);
-#endif
 			regtype_output(typeid(T), [](std::ostream& out, const std::any& value) -> std::ostream& {
 				return out << std::any_cast<T>(value);
 			});
@@ -112,9 +101,6 @@ namespace launch {
 
 		template <typename T, typename U = T> requires arithmetic_add<T, U>
 		void regtype_add_auto() {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex);
-#endif
 			regtype_add<T, U>(
 				[](const std::any& a, const std::any& b) -> std::any {
 					return std::any_cast<T>(a) + std::any_cast<U>(b);
@@ -124,9 +110,6 @@ namespace launch {
 
 		template <typename T, typename U = T> requires arithmetic_sub<T, U>
 		void regtype_sub_auto() {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex);
-#endif
 			regtype_sub<T, U>(
 				[](const std::any& a, const std::any& b) -> std::any {
 					return std::any_cast<T>(a) - std::any_cast<U>(b);
@@ -136,9 +119,6 @@ namespace launch {
 
 		template <typename T, typename U = T> requires arithmetic_mul<T, U>
 		void regtype_mul_auto() {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex);
-#endif
 			regtype_mul<T, U>(
 				[](const std::any& a, const std::any& b) -> std::any {
 					return std::any_cast<T>(a) * std::any_cast<U>(b);
@@ -148,9 +128,6 @@ namespace launch {
 
 		template <typename T, typename U = T> requires arithmetic_div<T, U>
 		void regtype_div_auto() {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex);
-#endif
 			regtype_div<T, U>(
 				[](const std::any& a, const std::any& b) -> std::any {
 					return std::any_cast<T>(a) / std::any_cast<U>(b);
@@ -160,9 +137,6 @@ namespace launch {
 
 		template <typename T, typename U = T> requires arithmetic_mod<T, U>
 		void regtype_mod_auto() {
-#if !defined(LAUNCH_NO_THREAD_SAFE)
-			std::unique_lock lock(oper_mutex);
-#endif
 			regtype_mod<T, U>(
 				[](const std::any& a, const std::any& b) -> std::any {
 					return std::any_cast<T>(a) % std::any_cast<U>(b);
@@ -331,7 +305,7 @@ namespace launch {
 		void throw_if_not() const {
 			if (!this->is<T>()) {
 				throw std::runtime_error(
-					std::string("hedgehog_elemproxy::throw_if_not: value.type() (mangled name: ") +
+					std::string("hedgehog_elemproxy::throw_if_not: abs.type() (mangled name: ") +
 					value.type().name() +
 					") does not match with typeid(T) (mangled name: " +
 					typeid(T).name() +

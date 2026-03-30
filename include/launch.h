@@ -1,5 +1,23 @@
 #pragma once
 
+#include <cstddef>
+
+#define MACRO_MAJOR 15
+#define MACRO_MINOR 0
+#define _STRINGIFY(num) #num
+#define STRINGIFY(num) _STRINGIFY(num)
+
+namespace launch {
+	constexpr size_t MAJOR = MACRO_MAJOR;
+	constexpr size_t MINOR = MACRO_MINOR;
+	constexpr const char* VERSION = "v1." STRINGIFY(MACRO_MAJOR) "." STRINGIFY(MACRO_MINOR);
+}
+
+#undef MACRO_MAJOR
+#undef MACRO_MINOR
+#undef _STRINGIFY
+#undef STRINGIFY
+
 #include "launch_config.h"
 
 #if !defined(LAUNCH_NO_CHROYES)

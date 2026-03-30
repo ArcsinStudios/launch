@@ -72,11 +72,13 @@ namespace leisure {
 
 		friend std::istream& operator>>(std::istream& in, arint& val);
 
-		friend std::partial_ordering operator<=>(const arreal& a, const arreal& b);
+		friend unsigned long long abs(const arint& val);
 
-		friend bool operator==(const arreal& a, const arreal& b);
+		friend unsigned long long sign(const arint& val);
 
-		friend std::string to_decimal(const arreal& val);
+		friend unsigned long long nan(const arint& val);
+
+		friend unsigned long long inf(const arint& val);
 	};
 
 	arint operator+(const arint& a, const arint& b);
@@ -122,6 +124,10 @@ namespace leisure {
 		friend std::ostream& operator<<(std::ostream& out, const arreal& val);
 
 		friend std::istream& operator>>(std::istream& in, arreal& val);
+
+		friend arint numerator(const arreal& val);
+
+		friend arint denominator(const arreal& val);
 
 		friend std::string to_decimal(const arreal& val);
 	};

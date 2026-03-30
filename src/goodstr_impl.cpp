@@ -3,12 +3,20 @@
 #include "../include/goodstr_impl.h"
 
 namespace launch {
-	std::vector<std::string> split(const std::string& orig, char delim) {
+	std::vector<std::string> split(const std::string& orig, const std::string& delim) {
+		if (delim.empty()) {
+			throw std::runtime_error("split: delim.empty() == true");
+		}
 		std::vector<std::string> vec;
-		std::stringstream ss(orig);
-		std::string item;
-		while (std::getline(ss, item, delim)) {
-			vec.push_back(item);
+		size_t start = 0;
+		size_t end = orig.find(delim);
+		while (end != std::string::npos) {
+			vec.push_back(orig.substr(start, end - start));
+			start = end + delim.length();
+			end = orig.find(delim, start);
+		}
+		if (start < orig.length()) {
+			vec.push_back(orig.substr(start));
 		}
 		return vec;
 	}

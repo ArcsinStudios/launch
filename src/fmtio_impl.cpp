@@ -2,10 +2,9 @@
 
 #include "../include/fmtio_impl.h"
 
-#if !defined(LAUNCH_NO_HEDGEHOG)
-
 namespace launch {
-	void fmtout(const std::string& fmt, const hedgehog& hh, bool raw, std::ostream& out) {
+#if !defined(LAUNCH_NO_HEDGEHOG)
+	void fmtout(const std::string& fmt, const hedgehog& cont, bool raw, std::ostream& out) {
 		if (raw || fmt.find_first_of("{}[]|") == std::string::npos) {
 			out << fmt;
 			return;
@@ -13,7 +12,7 @@ namespace launch {
 		std::stringstream ss;
 		ss.flags(out.flags());
 		size_t fmt_length = fmt.length();
-		size_t hh_size = hh.size();
+		size_t hh_size = cont.size();
 		bool auto_indexing = false;
 		size_t curr_index = 0;
 		bool brackets = false;
@@ -74,13 +73,13 @@ namespace launch {
 							throw std::format_error(
 								"fmtout: index (which is " +
 								index_str +
-								") >= hh.size() (which is " +
+								") >= cont.size() (which is " +
 								std::to_string(hh_size) +
 								")"
 							);
 						}
 					}
-					ss << hh[index];
+					ss << cont[index];
 				}
 				break;
 			case '}':
@@ -135,7 +134,7 @@ namespace launch {
 						}
 					}
 					for (size_t i = 0; i < hh_size; ++i) {
-						ss << hh[i];
+						ss << cont[i];
 						if (i + 1 != hh_size) {
 							ss << sep;
 						}
@@ -161,10 +160,9 @@ namespace launch {
 		}
 		out << ss.str();
 	}
+#endif
 
 	void fmtin_line(std::string& str, std::istream& in) {
 		std::getline(in >> std::ws, str);
 	}
 }
-
-#endif
