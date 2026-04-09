@@ -248,7 +248,7 @@ namespace launch {
 			}
 		}
 
-		hedgehog_registry();
+		explicit hedgehog_registry(bool default_regs = false);
 
 		output_reg_t::const_iterator output_func_it(std::type_index key) const;
 
@@ -259,15 +259,16 @@ namespace launch {
 		oper_reg_t::const_iterator oper_reg_end() const;
 	};
 
+	extern hedgehog_registry common_hreg;
+
 	class hedgehog_elemproxy {
 	private:
 		std::any value;
+		hedgehog_registry* registry;
 
 	public:
-		hedgehog_elemproxy() = default;
-
 		template <typename T>
-		hedgehog_elemproxy(T _value) : value(std::forward<T>(_value)) {}
+		hedgehog_elemproxy(T _value) : value(std::forward<T>(_value)), registry(&common_hreg) {}
 
 		hedgehog_elemproxy& operator+=(const hedgehog_elemproxy& other);
 
@@ -305,7 +306,7 @@ namespace launch {
 		void throw_if_not() const {
 			if (!this->is<T>()) {
 				throw std::runtime_error(
-					std::string("hedgehog_elemproxy::throw_if_not: abs.type() (mangled name: ") +
+					std::string("hedgehog_elemproxy::throw_if_not: value.type() (mangled name: ") +
 					value.type().name() +
 					") does not match with typeid(T) (mangled name: " +
 					typeid(T).name() +
@@ -313,6 +314,8 @@ namespace launch {
 				);
 			}
 		}
+
+		void rebind(hedgehog_registry& new_reg);
 	};
 
 	template <typename T, typename U>
@@ -356,9 +359,14 @@ namespace launch {
 	}
 
 	template <typename T>
-	using hedgehog_alloc = std::vector<hedgehog_elemproxy, T>;
+	using hedgehog_impl = std::vector<hedgehog_elemproxy, T>;
 
-	using hedgehog = hedgehog_alloc<std::allocator<hedgehog_elemproxy>>;
+	using hedgehog = hedgehog_impl<std::allocator<hedgehog_elemproxy>>;
 
-	extern hedgehog_registry hreg;
+	template <typename T>
+	void rebind_all(hedgehog_impl<T>& cont, hedgehog_registry& new_reg) {
+		for (hedgehog_elemproxy& elem : cont) {
+			elem.rebind(new_reg);
+		}
+	}
 }

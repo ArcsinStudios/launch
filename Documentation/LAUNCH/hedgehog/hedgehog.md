@@ -19,5 +19,5 @@
 |`oper_func_t`|`std::function<std::any(const std::any&, const std::any&)>`|
 |`output_reg_t`|`std::unordered_map<std::type_index, output_func_t>`|
 |`oper_reg_t`|`std::unordered_map<hedgehog_opersign, oper_func_t>`|
-|`hedgehog_alloc<Allocator>`|`std::vector<hedgehog_elemproxy, Allocator>`|
-|`hedgehog`|`hedgehog_alloc<std::allocator<hedgehog_elemproxy>>`|
+|`hedgehog_impl<T>`|`std::vector<hedgehog_elemproxy, T>`|
+|`hedgehog`|`hedgehog_impl<std::allocator<hedgehog_elemproxy>>`|

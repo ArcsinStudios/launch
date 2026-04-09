@@ -10,7 +10,7 @@ namespace launch {
 		std::string seq;
 
 	public:
-		escseq_manip(std::string _seq) : seq(_seq) {}
+		explicit escseq_manip(std::string _seq) : seq(_seq) {}
 
 		friend std::ostream& operator<<(std::ostream& out, const escseq_manip& manip);
 	};
@@ -76,7 +76,7 @@ namespace launch {
 		bool fast = false;
 
 	public:
-		reset_endl(bool _fast) : fast(_fast) {}
+		explicit reset_endl(bool _fast) : fast(_fast) {}
 
 		friend std::ostream& operator<<(std::ostream& out, const reset_endl& manip);
 	};

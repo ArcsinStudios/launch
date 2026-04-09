@@ -12,7 +12,7 @@ namespace launch {
 
 		explicit timespan(std::chrono::nanoseconds _ns) : ns(_ns) {}
 
-		timespan& operator=(std::chrono::nanoseconds _ns);
+		timespan& operator=(std::chrono::nanoseconds new_ns);
 
 		long long seconds() const;
 

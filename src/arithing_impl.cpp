@@ -386,14 +386,14 @@ namespace leisure {
 		in >> s_value;
 		unsigned long long pos = s_value.find('/');
 		std::stringstream ss_num(s_value.substr(0, pos));
-		arint _num;
-		ss_num >> _num;
-		arint _den = 1;
+		arint temp_num;
+		ss_num >> temp_num;
+		arint temp_den = 1;
 		if (pos != std::string::npos) {
 			std::stringstream ss_den(s_value.substr(pos + 1));
-			ss_den >> _den;
+			ss_den >> temp_den;
 		}
-		val = arreal(_num, _den);
+		val = arreal(temp_num, temp_den);
 		return in;
 	}
 
@@ -416,15 +416,6 @@ namespace leisure {
 		unsigned long long
 			val_num_value = abs(val.num),
 			val_den_value = abs(val.den);
-		while (!(val_den_value % 2)) {
-			val_den_value /= 2;
-		}
-		while (!(val_den_value % 5)) {
-			val_den_value /= 5;
-		}
-		if (val_den_value >= 100) {
-			throw std::runtime_error("to_decimal: result too long");
-		}
 		bool val_num_sign = sign(val.num);
 		std::string res;
 		if (!val_num_sign) {
@@ -441,9 +432,13 @@ namespace leisure {
 			return res;
 		}
 		res += ".";
+		size_t res_length = res.length();
 		unsigned long long num2 = rem * 10;
 		std::vector<unsigned long long> rem_before = { rem };
 		while (rem) {
+			if (++res_length > 100) {
+				throw std::runtime_error("to_decimal: result too long");
+			}
 			res += std::to_string(num2 / val_den_value);
 			rem = num2 % val_den_value;
 			num2 = rem * 10;

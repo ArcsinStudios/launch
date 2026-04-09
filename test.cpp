@@ -21,7 +21,7 @@ long long hedgehog_test1() {
 		cont.push_back(i % 2 == 0);
 		cont.push_back(std::to_string(i));
 	}
-	size_t hh_size = cont.size();
+	size_t cont_size = cont.size();
 	std::string fmt = "[ ]";
 	stopwatch watch;
 	watch.start();
@@ -38,10 +38,10 @@ long long hedgehog_test2() {
 		cont.push_back(0.0f);
 		cont.push_back(0.0);
 	}
-	size_t hh_size = cont.size();
+	size_t cont_size = cont.size();
 	stopwatch watch;
 	watch.start();
-	for (int i = 0; i < hh_size; ++i) {
+	for (int i = 0; i < cont_size; ++i) {
 		cont[i] += i / 4;
 	}
 	watch.stop();
@@ -56,7 +56,7 @@ void hedgehog_test3() {
 			elem += 1;
 		}
 		catch (const std::runtime_error& e) {
-			fmtout("Oops: {0}\n", { e.what() });
+			fmtout("Oops: {}\n", { e.what() });
 		}
 	}
 	fmtout("int: {}, double: {}, std::string: {}\n", cont);
@@ -209,9 +209,9 @@ int main(int argc, char* argv[]) {
 			fmtin_single(cnt);
 			fmtout("----------------------------------------\nPlese enter {} element(s):\n", { cnt });
 			fmtin_deduce_auto(cont, cnt);
-			size_t hh_size = cont.size();
-			for (size_t i = 0; i < hh_size; ++i) {
-				fmt = fmt + "{" + std::to_string(i) + "}: {" + std::to_string(i + hh_size) + "}\n";
+			size_t cont_size = cont.size();
+			for (size_t i = 0; i < cont_size; ++i) {
+				fmt = fmt + "{" + std::to_string(i) + "}: {" + std::to_string(i + cont_size) + "}\n";
 				cont.push_back(cont[i].type().name());
 			}
 			fmtout(fmt, cont);
@@ -236,6 +236,7 @@ int main(int argc, char* argv[]) {
 	catch (const std::exception& e) {
 		std::cerr << "ERROR: " << e.what() << "\n";
 		std::cerr << "Program exited abnormally.\n";
+		return -1;
 	}
 	return 0;
 }

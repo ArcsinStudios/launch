@@ -3,8 +3,8 @@
 #include "../include/chroyes_impl.h"
 
 namespace launch {
-	timespan& timespan::operator=(std::chrono::nanoseconds _ns) {
-		ns = _ns;
+	timespan& timespan::operator=(std::chrono::nanoseconds new_ns) {
+		ns = new_ns;
 		return *this;
 	}
 

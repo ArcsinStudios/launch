@@ -3,7 +3,7 @@
 #include <cstddef>
 
 #define MACRO_MAJOR 15
-#define MACRO_MINOR 0
+#define MACRO_MINOR 1
 #define _STRINGIFY(num) #num
 #define STRINGIFY(num) _STRINGIFY(num)
 

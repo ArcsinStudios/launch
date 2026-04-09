@@ -515,8 +515,14 @@ aaf05c4 Slightly enhanced <hedgehog>
 [v] CMake available
 ===
 1.15.0
-(HEAD!) Removed built-in thread safety; several enhancements; fixed known bugs
+025a1eb Removed built-in thread safety; several enhancements; fixed known bugs
 [o] All existing modules functional
 - [!] Built-in thread safety has been removed
+[v] Tests available
+[v] CMake available
+===
+1.15.1
+(HEAD!) Enhanced <hedgehog> and <arithing>
+[v] All existing modules functional
 [v] Tests available
 [v] CMake available

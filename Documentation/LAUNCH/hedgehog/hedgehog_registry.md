@@ -7,7 +7,7 @@
 ### Global objects
 |Object|Description|
 |---|---|
-|`hreg`|global `hedgehog_registry` instance|
+|`common_hreg`|global `hedgehog_registry` instance|
 
 ### Member functions
 |Function|Description|

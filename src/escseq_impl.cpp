@@ -45,29 +45,29 @@ namespace launch {
 	}
 
 	std::ostream& operator<<(std::ostream& out, const style_manip& manip) {
-		escseq_style _flags = manip.flags;
-		if (static_cast<bool>(_flags & escseq_style::bold)) {
+		escseq_style manip_flags = manip.flags;
+		if (static_cast<bool>(manip_flags & escseq_style::bold)) {
 			out << bold;
 		}
-		if (static_cast<bool>(_flags & escseq_style::dim)) {
+		if (static_cast<bool>(manip_flags & escseq_style::dim)) {
 			out << dim;
 		}
-		if (static_cast<bool>(_flags & escseq_style::italic)) {
+		if (static_cast<bool>(manip_flags & escseq_style::italic)) {
 			out << italic;
 		}
-		if (static_cast<bool>(_flags & escseq_style::underline)) {
+		if (static_cast<bool>(manip_flags & escseq_style::underline)) {
 			out << underline;
 		}
-		if (static_cast<bool>(_flags & escseq_style::blink)) {
+		if (static_cast<bool>(manip_flags & escseq_style::blink)) {
 			out << blink;
 		}
-		if (static_cast<bool>(_flags & escseq_style::inverse)) {
+		if (static_cast<bool>(manip_flags & escseq_style::inverse)) {
 			out << inverse;
 		}
-		if (static_cast<bool>(_flags & escseq_style::hidden)) {
+		if (static_cast<bool>(manip_flags & escseq_style::hidden)) {
 			out << hidden;
 		}
-		if (static_cast<bool>(_flags & escseq_style::strikethrough)) {
+		if (static_cast<bool>(manip_flags & escseq_style::strikethrough)) {
 			out << strikethrough;
 		}
 		return out;

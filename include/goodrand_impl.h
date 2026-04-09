@@ -15,7 +15,7 @@ namespace launch {
 		std::uniform_int_distribution<T> distrib;
 
 	public:
-		randgen_int(
+		explicit randgen_int(
 			T min = std::numeric_limits<T>::min(),
 			T max = std::numeric_limits<T>::max()
 		) : engine(rd()), distrib(min, max) {}
@@ -45,7 +45,7 @@ namespace launch {
 		std::uniform_real_distribution<T> distrib;
 
 	public:
-		randgen_real(
+		explicit randgen_real(
 			T min = 0,
 			T max = 1
 		) : engine(rd()), distrib(min, max) {}

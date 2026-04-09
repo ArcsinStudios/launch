@@ -12,7 +12,7 @@ namespace launch {
 		std::stringstream ss;
 		ss.flags(out.flags());
 		size_t fmt_length = fmt.length();
-		size_t hh_size = cont.size();
+		size_t cont_size = cont.size();
 		bool auto_indexing = false;
 		size_t curr_index = 0;
 		bool brackets = false;
@@ -69,12 +69,12 @@ namespace launch {
 							index_str += fmt[i];
 						}
 						index = std::stoull(index_str);
-						if (index >= hh_size) {
+						if (index >= cont_size) {
 							throw std::format_error(
 								"fmtout: index (which is " +
 								index_str +
 								") >= cont.size() (which is " +
-								std::to_string(hh_size) +
+								std::to_string(cont_size) +
 								")"
 							);
 						}
@@ -133,9 +133,9 @@ namespace launch {
 							sep += fmt[i];
 						}
 					}
-					for (size_t i = 0; i < hh_size; ++i) {
+					for (size_t i = 0; i < cont_size; ++i) {
 						ss << cont[i];
-						if (i + 1 != hh_size) {
+						if (i + 1 != cont_size) {
 							ss << sep;
 						}
 					}
