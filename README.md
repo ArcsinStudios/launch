@@ -44,7 +44,7 @@
 | Qs | As |
 |-|-|
 | Where does the name *LAUNCH* come from? | It's a backronym - **L**ibrary of **A**bundant **U**tilities for **N**ew **C**reative **H**acks! |
-| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 2 (LEISURE features). |
+| How many modules are there? | Currently, there are 8 (LAUNCH itself) + 3 (LEISURE features). |
 | Well, what's *LEISURE*, then? | It's still a backronym - **L**ibrary of **E**xperimental **I**deas for **SURE**! |
 | What's your slogan? | "Build, LAUNCH, start creating. That simple." |
 
@@ -233,6 +233,20 @@ Expected output:
 <nothing>
 Enter anything: <something>
 Got <something> with type <type name of something>
+```
+
+### \<genev\> (LEISURE feature)
+
+- What does the name mean?  
+**-** **Gen**erally **Ev**erything
+- What can \<genev\> do?
+```cpp
+leisure::genev mass("1 kg"), acceleration("9.8 m/s^2");
+std::cout << "F = ma = " << mass << " * " << acceleration << " = " << mass * acceleration << "\n";
+```
+Expected output:
+```
+F = ma = 1 kg * 9.8 m/s^2 = 9.8 kg*m/s^2
 ```
 
 <h2 id="part4">Part IV: Conclusion / TL;DR</h2>

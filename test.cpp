@@ -65,14 +65,15 @@ void hedgehog_test3() {
 int main(int argc, char* argv[]) {
 	try {
 		clap parser(argc, argv, {
-			{"e", "escseq"},
-			{"h", "hedgehog"},
-			{"m", "goodmath"},
-			{"s", "goodstr"},
-			{"a", "arithing"},
-			{"f", "exfmtio"}
+			{ "e", "escseq" },
+			{ "h", "hedgehog" },
+			{ "m", "goodmath" },
+			{ "s", "goodstr" },
+			{ "a", "arithing" },
+			{ "f", "exfmtio" },
+			{ "g", "genev" }
 		});
-		std::cout << std::boolalpha;
+		std::cout << std::boolalpha << std::fixed;
 		std::cin >> std::boolalpha;
 		std::ifstream file("splashes.txt");
 		std::vector<std::string> splashes;
@@ -217,6 +218,16 @@ int main(int argc, char* argv[]) {
 			fmtout(fmt, cont);
 			fmtout("=== END OF TEST - EXFMTIO ===\n");
 		}
+		if (parser.get_flag("genev") || parser.get_flag("all")) {
+			++cnt;
+			fmtout("=== START OF TEST - GENEV ===\n");
+			hedgehog cont;
+			fmtout("Please enter mass (e.g. 1 kg) & acceleration (e.g. 9.8 m/s^2): ");
+			fmtin<genev, genev>(cont);
+			cont.push_back(cont[0] * cont[1]);
+			fmtout("F = ma = {} * {} = {}\n", cont);
+			fmtout("=== END OF TEST - GENEV ===\n");
+		}
 		fmtout("=== END OF PROGRAM - {} TEST(S) EXECUTED ===\n", { cnt });
 		if (!cnt) {
 			fmtout(
@@ -229,6 +240,7 @@ int main(int argc, char* argv[]) {
 				"--goodstr (-s)\n"
 				"--arithing (-a)\n"
 				"--exfmtio (-f)\n"
+				"--genev (-g)\n"
 				"--all\n"
 			);
 		}

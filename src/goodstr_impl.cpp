@@ -52,8 +52,7 @@ namespace launch {
 	}
 
 	std::string ltrim(const std::string& orig) {
-		const char* ws = " \t\v\f\r\n";
-		const size_t start = orig.find_first_not_of(ws);
+		size_t start = orig.find_first_not_of(" \t\v\f\r\n");
 		if (start == std::string::npos) {
 			return "";
 		}
@@ -61,8 +60,7 @@ namespace launch {
 	}
 
 	std::string rtrim(const std::string& orig) {
-		const char* ws = " \t\v\f\r\n";
-		const size_t end = orig.find_last_not_of(ws);
+		size_t end = orig.find_last_not_of(" \t\v\f\r\n");
 		if (end == std::string::npos) {
 			return "";
 		}

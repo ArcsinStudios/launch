@@ -28,7 +28,7 @@ namespace launch {
 			regtype_helper<escseq_manip, style_manip, reset_endl>();
 #endif
 #if defined(LAUNCH_EXPERIMENTAL)
-			regtype_helper<leisure::arint, leisure::arreal>();
+			regtype_helper<leisure::arint, leisure::arreal, leisure::genev>();
 #endif
 		}
 	}

@@ -5,9 +5,9 @@ Partially documented!
 Cool README!
 Bad commit messages!
 Really good code!
-Ten nicely polished modules!
+Eleven nicely polished modules!
 Open-source!
-Licensed under the MIT License!
+Licensed under the MIT Licence!
 Permission is hereby granted!
 Free of charge!
 THE SOFTWARE IS PROVIDED "AS IS"!
@@ -24,7 +24,7 @@ Written in C++20!
 Hello, Concepts!
 Segmentation fault!
 Core dumped!
-Zero UB!
+Ooh, UB!
 Well-defined!
 Thank you, Bjarne!
 Nearly zero AI participation!
