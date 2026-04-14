@@ -121,7 +121,7 @@ namespace leisure {
 			}
 		);
 		for (const std::string& split_unit : split_units) {
-			unit_prefix prefix_part;
+			unit_prefix prefix_part = unit_prefix::none;
 			base_unit unit_part;
 			long long exp_part = 1;
 			size_t pow_pos = split_unit.find('^');
@@ -133,21 +133,21 @@ namespace leisure {
 			else {
 				unit_part_str = split_unit.substr(0, pow_pos);
 			}
-			for (const auto& [prefix_str, prefix] : sorted_prefixes) {
-				size_t prefix_str_len = prefix_str.length();
-				if (unit_part_str.length() > prefix_str_len && unit_part_str.starts_with(prefix_str)) {
-					prefix_part = prefix;
-					unit_part_str = unit_part_str.substr(prefix_str_len);
-					break;
-				}
-			}
 			std::unordered_map<std::string, base_unit>::const_iterator unit_it = str_unit_map.find(unit_part_str);
 			if (unit_it == str_unit_map.end()) {
-				throw std::runtime_error("genev::genev: unsupported unit: " + unit_part_str);
+				for (const auto& [prefix_str, prefix] : sorted_prefixes) {
+					if (unit_part_str.starts_with(prefix_str)) {
+						prefix_part = prefix;
+						unit_part_str = unit_part_str.substr(prefix_str.length());
+						unit_it = str_unit_map.find(unit_part_str);
+						break;
+					}
+				}
+				if (unit_it == str_unit_map.end()) {
+					throw std::runtime_error("genev::genev: unsupported base unit: " + unit_part_str);
+				}
 			}
-			else {
-				unit_part = unit_it->second;
-			}
+			unit_part = unit_it->second;
 			if (pow_pos != std::string::npos) {
 				exp_part = std::stoll(split_unit.substr(pow_pos + 1));
 			}

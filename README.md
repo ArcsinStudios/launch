@@ -256,7 +256,7 @@ Why not use LAUNCH?
 
 ---
 
-<small>Author: Arcsin Studios<br>Licence (of this document): CC BY-SA 4.0</small>
+<small>Author: Arcsin Studios<br>License (of this document): CC BY-SA 4.0</small>
 
 <style>
 @keyframes splash {

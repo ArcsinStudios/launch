@@ -7,7 +7,7 @@ Bad commit messages!
 Really good code!
 Eleven nicely polished modules!
 Open-source!
-Licensed under the MIT Licence!
+Licensed under the MIT License!
 Permission is hereby granted!
 Free of charge!
 THE SOFTWARE IS PROVIDED "AS IS"!
@@ -28,3 +28,13 @@ Ooh, UB!
 Well-defined!
 Thank you, Bjarne!
 Nearly zero AI participation!
+It's on GitHub!
+Still updating!
+We appreciate it if you could give us a Star!
+We have nothing to do with concurrency!
+We have nothing to do with sockets!
+It's a library!
+Quite attractive!
+Yippee!
+Ceci n'est pas une test program!
+As confusing as M.C. Escher's!

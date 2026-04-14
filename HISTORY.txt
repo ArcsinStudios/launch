@@ -505,6 +505,7 @@ b0891a4 Overall cleanup #7
 1.14.3
 f56c140 Enhanced <hedgehog> and <fmtio>; fixed known bugs
 [o] Existing modules partially functional
+- [!] Broken post-decrement of hedgehog_elemproxy
 - [!] Some edge cases not properly handled
 [v] Tests available
 [o] CMake available
@@ -513,6 +514,7 @@ f56c140 Enhanced <hedgehog> and <fmtio>; fixed known bugs
 1.14.4
 aaf05c4 Slightly enhanced <hedgehog>
 [o] Existing modules partially functional
+- [!] Broken post-decrement of hedgehog_elemproxy
 - [!] Some edge cases not properly handled
 [v] Tests available
 [o] CMake available
@@ -520,7 +522,8 @@ aaf05c4 Slightly enhanced <hedgehog>
 ===
 1.15.0
 025a1eb Removed built-in thread safety; several enhancements; fixed known bugs
-[o] All existing modules functional
+[o] Existing modules partially functional
+- [!] Broken post-decrement of hedgehog_elemproxy
 - [!] Built-in thread safety has been removed
 [v] Tests available
 [o] CMake available
@@ -528,14 +531,23 @@ aaf05c4 Slightly enhanced <hedgehog>
 ===
 1.15.1
 72ca059 Enhanced <hedgehog> and <arithing>
-[v] All existing modules functional
+[o] Existing modules partially functional
+- [!] Broken post-decrement of hedgehog_elemproxy
 [v] Tests available
 [o] CMake available
 - [!] A slight problem in versioning
 ===
 1.15.2
-(HEAD!) New module: <genev>
-[o] All existing modules functional
+d4fad25 New module: <genev>
+[o] Existing modules partially functional
+- [!] Half-broken <genev>
+- [!] Broken post-decrement of hedgehog_elemproxy
 - [!] Incomplete documentation (yet working as intended)
+[v] Tests available
+[v] CMake available
+===
+1.15.3
+(HEAD!) Completed documentaion; added some splashes; fixed known bugs
+[v] All existing modules functional
 [v] Tests available
 [v] CMake available

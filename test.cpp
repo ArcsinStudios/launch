@@ -13,7 +13,7 @@ R"(  \ \  \____\ \  \ \  \ \  \\\  \ \  \\ \  \ \  \____\ \  \ \  \ )""\n"
 R"(   \ \_______\ \__\ \__\ \_______\ \__\\ \__\ \_______\ \__\ \__\)""\n"
 R"(    \|_______|\|__|\|__|\|_______|\|__| \|__|\|_______|\|__|\|__|)";
 
-long long hedgehog_test1() {
+long long hedgehog_test0() {
 	hedgehog cont;
 	for (int i = 0; i < 256; ++i) {
 		cont.push_back(i);
@@ -30,7 +30,7 @@ long long hedgehog_test1() {
 	return watch.get_dur().microseconds();
 }
 
-long long hedgehog_test2() {
+long long hedgehog_test1() {
 	hedgehog cont;
 	for (int i = 0; i < 256; ++i) {
 		cont.push_back(0);
@@ -48,7 +48,7 @@ long long hedgehog_test2() {
 	return watch.get_dur().microseconds();
 }
 
-void hedgehog_test3() {
+void hedgehog_test2() {
 	hedgehog cont = { 42, 3.14, std::string("Hello World!") };
 	fmtout("int: {}, double: {}, std::string: {}\n", cont);
 	for (hedgehog_elemproxy& elem : cont) {
@@ -56,7 +56,7 @@ void hedgehog_test3() {
 			elem += 1;
 		}
 		catch (const std::runtime_error& e) {
-			fmtout("Oops: {}\n", { e.what() });
+			fmtout("Oops: {} (Please don't worry, this is intentional.)\n", { e.what() });
 		}
 	}
 	fmtout("int: {}, double: {}, std::string: {}\n", cont);
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
 			{ "f", "exfmtio" },
 			{ "g", "genev" }
 		});
-		std::cout << std::boolalpha << std::fixed;
+		std::cout << std::boolalpha;
 		std::cin >> std::boolalpha;
 		std::ifstream file("splashes.txt");
 		std::vector<std::string> splashes;
@@ -125,10 +125,10 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("hedgehog") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - HEDGEHOG ===\n");
-			fmtout("Test 1, printing 1024 elements: {}us\n", { hedgehog_test1() });
-			fmtout("Test 2, calculating 1024 times: {}us\n", { hedgehog_test2() });
+			fmtout("Test 1, printing 1024 elements: {} us\n", { hedgehog_test0() });
+			fmtout("Test 2, calculating 1024 times: {} us\n", { hedgehog_test1() });
 			fmtout("Test 3:\n");
-			hedgehog_test3();
+			hedgehog_test2();
 			fmtout("=== END OF TEST - HEDGEHOG ===\n");
 		}
 		if (parser.get_flag("goodmath") || parser.get_flag("all")) {

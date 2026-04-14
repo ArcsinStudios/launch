@@ -20,7 +20,7 @@ namespace leisure {
 		mol
 	};
 
-	enum class unit_prefix : signed char {
+	enum class unit_prefix : unsigned char {
 		G,
 		M,
 		k,

@@ -174,7 +174,7 @@ namespace launch {
 
 	hedgehog_elemproxy hedgehog_elemproxy::operator--(int) {
 		hedgehog_elemproxy temp = *this;
-		++*this;
+		--*this;
 		return temp;
 	}
 
