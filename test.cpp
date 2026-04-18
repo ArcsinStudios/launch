@@ -222,10 +222,15 @@ int main(int argc, char* argv[]) {
 			++cnt;
 			fmtout("=== START OF TEST - GENEV ===\n");
 			hedgehog cont;
-			fmtout("Please enter mass (e.g. 1 kg) & acceleration (e.g. 9.8 m/s^2): ");
+			fmtout("Test 1: Please enter two quantities. ");
 			fmtin<genev, genev>(cont);
 			cont.push_back(cont[0] * cont[1]);
-			fmtout("F = ma = {} * {} = {}\n", cont);
+			fmtout("{} * {} = {}\n", cont);
+			cont.clear();
+			fmtout("Test 2: Please enter a quantity and a unit of the same dimension. ");
+			fmtin<genev, std::string>(cont);
+			cont.push_back(convert(cont[0].as<genev>(), cont[1].as<std::string>()));
+			fmtout("{} in {} is {}.\n", cont);
 			fmtout("=== END OF TEST - GENEV ===\n");
 		}
 		fmtout("=== END OF PROGRAM - {} TEST(S) EXECUTED ===\n", { cnt });

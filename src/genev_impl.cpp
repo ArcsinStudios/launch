@@ -1,7 +1,7 @@
 #include "../include/genev_impl.h"
 
 namespace leisure {
-	std::unordered_map<base_unit, std::string> unit_str_map = {
+	const std::unordered_map<base_unit, std::string> unit_str_map = {
 		{ base_unit::m, "m" },
 		{ base_unit::g, "g" },
 		{ base_unit::s, "s" },
@@ -10,7 +10,7 @@ namespace leisure {
 		{ base_unit::cd, "cd" },
 		{ base_unit::mol, "mol" }
 	};
-	std::unordered_map<unit_prefix, std::string> prefix_str_map = {
+	const std::unordered_map<unit_prefix, std::string> prefix_str_map = {
 		{ unit_prefix::G, "G" },
 		{ unit_prefix::M, "M" },
 		{ unit_prefix::k, "k" },
@@ -21,9 +21,12 @@ namespace leisure {
 		{ unit_prefix::c, "c" },
 		{ unit_prefix::m, "m" },
 		{ unit_prefix::u, "u" },
-		{ unit_prefix::n, "n" }
+		{ unit_prefix::n, "n" },
+		{ unit_prefix::minute, "min" },
+		{ unit_prefix::hour, "h" },
+		{ unit_prefix::day, "d" },
 	};
-	std::unordered_map<unit_prefix, signed char> prefix_exp_map = {
+	const std::unordered_map<unit_prefix, double> prefix_exp_map = {
 		{ unit_prefix::G, 9 },
 		{ unit_prefix::M, 6 },
 		{ unit_prefix::k, 3 },
@@ -34,43 +37,40 @@ namespace leisure {
 		{ unit_prefix::c, -2 },
 		{ unit_prefix::m, -3 },
 		{ unit_prefix::u, -6 },
-		{ unit_prefix::n, -9 }
+		{ unit_prefix::n, -9 },
+		{ unit_prefix::minute, 1.77815'12503'83643 },
+		{ unit_prefix::hour, 3.55630'25007'67287 },
+		{ unit_prefix::day, 4.93651'37424'78892 },
 	};
 
-	std::unordered_map<std::string, base_unit> str_unit_map = {
+	const std::unordered_map<std::string, base_unit> str_unit_map = {
 		{ "m", base_unit::m },
 		{ "g", base_unit::g },
 		{ "s", base_unit::s },
 		{ "A", base_unit::A },
 		{ "K", base_unit::K },
 		{ "cd", base_unit::cd },
-		{ "mol", base_unit::mol }
+		{ "mol", base_unit::mol },
+		{ "min", base_unit::placeholder },
+		{ "h", base_unit::placeholder },
+		{ "d", base_unit::placeholder },
 	};
-	std::unordered_map<std::string, unit_prefix> str_prefix_map = {
+	const std::unordered_map<std::string, unit_prefix> str_prefix_map = {
 		{ "G", unit_prefix::G },
 		{ "M", unit_prefix::M },
 		{ "k", unit_prefix::k },
 		{ "h", unit_prefix::h },
 		{ "da", unit_prefix::da },
-		{ "", unit_prefix::none },
 		{ "d", unit_prefix::d },
 		{ "c", unit_prefix::c },
 		{ "m", unit_prefix::m },
 		{ "u", unit_prefix::u },
-		{ "n", unit_prefix::n }
+		{ "n", unit_prefix::n },
 	};
-	std::unordered_map<signed char, unit_prefix> exp_prefix_map = {
-		{ 9, unit_prefix::G },
-		{ 6, unit_prefix::M },
-		{ 3, unit_prefix::k },
-		{ 2, unit_prefix::h },
-		{ 1, unit_prefix::da },
-		{ 0, unit_prefix::none },
-		{ -1, unit_prefix::d },
-		{ -2, unit_prefix::c },
-		{ -3, unit_prefix::m },
-		{ -6, unit_prefix::u },
-		{ -9, unit_prefix::n }
+	const std::unordered_map<std::string, unit_prefix> str_prefix_map_alt = {
+		{ "min", unit_prefix::minute },
+		{ "h", unit_prefix::hour },
+		{ "d", unit_prefix::day },
 	};
 
 	bool genev::same_unit(const genev& other) const {
@@ -148,6 +148,15 @@ namespace leisure {
 				}
 			}
 			unit_part = unit_it->second;
+			if (unit_part == base_unit::placeholder) {
+				std::unordered_map<std::string, unit_prefix>::const_iterator prefix_it =
+					str_prefix_map_alt.find(unit_part_str);
+				if (prefix_it == str_prefix_map_alt.end()) {
+					throw std::runtime_error("genev::genev: unsupported base unit: " + unit_part_str);
+				}
+				prefix_part = prefix_it->second;
+				unit_part = base_unit::s;
+			}
 			if (pow_pos != std::string::npos) {
 				exp_part = std::stoll(split_unit.substr(pow_pos + 1));
 			}
@@ -245,16 +254,14 @@ namespace leisure {
 					out << "/";
 				}
 			}
-			std::unordered_map<unit_prefix, std::string>::const_iterator prefix_it = prefix_str_map.find(prefix);
-			if (prefix_it == prefix_str_map.end()) {
-				throw std::runtime_error("operator<<(std::ostream&, const genev&): unknown prefix");
+			out << prefix_str_map.at(prefix);
+			if (
+				prefix != unit_prefix::minute &&
+				prefix != unit_prefix::hour &&
+				prefix != unit_prefix::day
+			) {
+				out << unit_str_map.at(unit);
 			}
-			out << prefix_it->second;
-			std::unordered_map<base_unit, std::string>::const_iterator unit_it = unit_str_map.find(unit);
-			if (unit_it == unit_str_map.end()) {
-				throw std::runtime_error("operator<<(std::ostream&, const genev&): unknown unit");
-			}
-			out << unit_it->second;
 			long long exp_abs = std::abs(exp);
 			if (exp_abs != 1 || (exp == -1 && !i)) {
 				out << "^";
@@ -279,16 +286,12 @@ namespace leisure {
 	genev unify(const genev& orig) {
 		genev unified = orig;
 		for (auto& [prefix, unit, exp] : unified.unit) {
-			std::unordered_map<unit_prefix, signed char>::const_iterator unit_it = prefix_exp_map.find(prefix);
-			if (unit_it == prefix_exp_map.end()) {
-				throw std::runtime_error("unify: unknown prefix");
-			}
 			if (unit == base_unit::g) {
-				unified.value *= std::pow(10, (unit_it->second - 3) * exp);
+				unified.value *= std::pow(10, (prefix_exp_map.at(prefix) - 3) * exp);
 				prefix = unit_prefix::k;
 			}
 			else {
-				unified.value *= std::pow(10, unit_it->second * exp);
+				unified.value *= std::pow(std::round(std::pow(10, prefix_exp_map.at(prefix))), exp);
 				prefix = unit_prefix::none;
 			}
 		}
@@ -322,11 +325,7 @@ namespace leisure {
 		}
 		converted.value = unify(orig).value;
 		for (const auto& [prefix, _, exp] : converted.unit) {
-			std::unordered_map<unit_prefix, signed char>::const_iterator unit_it = prefix_exp_map.find(prefix);
-			if (unit_it == prefix_exp_map.end()) {
-				throw std::runtime_error("convert: unknown prefix");
-			}
-			converted.value /= pow(10, unit_it->second * exp);
+			converted.value /= std::pow(std::round(std::pow(10, prefix_exp_map.at(prefix))), exp);
 		}
 		return converted;
 	}

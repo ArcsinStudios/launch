@@ -17,7 +17,8 @@ namespace leisure {
 		A,
 		K,
 		cd,
-		mol
+		mol,
+		placeholder
 	};
 
 	enum class unit_prefix : unsigned char {
@@ -31,16 +32,19 @@ namespace leisure {
 		c,
 		m,
 		u,
-		n
+		n,
+		minute,
+		hour,
+		day,
 	};
 
-	extern std::unordered_map<base_unit, std::string> unit_str_map;
-	extern std::unordered_map<unit_prefix, std::string> prefix_str_map;
-	extern std::unordered_map<unit_prefix, signed char> prefix_exp_map;
+	extern const std::unordered_map<base_unit, std::string> unit_str_map;
+	extern const std::unordered_map<unit_prefix, std::string> prefix_str_map;
+	extern const std::unordered_map<unit_prefix, double> prefix_exp_map;
 
-	extern std::unordered_map<std::string, base_unit> str_unit_map;
-	extern std::unordered_map<std::string, unit_prefix> str_prefix_map;
-	extern std::unordered_map<signed char, unit_prefix> exp_prefix_map;
+	extern const std::unordered_map<std::string, base_unit> str_unit_map;
+	extern const std::unordered_map<std::string, unit_prefix> str_prefix_map;
+	extern const std::unordered_map<std::string, unit_prefix> str_prefix_map_alt;
 
 	using unit_type = std::tuple<unit_prefix, base_unit, long long>;
 

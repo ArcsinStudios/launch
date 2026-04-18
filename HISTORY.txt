@@ -547,7 +547,13 @@ d4fad25 New module: <genev>
 [v] CMake available
 ===
 1.15.3
-(HEAD!) Completed documentaion; added some splashes; fixed known bugs
+8ce1647 Completed documentaion; added some splashes; fixed known bugs
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+1.15.4
+(HEAD!) Enhanced <genev>
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

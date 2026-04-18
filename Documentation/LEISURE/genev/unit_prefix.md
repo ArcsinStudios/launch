@@ -17,4 +17,7 @@
 |`c`|10<sup>-2</sup>|N/A|
 |`m`|10<sup>-3</sup>|N/A|
 |`u`|10<sup>-6</sup>|\<genev\> uses "u" instead of the Greek letter Mu in order to be ASCII-friendly.|
-|`n`|10|10<sup>-9</sup>|N/A|
+|`n`|10<sup>-9</sup>|N/A|
+|`minute`|60 (about 10<sup>1.77815</sup>)|This is a technical prefix.|
+|`hour`|3600 (about 10<sup>3.55630</sup>)|Ditto.|
+|`day`|86400 (about 10<sup>4.93651</sup>)|Ditto.|

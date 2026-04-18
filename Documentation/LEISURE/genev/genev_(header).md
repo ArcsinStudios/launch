@@ -12,7 +12,7 @@
 |`prefix_exp_map`|maps a `unit_prefix` to `signed char`|
 |`str_unit_map`|maps a `std::string` to `base_unit`|
 |`str_prefix_map`|maps a `std::string` to `unit_prefix`|
-|`exp_prefix_map`|maps a `signed char` to `unit_prefix`|
+|`str_prefix_map_alt`|an alternative `str_prefix_map` for nonstandard time units|
 
 ## Type alias
 <small>Defined in `genev_impl.h`</small>

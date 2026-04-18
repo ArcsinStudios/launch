@@ -14,3 +14,4 @@
 |`K`|N/A|
 |`cd`|N/A|
 |`mol`|N/A|
+|`placeholder`|This is a technical unit and does not stand for a literal "placeholder".|
