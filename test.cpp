@@ -221,16 +221,12 @@ int main(int argc, char* argv[]) {
 		if (parser.get_flag("genev") || parser.get_flag("all")) {
 			++cnt;
 			fmtout("=== START OF TEST - GENEV ===\n");
-			hedgehog cont;
-			fmtout("Test 1: Please enter two quantities. ");
-			fmtin<genev, genev>(cont);
-			cont.push_back(cont[0] * cont[1]);
-			fmtout("{} * {} = {}\n", cont);
-			cont.clear();
-			fmtout("Test 2: Please enter a quantity and a unit of the same dimension. ");
-			fmtin<genev, std::string>(cont);
-			cont.push_back(convert(cont[0].as<genev>(), cont[1].as<std::string>()));
-			fmtout("{} in {} is {}.\n", cont);
+			genev mass, accel;
+			fmtout("Mass: ");
+			fmtin_single(mass);
+			fmtout("Acceleration: ");
+			fmtin_single(accel);
+			fmtout("F = ma = {} * {} = {}\n", { mass, accel, mass * accel });
 			fmtout("=== END OF TEST - GENEV ===\n");
 		}
 		fmtout("=== END OF PROGRAM - {} TEST(S) EXECUTED ===\n", { cnt });

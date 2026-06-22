@@ -52,15 +52,15 @@ namespace launch {
 	hedgehog_registry common_hreg(true);
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator+=(const hedgehog_elemproxy& other) {
-		const std::any& other_value = other.value;
+		const std::any& other_value = other.value_;
 		if (!other_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator+=: other_value.has_value() == false");
 		}
-		const std::type_info& type0 = value.type();
+		const std::type_info& type0 = value_.type();
 		const std::type_info& type1 = other_value.type();
 		oper_reg_t::const_iterator func_it = registry->oper_func_it({ type0, hedgehog_opertype::add, type1 });
 		if (func_it != registry->oper_reg_end()) {
-			value = (func_it->second)(value, other_value);
+			value_ = (func_it->second)(value_, other_value);
 			return *this;
 		}
 		throw std::runtime_error(
@@ -73,15 +73,15 @@ namespace launch {
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator-=(const hedgehog_elemproxy& other) {
-		const std::any& other_value = other.value;
+		const std::any& other_value = other.value_;
 		if (!other_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator-=: other_value.has_value() == false");
 		}
-		const std::type_info& type0 = value.type();
+		const std::type_info& type0 = value_.type();
 		const std::type_info& type1 = other_value.type();
 		oper_reg_t::const_iterator func_it = registry->oper_func_it({ type0, hedgehog_opertype::sub, type1 });
 		if (func_it != registry->oper_reg_end()) {
-			value = (func_it->second)(value, other_value);
+			value_ = (func_it->second)(value_, other_value);
 			return *this;
 		}
 		throw std::runtime_error(
@@ -94,15 +94,15 @@ namespace launch {
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator*=(const hedgehog_elemproxy& other) {
-		const std::any& other_value = other.value;
+		const std::any& other_value = other.value_;
 		if (!other_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator*=: other_value.has_value() == false");
 		}
-		const std::type_info& type0 = value.type();
+		const std::type_info& type0 = value_.type();
 		const std::type_info& type1 = other_value.type();
 		oper_reg_t::const_iterator func_it = registry->oper_func_it({ type0, hedgehog_opertype::mul, type1 });
 		if (func_it != registry->oper_reg_end()) {
-			value = (func_it->second)(value, other_value);
+			value_ = (func_it->second)(value_, other_value);
 			return *this;
 		}
 		throw std::runtime_error(
@@ -115,15 +115,15 @@ namespace launch {
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator/=(const hedgehog_elemproxy& other) {
-		const std::any& other_value = other.value;
+		const std::any& other_value = other.value_;
 		if (!other_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator/=: other_value.has_value() == false");
 		}
-		const std::type_info& type0 = value.type();
+		const std::type_info& type0 = value_.type();
 		const std::type_info& type1 = other_value.type();
 		oper_reg_t::const_iterator func_it = registry->oper_func_it({ type0, hedgehog_opertype::div, type1 });
 		if (func_it != registry->oper_reg_end()) {
-			value = (func_it->second)(value, other_value);
+			value_ = (func_it->second)(value_, other_value);
 			return *this;
 		}
 		throw std::runtime_error(
@@ -136,15 +136,15 @@ namespace launch {
 	}
 
 	hedgehog_elemproxy& hedgehog_elemproxy::operator%=(const hedgehog_elemproxy& other) {
-		const std::any& other_value = other.value;
+		const std::any& other_value = other.value_;
 		if (!other_value.has_value()) {
 			throw std::invalid_argument("hedgehog_elemproxy::operator%=: other_value.has_value() == false");
 		}
-		const std::type_info& type0 = value.type();
+		const std::type_info& type0 = value_.type();
 		const std::type_info& type1 = other_value.type();
 		oper_reg_t::const_iterator func_it = registry->oper_func_it({ type0, hedgehog_opertype::mod, type1 });
 		if (func_it != registry->oper_reg_end()) {
-			value = (func_it->second)(value, other_value);
+			value_ = (func_it->second)(value_, other_value);
 			return *this;
 		}
 		throw std::runtime_error(
@@ -179,7 +179,7 @@ namespace launch {
 	}
 
 	const std::type_info& hedgehog_elemproxy::type() const {
-		return value.type();
+		return value_.type();
 	}
 
 	void hedgehog_elemproxy::rebind(hedgehog_registry& new_reg) {
@@ -187,7 +187,7 @@ namespace launch {
 	}
 
 	std::ostream& operator<<(std::ostream& out, const hedgehog_elemproxy& proxy) {
-		const std::any& proxy_value = proxy.value;
+		const std::any& proxy_value = proxy.value_;
 		if (!proxy_value.has_value()) {
 			throw std::runtime_error("operator<<(std::ostream&, const hedgehog_elemproxy&): proxy_value.has_value() == false");
 		}

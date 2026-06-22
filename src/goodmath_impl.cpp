@@ -100,11 +100,11 @@ namespace launch {
 	}
 
 	double dtor(double deg) {
-		return deg * PI / 180;
+		return deg * std::numbers::pi / 180;
 	}
 
 	double rtod(double rad) {
-		return rad * 180 / PI;
+		return rad * 180 / std::numbers::pi;
 	}
 
 	double sin(double x) {

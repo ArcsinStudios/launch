@@ -95,8 +95,8 @@ namespace launch {
 
 		template <writable T>
 		void regtype_output_auto() {
-			regtype_output(typeid(T), [](std::ostream& out, const std::any& value) -> std::ostream& {
-				return out << std::any_cast<T>(value);
+			regtype_output(typeid(T), [](std::ostream& out, const std::any& value_) -> std::ostream& {
+				return out << std::any_cast<T>(value_);
 			});
 		}
 
@@ -264,12 +264,12 @@ namespace launch {
 
 	class hedgehog_elemproxy {
 	private:
-		std::any value;
+		std::any value_;
 		hedgehog_registry* registry;
 
 	public:
 		template <typename T>
-		hedgehog_elemproxy(T _value) : value(std::forward<T>(_value)), registry(&common_hreg) {}
+		hedgehog_elemproxy(T _value) : value_(std::forward<T>(_value)), registry(&common_hreg) {}
 
 		hedgehog_elemproxy& operator+=(const hedgehog_elemproxy& other);
 
@@ -293,22 +293,22 @@ namespace launch {
 
 		template <typename T>
 		T as() const {
-			return std::any_cast<T>(value);
+			return std::any_cast<T>(value_);
 		}
 
 		const std::type_info& type() const;
 
 		template <typename T>
 		bool is() const {
-			return value.type() == typeid(T);
+			return value_.type() == typeid(T);
 		}
 
 		template <typename T>
 		void throw_if_not() const {
 			if (!this->is<T>()) {
 				throw std::runtime_error(
-					std::string("hedgehog_elemproxy::throw_if_not: value.type() (mangled name: ") +
-					value.type().name() +
+					std::string("hedgehog_elemproxy::throw_if_not: value_.type() (mangled name: ") +
+					value_.type().name() +
 					") does not match with typeid(T) (mangled name: " +
 					typeid(T).name() +
 					")"

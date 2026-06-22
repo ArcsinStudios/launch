@@ -71,7 +71,7 @@ LAUNCH_EXPERIMENTAL // To enable LEISURE features.
 ### \<chroyes\>
 
 - What does the name mean?  
-**-** From \<chro**no**\> to \<chro**yes**\>
+**-** \<chro**no**\> versus \<chro**yes**\>
 - What can \<chroyes\> do?
 ```cpp
 launch::stopwatch watch;
@@ -241,12 +241,12 @@ Got <something> with type <type name of something>
 **-** **Gen**erally **Ev**erything
 - What can \<genev\> do?
 ```cpp
-leisure::genev mass("1 kg"), acceleration("9.8 m/s^2");
+leisure::genev mass = 1 * kilo(gram), acceleration = 9.8 * meter / (second ^ 2);
 std::cout << "F = ma = " << mass << " * " << acceleration << " = " << mass * acceleration << "\n";
 ```
 Expected output:
 ```
-F = ma = 1 kg * 9.8 m/s^2 = 9.8 kg*m/s^2
+F = ma = 1 kg * 9.8 m/s^2 = 9.8 m*kg/s^2
 ```
 
 <h2 id="part4">Part IV: Conclusion / TL;DR</h2>

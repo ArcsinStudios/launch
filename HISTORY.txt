@@ -553,7 +553,13 @@ d4fad25 New module: <genev>
 [v] CMake available
 ===
 1.15.4
-(HEAD!) Enhanced <genev>
+a34f4da Enhanced <genev>
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+1.16.0
+(HEAD!) Refactored <genev>
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

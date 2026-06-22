@@ -2,9 +2,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <numbers>
 #include <numeric>
-
-#include "goodmath_consts.h"
 
 namespace launch {
 	double abs(double x);
