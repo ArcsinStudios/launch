@@ -1,9 +1,10 @@
-#pragma once
+export module arithing:limits;
 
-#include "arithing_impl.h"
+import std;
+import :impl;
 
 namespace std {
-	template <>
+	export template <>
 	struct numeric_limits<leisure::arint> {
 		static constexpr bool is_specialized = true;
 		static constexpr bool is_signed = true;
@@ -66,7 +67,7 @@ namespace std {
 		}
 	};
 
-	template <>
+	export template <>
 	struct numeric_limits<leisure::arreal> {
 		static constexpr bool is_specialized = true;
 		static constexpr bool is_signed = true;

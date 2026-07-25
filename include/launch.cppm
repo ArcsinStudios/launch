@@ -1,6 +1,6 @@
-#pragma once
+export module launch;
 
-#include <cstddef>
+import std;
 
 #define MACRO_MAJOR 16
 #define MACRO_MINOR 0
@@ -8,9 +8,9 @@
 #define STRINGIFY(num) _STRINGIFY(num)
 
 namespace launch {
-	constexpr size_t MAJOR = MACRO_MAJOR;
-	constexpr size_t MINOR = MACRO_MINOR;
-	constexpr const char* VERSION = "v1." STRINGIFY(MACRO_MAJOR) "." STRINGIFY(MACRO_MINOR);
+	export constexpr size_t MAJOR = MACRO_MAJOR;
+	export constexpr size_t MINOR = MACRO_MINOR;
+	export constexpr const char* VERSION = "v1." STRINGIFY(MACRO_MAJOR) "." STRINGIFY(MACRO_MINOR) " (lts-modules)";
 }
 
 #undef MACRO_MAJOR
@@ -21,37 +21,37 @@ namespace launch {
 #include "launch_config.h"
 
 #if !defined(LAUNCH_NO_CHROYES)
-#include "chroyes.h"
+export import chroyes;
 #endif
 
 #if !defined(LAUNCH_NO_CLAP)
-#include "clap.h"
+export import clap;
 #endif
 
 #if !defined(LAUNCH_NO_ESCSEQ)
-#include "escseq.h"
+export import escseq;
 #endif
 
 #if !defined(LAUNCH_NO_FMTIO)
-#include "fmtio.h"
+export import fmtio;
 #endif
 
 #if !defined(LAUNCH_NO_HEDGEHOG)
-#include "hedgehog.h"
+export import hedgehog;
 #endif
 
 #if !defined(LAUNCH_NO_GOODMATH)
-#include "goodmath.h"
+export import goodmath;
 #endif
 
 #if !defined(LAUNCH_NO_GOODRAND)
-#include "goodrand.h"
+export import goodrand;
 #endif
 
 #if !defined(LAUNCH_NO_GOODSTR)
-#include "goodstr.h"
+export import goodstr;
 #endif
 
 #if defined(LAUNCH_EXPERIMENTAL)
-#include "leisure.h"
+export import leisure;
 #endif

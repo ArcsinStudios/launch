@@ -1,6 +1,14 @@
+module;
+
 #include "../include/launch_config.h"
 
-#include "../include/fmtio_impl.h"
+module fmtio:impl;
+
+import std;
+
+#if !defined(LAUNCH_NO_HEDGEHOG)
+import hedgehog;
+#endif
 
 namespace launch {
 #if !defined(LAUNCH_NO_HEDGEHOG)

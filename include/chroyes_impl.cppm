@@ -1,9 +1,9 @@
-#pragma once
+export module chroyes:impl;
 
-#include <chrono>
+import std;
 
 namespace launch {
-	class timespan {
+	export class timespan {
 	private:
 		std::chrono::nanoseconds ns;
 
@@ -25,7 +25,7 @@ namespace launch {
 		std::chrono::nanoseconds std_nanoseconds() const;
 	};
 
-	class stopwatch {
+	export class stopwatch {
 	private:
 		std::chrono::high_resolution_clock::time_point start_time;
 		timespan dur;

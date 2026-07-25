@@ -1,6 +1,6 @@
-#include <fstream>
+import std;
+import launch;
 
-#include "include/launch.h"
 using namespace launch;
 using namespace leisure;
 

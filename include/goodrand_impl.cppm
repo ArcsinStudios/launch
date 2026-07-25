@@ -1,13 +1,10 @@
-#pragma once
+export module goodrand:impl;
 
-#include <limits>
-#include <random>
-
-#include "goodrand_concepts.h"
+import std;
+import :concepts;
 
 namespace launch {
-
-	template <distrib_int T>
+	export template <distrib_int T>
 	class randgen_int {
 	private:
 		std::random_device rd;
@@ -37,7 +34,7 @@ namespace launch {
 		}
 	};
 
-	template <distrib_real T>
+	export template <distrib_real T>
 	class randgen_real {
 	private:
 		std::random_device rd;

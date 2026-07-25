@@ -1,10 +1,9 @@
-#pragma once
+export module fmtio:concepts;
 
-#include <concepts>
-#include <iostream>
+import std;
 
 namespace launch {
-	template <typename T>
+	export template <typename T>
 	concept readable = requires(std::istream& in, T& x) {
 		{ in >> x } -> std::same_as<std::istream&>;
 	};

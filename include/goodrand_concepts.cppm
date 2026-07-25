@@ -1,9 +1,9 @@
-#pragma once
+export module goodrand:concepts;
 
-#include <type_traits>
+import std;
 
 namespace launch {
-	template <typename T>
+	export template <typename T>
 	concept distrib_int =
 		std::is_same_v<short, T> ||
 		std::is_same_v<int, T> ||
@@ -14,7 +14,7 @@ namespace launch {
 		std::is_same_v<unsigned long, T> ||
 		std::is_same_v<unsigned long long, T>;
 
-	template <typename T>
+	export template <typename T>
 	concept distrib_real =
 		std::is_same_v<float, T> ||
 		std::is_same_v<double, T> ||

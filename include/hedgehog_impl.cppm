@@ -1,28 +1,22 @@
-#pragma once
+export module hedgehog:impl;
 
-#include <any>
-#include <functional>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <typeindex>
-#include <unordered_map>
-#include <utility>
-#include <vector>
+#include "../include/launch_config.h"
 
-#include "hedgehog_concepts.h"
+import std;
+
+import :concepts;
 
 #if !defined(LAUNCH_NO_ESCSEQ)
-#include "escseq.h"
+import escseq;
 #endif
 
 #if defined(LAUNCH_EXPERIMENTAL)
-#include "arithing.h"
-#include "genev.h"
+import arithing;
+import genev;
 #endif
 
 namespace launch {
-	enum class hedgehog_opertype : unsigned char {
+	export enum class hedgehog_opertype : unsigned char {
 		add,
 		sub,
 		mul,
@@ -30,7 +24,7 @@ namespace launch {
 		mod
 	};
 
-	struct hedgehog_opersign {
+	export struct hedgehog_opersign {
 		std::type_index lhs;
 		hedgehog_opertype oper;
 		std::type_index rhs;
@@ -40,12 +34,12 @@ namespace launch {
 }
 
 namespace std {
-	template<>
-	struct hash<launch::hedgehog_opersign> {
-		size_t operator()(const launch::hedgehog_opersign& sign) const {
+	export template<>
+	struct hash<::launch::hedgehog_opersign> {
+		size_t operator()(const ::launch::hedgehog_opersign& sign) const {
 			size_t h1 = hash<type_index>()(sign.lhs);
-			size_t h2 = hash<std::underlying_type_t<launch::hedgehog_opertype>>()
-				(static_cast<std::underlying_type_t<launch::hedgehog_opertype>>(sign.oper));
+			size_t h2 = hash<std::underlying_type_t<::launch::hedgehog_opertype>>()
+				(static_cast<std::underlying_type_t<::launch::hedgehog_opertype>>(sign.oper));
 			size_t h3 = hash<type_index>()(sign.rhs);
 			return h1 ^ (h2 << 1) ^ (h3 << 2);
 		}
@@ -53,12 +47,12 @@ namespace std {
 }
 
 namespace launch {
-	using output_func_t = std::function<std::ostream&(std::ostream&, const std::any&)>;
-	using oper_func_t = std::function<std::any(const std::any&, const std::any&)>;
-	using output_reg_t = std::unordered_map<std::type_index, output_func_t>;
-	using oper_reg_t = std::unordered_map<hedgehog_opersign, oper_func_t>;
+	export using output_func_t = std::function<std::ostream&(std::ostream&, const std::any&)>;
+	export using oper_func_t = std::function<std::any(const std::any&, const std::any&)>;
+	export using output_reg_t = std::unordered_map<std::type_index, output_func_t>;
+	export using oper_reg_t = std::unordered_map<hedgehog_opersign, oper_func_t>;
 
-	class hedgehog_registry {
+	export class hedgehog_registry {
 	private:
 		output_reg_t output_reg;
 		oper_reg_t oper_reg;
@@ -260,9 +254,9 @@ namespace launch {
 		oper_reg_t::const_iterator oper_reg_end() const;
 	};
 
-	extern hedgehog_registry common_hreg;
+	export extern hedgehog_registry common_hreg;
 
-	class hedgehog_elemproxy {
+	export class hedgehog_elemproxy {
 	private:
 		std::any value_;
 		hedgehog_registry* registry;
@@ -319,7 +313,7 @@ namespace launch {
 		void rebind(hedgehog_registry& new_reg);
 	};
 
-	template <typename T, typename U>
+	export template <typename T, typename U>
 	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
 	hedgehog_elemproxy operator+(const T& a, const U& b) {
 		hedgehog_elemproxy temp = a;
@@ -327,7 +321,7 @@ namespace launch {
 		return temp;
 	}
 
-	template <typename T, typename U>
+	export template <typename T, typename U>
 	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
 	hedgehog_elemproxy operator-(const T& a, const U& b) {
 		hedgehog_elemproxy temp = a;
@@ -335,7 +329,7 @@ namespace launch {
 		return temp;
 	}
 
-	template <typename T, typename U>
+	export template <typename T, typename U>
 	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
 	hedgehog_elemproxy operator*(const T& a, const U& b) {
 		hedgehog_elemproxy temp = a;
@@ -343,7 +337,7 @@ namespace launch {
 		return temp;
 	}
 
-	template <typename T, typename U>
+	export template <typename T, typename U>
 	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
 	hedgehog_elemproxy operator/(const T& a, const U& b) {
 		hedgehog_elemproxy temp = a;
@@ -351,7 +345,7 @@ namespace launch {
 		return temp;
 	}
 
-	template <typename T, typename U>
+	export template <typename T, typename U>
 	requires std::is_same_v<hedgehog_elemproxy, T> || std::is_same_v<hedgehog_elemproxy, U>
 	hedgehog_elemproxy operator%(const T& a, const U& b) {
 		hedgehog_elemproxy temp = a;
@@ -359,12 +353,12 @@ namespace launch {
 		return temp;
 	}
 
-	template <typename T>
+	export template <typename T>
 	using hedgehog_impl = std::vector<hedgehog_elemproxy, T>;
 
-	using hedgehog = hedgehog_impl<std::allocator<hedgehog_elemproxy>>;
+	export using hedgehog = hedgehog_impl<std::allocator<hedgehog_elemproxy>>;
 
-	template <typename T>
+	export template <typename T>
 	void rebind_all(hedgehog_impl<T>& cont, hedgehog_registry& new_reg) {
 		for (hedgehog_elemproxy& elem : cont) {
 			elem.rebind(new_reg);

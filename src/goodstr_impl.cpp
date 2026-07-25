@@ -1,6 +1,6 @@
-#include "../include/launch_config.h"
+module goodstr:impl;
 
-#include "../include/goodstr_impl.h"
+import std;
 
 namespace launch {
 	std::vector<std::string> split(const std::string& orig, const std::string& delim) {

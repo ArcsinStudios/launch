@@ -1,6 +1,6 @@
-#include "../include/launch_config.h"
+module escseq:impl;
 
-#include "../include/escseq_impl.h"
+import std;
 
 namespace launch {
 	std::ostream& operator<<(std::ostream& out, const escseq_manip& manip) {

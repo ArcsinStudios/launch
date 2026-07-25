@@ -1,6 +1,6 @@
-#include "../include/launch_config.h"
+module goodmath:impl;
 
-#include "../include/goodmath_impl.h"
+import std;
 
 namespace launch {
 	double abs(double x) {

@@ -1,4 +1,6 @@
-#include "../include/genev_impl.h"
+module genev:impl;
+
+import std;
 
 namespace leisure {
 	size_t genev::unit_to_index(std::string unit_str) {

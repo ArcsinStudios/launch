@@ -1,6 +1,14 @@
+module;
+
 #include "../include/launch_config.h"
 
-#include "../include/exfmtio_impl.h"
+module exfmtio:impl;
+
+import std;
+
+#if !defined(LAUNCH_NO_HEDGEHOG)
+import hedgehog;
+#endif
 
 namespace leisure {
 	int nullbuf::overflow(int c) {

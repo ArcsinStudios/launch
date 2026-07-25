@@ -1,6 +1,6 @@
-#include "../include/launch_config.h"
+module clap:impl;
 
-#include "../include/clap_impl.h"
+import std;
 
 namespace launch {
 	clap::clap(int argc, char* argv[], std::unordered_map<std::string, std::string> _aliases) {

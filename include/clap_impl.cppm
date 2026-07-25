@@ -1,12 +1,9 @@
-#pragma once
+export module clap:impl;
 
-#include <optional>
-#include <string>
-#include <unordered_map>
-#include <vector>
+import std;
 
 namespace launch {
-	class clap {
+	export class clap {
 	private:
 		std::unordered_map<std::string, std::string> aliases;
 		std::unordered_map<std::string, std::string> opts;

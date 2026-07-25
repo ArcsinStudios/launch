@@ -1,6 +1,19 @@
+module;
+
 #include "../include/launch_config.h"
 
-#include "../include/hedgehog_impl.h"
+module hedgehog:impl;
+
+import std;
+
+#if !defined(LAUNCH_NO_ESCSEQ)
+import escseq;
+#endif
+
+#if defined(LAUNCH_EXPERIMENTAL)
+import arithing;
+import genev;
+#endif
 
 namespace launch {
 	bool hedgehog_opersign::operator==(const hedgehog_opersign& other) const {

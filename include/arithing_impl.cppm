@@ -1,29 +1,21 @@
-#pragma once
+export module arithing:impl;
 
-#include <compare>
-#include <iostream>
-#include <istream>
-#include <limits>
-#include <numeric>
-#include <sstream>
-#include <string>
-#include <type_traits>
-#include <vector>
+import std;
 
 namespace leisure {
-	enum class arint_specval : unsigned char {
+	export enum class arint_specval : unsigned char {
 		nop = 0b0000,
 		neg = 0b0001,
 		nan = 0b0010,
 		inf = 0b0100
 	};
 
-	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs);
-	constexpr arint_specval operator&(arint_specval lhs, arint_specval rhs);
+	export constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs);
+	export constexpr arint_specval operator&(arint_specval lhs, arint_specval rhs);
 
-	class arreal;
+	export class arreal;
 
-	class arint {
+	export class arint {
 	private:
 		unsigned long long value;
 		bool sign;
@@ -35,10 +27,11 @@ namespace leisure {
 
 		constexpr arint(unsigned long long _value = 0, arint_specval specval = arint_specval::nop) :
 			value(_value),
-			sign(!static_cast<bool>(specval & arint_specval::neg)),
-			nan(static_cast<bool>(specval & arint_specval::nan)),
-			inf(static_cast<bool>(specval & arint_specval::inf))
-		{}
+			sign(!static_cast<bool>(specval& arint_specval::neg)),
+			nan(static_cast<bool>(specval& arint_specval::nan)),
+			inf(static_cast<bool>(specval& arint_specval::inf))
+		{
+		}
 
 		arint& operator+=(const arint& other);
 
@@ -81,19 +74,19 @@ namespace leisure {
 		friend unsigned long long inf(const arint& val);
 	};
 
-	arint operator+(const arint& a, const arint& b);
+	export arint operator+(const arint& a, const arint& b);
 
-	arint operator-(const arint& a, const arint& b);
+	export arint operator-(const arint& a, const arint& b);
 
-	arint operator*(const arint& a, const arint& b);
+	export arint operator*(const arint& a, const arint& b);
 
-	arint operator/(const arint& a, const arint& b);
+	export arint operator/(const arint& a, const arint& b);
 
-	arint operator^(const arint& a, const arint& b);
+	export arint operator^(const arint& a, const arint& b);
 
-	arint operator%(const arint& a, const arint& b);
+	export arint operator%(const arint& a, const arint& b);
 
-	class arreal {
+	export class arreal {
 	private:
 		arint num;
 		arint den;
@@ -132,13 +125,13 @@ namespace leisure {
 		friend std::string to_decimal(const arreal& val);
 	};
 
-	arreal operator+(const arreal& a, const arreal& b);
+	export arreal operator+(const arreal& a, const arreal& b);
 
-	arreal operator-(const arreal& a, const arreal& b);
+	export arreal operator-(const arreal& a, const arreal& b);
 
-	arreal operator*(const arreal& a, const arreal& b);
+	export arreal operator*(const arreal& a, const arreal& b);
 
-	arreal operator/(const arreal& a, const arreal& b);
+	export arreal operator/(const arreal& a, const arreal& b);
 
-	arreal operator%(const arreal& a, const arreal& b);
+	export arreal operator%(const arreal& a, const arreal& b);
 }

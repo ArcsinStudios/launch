@@ -1,6 +1,6 @@
-#include "../include/launch_config.h"
+module arithing:impl;
 
-#include "../include/arithing_impl.h"
+import std;
 
 namespace leisure {
 	constexpr arint_specval operator|(arint_specval lhs, arint_specval rhs) {

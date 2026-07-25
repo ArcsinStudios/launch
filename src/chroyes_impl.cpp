@@ -1,6 +1,6 @@
-#include "../include/launch_config.h"
+module chroyes:impl;
 
-#include "../include/chroyes_impl.h"
+import std;
 
 namespace launch {
 	timespan& timespan::operator=(std::chrono::nanoseconds new_ns) {
