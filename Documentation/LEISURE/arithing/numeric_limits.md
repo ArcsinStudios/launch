@@ -1,5 +1,5 @@
 # `std::numeric_limits`
-<small>Defined in `arithing_limits.h`</small>
+<small>Defined in `arithing_limits.cppm`</small>
 
 ## `std::numeric_limits<arint>`
 

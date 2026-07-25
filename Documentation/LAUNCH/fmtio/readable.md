@@ -1,5 +1,5 @@
 # `readable`
-<small>Defined in `fmtio_concepts.h`</small>
+<small>Defined in `fmtio_concepts.cppm`</small>
 
 ## `template <typename T> concept readable = /* see below */;`
 The concept `readable` is satisfied if and only if a variable with type `T` can be chainingly read using `std::istream`.

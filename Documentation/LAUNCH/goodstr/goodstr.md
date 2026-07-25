@@ -1,7 +1,7 @@
 # `goodstr`
 
 ## Functions
-<small>Defined in `goodstr_impl.h`</small>
+<small>Defined in `goodstr_impl.cppm`</small>
 |Function|Description|
 |---|---|
 |`split`|splits `orig` with delimiter `delim`|

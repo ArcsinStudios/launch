@@ -1,5 +1,5 @@
 # `distrib_real`
-<small>Defined in `goodrand_concepts.h`</small>
+<small>Defined in `goodrand_concepts.cppm`</small>
 
 ## `template <typename T> concept distrib_real = /* see below */;`
 The concept `distrib_real` is satisfied if and only if `T` denotes one of the following types:

@@ -2,7 +2,7 @@
 > Disambiguation: you might be looking for `genev_(header).md` instead of `genev_(class).md`.
 
 # `genev`
-<small>Defined in `genev_impl.h`</small>
+<small>Defined in `genev_impl.cppm`</small>
 
 ## `class genev;`
 `genev` is a physical quantity class.

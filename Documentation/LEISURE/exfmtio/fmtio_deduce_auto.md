@@ -1,5 +1,5 @@
 # `fmtin_deduce_auto`
-<small>Defined in `exfmtio_impl.h`</small>
+<small>Defined in `exfmtio_impl.cppm`</small>
 
 ## `void fmtin_deduce_auto(launch::hedgehog& hh, size_t count = 1, std::istream& in = std::cin);`
 Calls `fmtin_deduce<int, long long, unsigned long long, double, char, bool>()`.

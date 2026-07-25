@@ -1,5 +1,5 @@
 # `escseq_style`
-<small>Defined in `escseq_impl.h`</small>
+<small>Defined in `escseq_impl.cppm`</small>
 
 ## `enum class escseq_style : unsigned char;`
 `escseq_style` specifies the font style.

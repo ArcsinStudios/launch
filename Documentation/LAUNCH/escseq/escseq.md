@@ -1,7 +1,7 @@
 # `escseq`
 
 ## Functions
-<small>Defined in `escseq_impl.h`</small>
+<small>Defined in `escseq_impl.cppm`</small>
 |Function|Description|
 |---|---|
 |`foreground_color`|changes the foreground color|

@@ -1,5 +1,5 @@
 # `arreal`
-<small>Defined in `arithing_impl.h`</small>
+<small>Defined in `arithing_impl.cppm`</small>
 
 ## `class arreal;`
 `arreal` is a rational class.

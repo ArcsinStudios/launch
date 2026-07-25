@@ -1,5 +1,5 @@
 # `fmtin_line`
-<small>Defined in `fmtio_impl.h`</small>
+<small>Defined in `fmtio_impl.cppm`</small>
 
 ## `void fmtin_line(std::string& str, std::istream& in = std::cin)`
 Reads a string from `in` and puts it into `str`.

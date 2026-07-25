@@ -1,5 +1,5 @@
 # `randgen_int`
-<small>Defined in `goodrand_impl.h`</small>
+<small>Defined in `goodrand_impl.cppm`</small>
 
 ## `template <distrib_int T> class randgen_int;`
 `randgen_int` is a random number generator class.  

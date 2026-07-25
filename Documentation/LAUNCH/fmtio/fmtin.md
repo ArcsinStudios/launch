@@ -1,5 +1,5 @@
 # `fmtin`
-<small>Defined in `fmtio_impl.h`</small>
+<small>Defined in `fmtio_impl.cppm`</small>
 
 ## `template <readable... Ts> void fmtin(hedgehog& cont, std::istream& in = std::cin)`
 Reads elements with types `Ts...` from `in` and puts them into `cont`.  

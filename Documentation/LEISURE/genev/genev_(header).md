@@ -4,7 +4,7 @@
 # `genev`
 
 ## Global objects
-<small>Defined in `genev_impl.h`</small>
+<small>Defined in `genev_impl.cppm`</small>
 |Object|Description|
 |---|---|
 |`meter`<br>`second`<br>`ampere`<br>`kelvin`<br>`candela`<br>`mole`|SI base units|
@@ -20,7 +20,7 @@
 |`prefixes_str_sorted`|stores all of the prefixes in `std::string`<br>sorted by length in descending order|
 
 ## Functions
-<small>Defined in `genev_impl.h`</small>
+<small>Defined in `genev_impl.cppm`</small>
 |Function|Description|
 |---|---|
 |`peta`<br>`tera`<br>`giga`<br>`mega`<br>`kilo`<br>`hecto`<br>`deca`<br>`deci`<br>`centi`<br>`milli`<br>`micro`<br>`nano`<br>`pico`<br>`femto`|part of SI prefixes|

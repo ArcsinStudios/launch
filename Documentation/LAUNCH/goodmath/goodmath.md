@@ -1,7 +1,7 @@
 # `goodmath`
 
 ## Constants
-<small>Defined in `goodmath_consts.h`</small>
+<small>Defined in `goodmath_consts.cppm`</small>
 |Constant|Value|Description|
 |---|---|---|
 |`PI`|`3.14159'26535'89793`|pi|
@@ -9,7 +9,7 @@
 |`PHI`|`1.61803'39887'49894`|golden ratio|
 
 ## Functions
-<small>Defined in `goodmath_impl.h`</small>
+<small>Defined in `goodmath_impl.cppm`</small>
 |Function|Description|
 |---|---|
 |`abs`|same as `std::abs`|

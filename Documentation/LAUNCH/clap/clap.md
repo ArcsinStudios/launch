@@ -1,5 +1,5 @@
 # `clap`
-<small>Defined in `clap_impl.h`</small>
+<small>Defined in `clap_impl.cppm`</small>
 
 ## `class clap;`
 `clap` is a command line argument parser class.

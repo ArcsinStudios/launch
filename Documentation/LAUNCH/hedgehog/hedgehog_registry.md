@@ -1,5 +1,5 @@
 # `hedgehog_registry`
-<small>Defined in `hedgehog_impl.h`</small>
+<small>Defined in `hedgehog_impl.cppm`</small>
 
 ## `class hedgehog_registry;`
 `hedgehog_registry` is a registry class.

@@ -1,5 +1,5 @@
 # `arint_specval`
-<small>Defined in `arithing_impl.h`</small>
+<small>Defined in `arithing_impl.cppm`</small>
 
 ## `enum class arint_specval : unsigned char;`
 `arint_specval` specifies the special values of `arint`.

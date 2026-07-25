@@ -1,5 +1,11 @@
 1.16.0
-(HEAD!) Created branch lts-modules
+6fc2980 Created branch lts-modules
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+1.16.1
+(HEAD!) Corrected documentation
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

@@ -1,5 +1,5 @@
 # `hedgehog_elemproxy`
-<small>Defined in `hedgehog_impl.h`</small>
+<small>Defined in `hedgehog_impl.cppm`</small>
 
 ## `class hedgehog_elemproxy;`
 `hedgehog_elemproxy` is a wrapper around `std::any`.

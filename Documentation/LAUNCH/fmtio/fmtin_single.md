@@ -1,5 +1,5 @@
 # `fmtin_single`
-<small>Defined in `fmtio_impl.h`</small>
+<small>Defined in `fmtio_impl.cppm`</small>
 
 ## `template <readable T> void fmtin_single(T& x, std::istream& in = std::cin)`
 Reads one element with type `T` from `in` and puts it into `x`.  

@@ -1,7 +1,7 @@
 # `hedgehog`
 
 ## Concepts
-<small>Defined in `hedgehog_concepts.h`</small>
+<small>Defined in `hedgehog_concepts.cppm`</small>
 |Concept|Requirement(s)|
 |---|---|
 |`writable<T>`|`T` can be chainingly written using `std::ostream`|
@@ -12,7 +12,7 @@
 |`fully_arithmetic<T, U>`|all five operations between `T` and `U` are supported|
 
 ## Type aliases
-<small>Defined in `hedgehog_impl.h`</small>
+<small>Defined in `hedgehog_impl.cppm`</small>
 |Alias|Actual type|
 |---|---|
 |`output_func_t`|`std::function<std::ostream&(std::ostream&, const std::any&)>`|

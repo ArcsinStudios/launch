@@ -1,5 +1,5 @@
 # `escseq_manip`
-<small>Defined in `escseq_impl.h`</small>
+<small>Defined in `escseq_impl.cppm`</small>
 
 ## `class escseq_manip;`
 `escseq_manip` is a wrapper around `std::string`.

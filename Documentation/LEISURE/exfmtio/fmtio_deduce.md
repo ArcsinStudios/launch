@@ -1,5 +1,5 @@
 # `fmtin_deduce`
-<small>Defined in `exfmtio_impl.h`</small>
+<small>Defined in `exfmtio_impl.cppm`</small>
 
 ## `template <readable... Ts> void fmtin_deduce(launch::hedgehog& hh, size_t count = 1, std::istream& in = std::cin);`
 Reads `count` elements from `in` and puts them into `hh`; types of the elements will be deduced automatically.  

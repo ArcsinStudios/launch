@@ -1,5 +1,5 @@
 # `fmtout`
-<small>Defined in `fmtio_impl.h`</small>
+<small>Defined in `fmtio_impl.cppm`</small>
 
 ## `void fmtout(const std::string& fmt, const hedgehog& cont = {}, bool raw = false, std::ostream& out = std::cout);`
 Formats `cont` according to the format string `fmt`, and writes the result to `out`.

@@ -1,5 +1,5 @@
 # `timespan`
-<small>Defined in `chroyes_impl.h`</small>
+<small>Defined in `chroyes_impl.cppm`</small>
 
 ## `class timespan;`
 `timespan` is a wrapper around `std::chrono::duration`.

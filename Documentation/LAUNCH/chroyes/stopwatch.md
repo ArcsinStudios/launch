@@ -1,5 +1,5 @@
 # `stopwatch`
-<small>Defined in `chroyes_impl.h`</small>
+<small>Defined in `chroyes_impl.cppm`</small>
 
 ## `class stopwatch;`
 `stopwatch` is a stopwatch class which can pause and resume timing.

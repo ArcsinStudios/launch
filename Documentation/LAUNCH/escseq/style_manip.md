@@ -1,5 +1,5 @@
 # `style_manip`
-<small>Defined in `escseq_impl.h`</small>
+<small>Defined in `escseq_impl.cppm`</small>
 
 ## `class style_manip;`
 `style_manip` is a wrapper around `escseq_style`.

@@ -1,9 +1,11 @@
 export module launch;
 
+#include "launch_config.h"
+
 import std;
 
 #define MACRO_MAJOR 16
-#define MACRO_MINOR 0
+#define MACRO_MINOR 1
 #define _STRINGIFY(num) #num
 #define STRINGIFY(num) _STRINGIFY(num)
 
@@ -17,8 +19,6 @@ namespace launch {
 #undef MACRO_MINOR
 #undef _STRINGIFY
 #undef STRINGIFY
-
-#include "launch_config.h"
 
 #if !defined(LAUNCH_NO_CHROYES)
 export import chroyes;
