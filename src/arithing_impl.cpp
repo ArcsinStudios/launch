@@ -1,5 +1,3 @@
-#include "../include/launch_config.h"
-
 #include "../include/arithing_impl.h"
 
 namespace leisure {

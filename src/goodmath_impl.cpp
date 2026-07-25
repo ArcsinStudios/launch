@@ -1,5 +1,3 @@
-#include "../include/launch_config.h"
-
 #include "../include/goodmath_impl.h"
 
 namespace launch {

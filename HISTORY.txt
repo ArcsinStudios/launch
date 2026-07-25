@@ -559,7 +559,13 @@ a34f4da Enhanced <genev>
 [v] CMake available
 ===
 1.16.0
-(HEAD!) Refactored <genev>
+6088182 Refactored <genev>
+[v] All existing modules functional
+[v] Tests available
+[v] CMake available
+===
+1.16.1
+(HEAD!) Some minor fixes
 [v] All existing modules functional
 [v] Tests available
 [v] CMake available

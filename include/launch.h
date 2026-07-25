@@ -3,14 +3,14 @@
 #include <cstddef>
 
 #define MACRO_MAJOR 16
-#define MACRO_MINOR 0
+#define MACRO_MINOR 1
 #define _STRINGIFY(num) #num
 #define STRINGIFY(num) _STRINGIFY(num)
 
 namespace launch {
 	constexpr size_t MAJOR = MACRO_MAJOR;
 	constexpr size_t MINOR = MACRO_MINOR;
-	constexpr const char* VERSION = "v1." STRINGIFY(MACRO_MAJOR) "." STRINGIFY(MACRO_MINOR);
+	constexpr const char* VERSION = "v1." STRINGIFY(MACRO_MAJOR) "." STRINGIFY(MACRO_MINOR) " (main)";
 }
 
 #undef MACRO_MAJOR
